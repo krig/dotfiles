@@ -223,7 +223,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 vim.o.signcolumn = 'auto'
-vim.o.colorcolumn = '80'
+vim.o.colorcolumn = '120'
 
 vim.o.scrolloff = 8
 
@@ -378,8 +378,14 @@ vim.keymap.set("x", "<leader>p", "\"_dP", { noremap = true})
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- not sure what this is but..
-vim.keymap.set("n", "Q", "<nop>")
+-- Use Q to rerun last macro
+vim.keymap.set("n", "Q", "@@", { noremap = true })
+
+-- use ctrl+[hjkl] to move between windows
+vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true})
+vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
+vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
+vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 
 vim.keymap.set("n", "<leader>fc", vim.lsp.buf.format)
 
@@ -555,7 +561,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<leader>ss', vim.lsp.buf.signature_help, '[S]how [S]ignature')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -681,15 +687,16 @@ end
 
 setup_dap()
 
--- Neovide configuration
-vim.g.neovide_cursor_vfx_mode = ""
---vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
-vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
---vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h18" }
---vim.opt.guifont = { "DM Mono,Noto_Color_Emoji", ":h16" }
---vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h18" }
 
+-- Neovide configuration
 if vim.g.neovide then
+  vim.g.neovide_cursor_vfx_mode = ""
+  --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
+  vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
+  --vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h18" }
+  --vim.opt.guifont = { "DM Mono,Noto_Color_Emoji", ":h16" }
+  vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h18" }
+
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
   vim.keymap.set('v', '<D-c>', '"+y') -- Copy
