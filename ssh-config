@@ -1,0 +1,41 @@
+
+#Host *
+#ControlMaster auto
+#ControlPath ~/.ssh/master-%r@%h.%p
+
+# Host *.ps
+# ProxyCommand ssh dia nc %h %p
+
+# Host tunneling-example
+# HostName 80.38.99.90
+# Port 22
+# User username
+# LocalForward 10234 10.31.0.9:22
+# LocalForward 10235 10.31.0.2:42002
+# LocalForward 10236 10.31.0.3:42002
+# LocalForward 10238 10.31.0.5:22
+
+# Host *.tunnel
+# ProxyCommand ssh tunnel-machine nc -w 2 %h %p 2> /dev/null
+
+# Host tunnel-machine
+# ProxyCommand ssh support@192.168.1.100 nc -w 1200 %h %p 2> /dev/null
+# Hostname tunnel.name
+# User user
+
+Host kodsnackvps
+User root
+Hostname c3272.cloudnet.se
+
+Host 6510
+User krig
+Hostname 6510.nu
+
+Host ziran.dev
+User krig
+Hostname 65.109.224.76
+
+Host *
+   UseKeychain yes
+   AddKeysToAgent yes
+   IdentityFile ~/.ssh/id_rsa

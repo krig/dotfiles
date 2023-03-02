@@ -1,0 +1,6 @@
+[submodule "doom.d"]
+	path = doom.d
+	url = git@github.com:krig/doom.d
+[submodule "prezto"]
+	path = prezto
+	url = git@github.com:krig/prezto

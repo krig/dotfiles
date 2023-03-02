@@ -1,0 +1,9 @@
+*.*~
+#*.*#
+_old
+*.pyc
+tags
+nvim/plugged/
+fish/fish_variables
+fish/functions/fzf_key_bindings.fish
+

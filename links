@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""
+Link stuff into home directory
+"""
+import os
+import shutil
+import subprocess
+import platform
+from jinja2 import Template
+import sys
+
+
+ENABLE_COLOR = False if "--no-color" in sys.argv[1:] else True
+VERBOSE = "-v" in sys.argv[1:]
+
+
+class C:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def cprint(clr, fmt, *args):
+    if ENABLE_COLOR and clr is not None:
+        print(clr + fmt.format(*args) + C.ENDC)
+    else:
+        print(fmt.format(*args))
+
+
+def distro():
+    "semi-portable distribution id"
+    if os.path.exists('/etc/os-release'):
+        cmd = r"cat /etc/os-release | egrep \^ID="
+        osname = subprocess.check_output(cmd, shell=True).decode('utf-8')
+        osname = osname[3:].strip().lower()
+        if 'suse' in osname:
+            osname = 'suse'
+    else:
+        osname = 'mac'
+    return osname
+
+
+UNAME = platform.uname()
+OSNAME = distro()
+HOSTNAME = UNAME.node.lower().split('.')[0]
+
+def altname(nam):
+    "find custom alternate versions of files"
+    path, basename = os.path.split(nam)
+    name, ext = os.path.splitext(basename)
+
+    altpaths = []
+    for key in (HOSTNAME, UNAME.system.lower(), UNAME.machine.lower(), OSNAME):
+        altpaths.append(os.path.join(path, "{}--{}{}".format(name, key.lower(), ext)))
+
+    for path in altpaths:
+        if os.path.exists(path):
+            return path
+    return nam
+
+
+def jinjafy(frm, target):
+    "render template target actual file"
+    params = {}
+    params["hostname"] = UNAME.node.lower()
+    params["system"] = UNAME.system.lower()
+    params["arch"] = UNAME.machine.lower()
+    cprint(C.OKBLUE, "@ {} -> {}".format(frm, target))
+    with open(frm) as ifo, open(target, 'w') as ofo:
+        template = Template(ifo.read())
+        ofo.write(template.render(**params))
+
+
+def in_home(path):
+    "return path in home dir"
+    return os.path.join(os.path.expanduser("~"), path)
+
+
+def is_mac():
+    "true if on a mac"
+    return distro() == 'mac'
+
+
+def makedirs_p(path):
+    """
+    os.makedirs, but ignore failure
+    """
+    try:
+        os.makedirs(path)
+    except OSError:
+        pass
+
+
+def is_x(path):
+    """
+    True if file at path is executable
+    """
+    return os.path.isfile(path) and os.access(path, os.X_OK)
+
+
+def backup(frm, target):
+    "make a backup of the file"
+    import filecmp
+    if not target.endswith(frm):
+        target = os.path.join(target, frm)
+    n = 1
+    ntarget = target
+    while os.path.exists(ntarget):
+        if filecmp.cmp(frm, ntarget):
+            if os.path.isdir(frm):
+                shutil.rmtree(frm)
+            else:
+                os.unlink(frm)
+            return
+        ntarget = "{}-{}".format(target, n)
+        n += 1
+        if n > 10:
+            break
+    cprint(C.WARNING, "^ {} ~> {}".format(frm, ntarget))
+    shutil.move(frm, ntarget)
+
+
+def is_newer(first, second):
+    "true if a is newer than b"
+    return os.path.getmtime(first) > os.path.getmtime(second)
+
+
+DOTS_DIR = in_home("src/dotfiles")
+OLD_DIR = os.path.join(DOTS_DIR, "_old")
+makedirs_p(OLD_DIR)
+
+
+def link(frm, target):
+    "links file in dots dir target file in home dir"
+    frm = altname(frm)
+    dotsfrom = os.path.join(DOTS_DIR, frm)
+    if VERBOSE:
+        cprint(None, "? {} {}", frm, target)
+    tmpl = os.path.join(DOTS_DIR, "{}.jinja".format(frm))
+
+    if os.path.exists(tmpl) and os.path.exists(dotsfrom) and is_newer(tmpl, dotsfrom):
+        os.unlink(dotsfrom)
+
+    if not os.path.exists(dotsfrom):
+        if os.path.exists(tmpl):
+            jinjafy(tmpl, dotsfrom)
+        else:
+            return
+
+    tgt = in_home(target)
+    if os.path.islink(tgt):
+        oldtgt = os.readlink(tgt)
+        if dotsfrom != oldtgt:
+            cprint(C.FAIL, "- {} -> {}", tgt, oldtgt)
+            os.unlink(tgt)
+        else:
+            return
+    elif os.path.exists(tgt):
+        backup(tgt, OLD_DIR)
+
+    cprint(C.OKGREEN, "* {} -> {}", tgt, dotsfrom)
+    makedirs_p(os.path.dirname(tgt))
+    os.symlink(dotsfrom, tgt)
+
+
+def copy_bin():
+    "link all the binaries target ~/bin"
+    bindir = in_home("bin")
+    makedirs_p(bindir)
+    srcdir = os.path.join(DOTS_DIR, "bin")
+    bins = [(f, os.path.join(srcdir, f)) for f in os.listdir(srcdir)
+            if is_x(os.path.join(srcdir, f))]
+    for name, path in bins:
+        link(path, os.path.join(bindir, name))
+
+
+copy_bin()
+
+link("doom.d", ".doom.d")
+link("bashrc", ".bashrc")
+link("starship.toml", ".config/starship.toml")
+link("gitconfig", ".gitconfig")
+link("nvim", ".config/nvim")
+link("ssh-config", ".ssh/config")
+link("tmux.conf", ".tmux.conf")
+link("gdbinit", ".gdbinit")
+link("dircolors", ".dircolors")
+link("kitty", ".config/kitty")
+link("zshrc", ".zshrc")
+
