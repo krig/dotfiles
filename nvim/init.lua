@@ -100,6 +100,7 @@ require('packer').startup(function(use)
   use { "nvim-telescope/telescope-file-browser.nvim" }
 
   -- Telescope smart open
+  use 'kkharji/sqlite.lua'
   use {
     'danielfalk/smart-open.nvim',
     branch = '0.1.x',

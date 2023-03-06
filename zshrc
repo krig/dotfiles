@@ -1,3 +1,6 @@
+# Setup homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
@@ -6,7 +9,11 @@ fi
 export PATH="$HOME/bin:$HOME/.emacs.d/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/krig/.oh-my-zsh"
+if [ -d $HOME/src/oh-my-zsh ]; then
+    export ZSH="$HOME/src/oh-my-zsh"
+else
+    export ZSH="/Users/krig/.oh-my-zsh"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -156,3 +163,5 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
 fi
 
 [[ "$INSIDE_EMACS" = 'vterm' ]] || eval "$(starship init zsh)"
+
+source /Users/krigro/.config/broot/launcher/bash/br

@@ -46,3 +46,5 @@ export PATH="$HOME/gems/bin:$PATH"
 eval "$(starship init bash)"
 
 source /Users/krig/.config/broot/launcher/bash/br
+
+source /Users/krigro/.config/broot/launcher/bash/br
