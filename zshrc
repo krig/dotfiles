@@ -1,12 +1,18 @@
 # Setup homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+ulimit -n 4096
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
 export PATH="$HOME/bin:$HOME/.emacs.d/bin:$PATH"
+
+if [ -d "$HOME/Library/Python/3.9/bin" ]; then
+    export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+fi
 
 # Path to your oh-my-zsh installation.
 if [ -d $HOME/src/oh-my-zsh ]; then
