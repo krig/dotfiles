@@ -13,6 +13,13 @@ Host gitlab.company.com
 Host git git.netinsight.se
     User gitosis
 
+Host sthswdev01
+Hostname sthswdev01.netinsight.se
+
 Host sthswdev02
 Hostname sthswdev02.netinsight.se
+
+Host devil
+Hostname devil.netinsight.se
+
 
