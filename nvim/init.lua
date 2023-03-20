@@ -127,10 +127,10 @@ require('packer').startup(function(use)
 
   -- Themes
   -- use "rebelot/kanagawa.nvim" -- kanagawa theme
-  -- use { "catppuccin/nvim", as = "catppuccin" }
-  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  -- use { 'embark-theme/vim', as = 'embark' }
-  -- use 'nyoom-engineering/oxocarbon.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
+  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use { 'embark-theme/vim', as = 'embark' }
+  use 'nyoom-engineering/oxocarbon.nvim'
   use { 'rose-pine/neovim', as = 'rose-pine' }
   use "EdenEast/nightfox.nvim"
 
@@ -166,8 +166,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set colorscheme
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme embark]]
---require("rose-pine").setup()
---vim.cmd [[colorscheme rose-pine]]
+-- require("rose-pine").setup()
+-- vim.cmd [[colorscheme rose-pine]]
 
 -- Configure nightfox
 require('nightfox').setup {
@@ -419,6 +419,10 @@ local function setup_telescope()
     builtin.command_history(themes.get_ivy())
   end
 
+  local function find_from_current_buffer()
+    builtin.find_files({ cwd = vim.fn.expand('%:p:h') })
+  end
+
   -- Quick commands
   vim.keymap.set('n', '<leader><space>', telescope.extensions.smart_open.smart_open, { desc = 'Telescope smart open' })
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
@@ -427,8 +431,9 @@ local function setup_telescope()
   vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Recent files' })
 
   -- File related
-  vim.keymap.set('n', '<leader>ff', telescope.extensions.file_browser.file_browser,
-      { desc = '[F]ile [F]inder' })
+  vim.keymap.set('n', '<leader>fb', telescope.extensions.file_browser.file_browser,
+      { desc = '[F]ile [B]rowser' })
+  vim.keymap.set('n', '<leader>ff', find_from_current_buffer, { desc = '[F]ind [F]rom current buffer' })
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
   vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
   vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
@@ -692,10 +697,11 @@ setup_dap()
 if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = ""
   --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
-  vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
+  --vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
   --vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h18" }
+  vim.opt.guifont = { "Cartograph CF,Noto_Color_Emoji", ":h16" }
   --vim.opt.guifont = { "DM Mono,Noto_Color_Emoji", ":h16" }
-  vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h18" }
+  --vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h16" }
 
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
