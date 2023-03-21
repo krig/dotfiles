@@ -47,6 +47,14 @@ pager = less -FX
   egrep = grep -E
   root = rev-parse --show-toplevel
   pr = !"pr() { git fetch origin pull/$1/head:pr-$1; }; pr"
+  pushfwl = push --force-with-lease
+  lease = push --force-with-lease
+  netimerge = merge --no-ff --no-commit
+  fixup = commit --fixup
+  rebaseonmaster = rebase origin/master -i --autosquash
+  rebaseonmain = rebase origin/main -i --autosquash
+  absorbtomain = absorb --base origin/main
+  absorbtomaster = absorb --base origin/master
 
 [push]
   default = current

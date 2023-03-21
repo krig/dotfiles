@@ -8,7 +8,7 @@ ulimit -n 4096
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
-export PATH="$HOME/bin:$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.emacs.d/bin:$HOME/.cargo/bin:$PATH"
 
 if [ -d "$HOME/Library/Python/3.9/bin" ]; then
     export PATH="$HOME/Library/Python/3.9/bin:$PATH"
@@ -129,9 +129,7 @@ if [ "$(command -v exa)" ]; then
     unalias -m 'ls'
     alias ls='exa -G  --color auto -a -s type'
     alias ll='exa -l --color always -a -s type'
-fi
-
-if [ "$(command -v lsd)" ]; then
+elif [ "$(command -v lsd)" ]; then
     unalias -m 'll'
     unalias -m 'la'
     unalias -m 'ls'
@@ -142,6 +140,11 @@ fi
 
 if [ "$(command -v nvim)" ]; then
     alias vim='nvim'
+    alias e='nvim'
+fi
+
+if [ "$(command -v hx)" ]; then
+    alias e='hx'
 fi
 
 alias ec="emacsclient -n -a emacs"
@@ -171,5 +174,44 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]] \
 fi
 
 [[ "$INSIDE_EMACS" = 'vterm' ]] || eval "$(starship init zsh)"
+
+
+function git {
+  # Only touch git if it's the push subcommand
+  if [[ "$1" == "push" ]]; then
+    force=false
+    override=false
+
+    for param in "$@"; do
+      if [[ $param == "--force" ]]; then force=true; fi
+      if [[ $param == "--seriously" ]]; then override=true; fi
+    done
+
+    # If we're using --force but not --seriously, change it to --force-with-lease
+    if [[ "$force" = true && "$override" = false ]]; then
+      echo -e "\033[0;33mDetected use of --force! Using --force-with-lease instead. If you're absolutely sure you can override with --force --seriously.\033[0m"
+
+      # Unset --force
+      for param; do
+        [[ "$param" = --force ]] || set -- "$@" "$param"; shift
+      done
+
+      # Replace it with --force-with-lease
+      set -- "push" "$@" "--force-with-lease"; shift
+    else
+      if [[ "$override" = true ]]; then
+        echo -e "\033[0;33mHeads up! Using --force and not --force-with-lease.\033[0m"
+      fi
+
+      # Unset --seriously or git will yell at us
+      for param; do
+        [[ "$param" = --seriously ]] || set -- "$@" "$param"; shift
+      done
+    fi
+  fi
+
+  command git "$@"
+}
+
 
 source /Users/krigro/.config/broot/launcher/bash/br
