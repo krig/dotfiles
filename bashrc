@@ -16,35 +16,37 @@ if program_exists rg; then
     alias ag=rg
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [[ -f ~/.fzf.bash ]]; then
+  # shellcheck source=/dev/null
+  source $HOME/.fzf.bash
+fi
 
 ssh-add -l &>/dev/null
-if [ "$?" == 2 ]; then
-  test -r ~/.gnome-keyring && \
-    source ~/.gnome-keyring && \
-    export DBUS_SESSION_BUS_ADDRESS GNOME_KEYRING_CONTROL SSH_AUTH_SOCK GPG_AGENT_INFO GNOME_KEYRING_PID
-
-  ssh-add -l &>/dev/null
-  if [ "$?" == 2 ]; then
-    (umask 066; echo `dbus-launch --sh-syntax` > ~/.gnome-keyring; gnome-keyring-daemon >> ~/.gnome-keyring)
-    source ~/.gnome-keyring && \
-    export DBUS_SESSION_BUS_ADDRESS GNOME_KEYRING_CONTROL SSH_AUTH_SOCK GPG_AGENT_INFO GNOME_KEYRING_PID
-  fi
-fi
 
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/Idea/bin:$HOME/.local/bin:$PATH"
 
-source /usr/share/bash-completion/completions/git
+if [[ -f /usr/share/bash-completion/completions/git ]]; then
+  # shellcheck source=/dev/null
+  source /usr/share/bash-completion/completions/git
+fi
 
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+if [[ -d $HOME/.asdf ]]; then
+  # shellcheck source=/dev/null
+  . $HOME/.asdf/asdf.sh
+  # shellcheck source=/dev/null
+  . $HOME/.asdf/completions/asdf.bash
+fi
 
-eval "$(starship init bash)"
+if program_exists starship; then
+  eval "$(starship init bash)"
+fi
 
-source /Users/krig/.config/broot/launcher/bash/br
+if [[ -f $HOME/.config/broot/launcher/bash/br ]]; then
+  # shellcheck source=/dev/null
+  source $HOME/.config/broot/launcher/bash/br
+fi
 
-source /Users/krigro/.config/broot/launcher/bash/br
