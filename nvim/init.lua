@@ -36,6 +36,8 @@ require('packer').startup(function(use)
     },
   }
 
+  use 'echasnovski/mini.align'
+
   -- DAP (Debug Adapter Protocol) - debugger in neovim
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap"} }
 
@@ -65,6 +67,8 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  use 'kazhala/close-buffers.nvim'
+
   use 'akinsho/toggleterm.nvim'
 
   use 'mbbill/undotree'
@@ -78,7 +82,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-repeat' -- Repeat works in more places
   use 'tpope/vim-surround' -- Movement cmds for surrounds
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides  on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
@@ -118,6 +122,9 @@ require('packer').startup(function(use)
     end
   }
 
+  -- distraction-free writing
+  use 'junegunn/goyo.vim'
+  use 'junegunn/limelight.vim'
 
   -- session management
   use {
@@ -127,12 +134,14 @@ require('packer').startup(function(use)
 
   -- Themes
   -- use "rebelot/kanagawa.nvim" -- kanagawa theme
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use { 'embark-theme/vim', as = 'embark' }
-  use 'nyoom-engineering/oxocarbon.nvim'
+  -- use { "catppuccin/nvim", as = "catppuccin" }
+  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  -- use { 'embark-theme/vim', as = 'embark' }
+  -- use 'nyoom-engineering/oxocarbon.nvim'
   use { 'rose-pine/neovim', as = 'rose-pine' }
-  use "EdenEast/nightfox.nvim"
+  -- use "EdenEast/nightfox.nvim"
+  use 'bruth/vim-newsprint-theme'
+  -- use 'logico/typewriter-vim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -166,20 +175,20 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set colorscheme
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme embark]]
--- require("rose-pine").setup()
+require("rose-pine").setup()
 -- vim.cmd [[colorscheme rose-pine]]
 
 -- Configure nightfox
-require('nightfox').setup {
-  options = {
-    terminal_colors = true,
-    dim_inactive = true,
-    styles = {
-      comments = 'italic',
-    },
-  },
-}
-vim.cmd [[colorscheme duskfox]]
+-- require('nightfox').setup {
+--   options = {
+--     terminal_colors = true,
+--     dim_inactive = true,
+--     styles = {
+--       comments = 'italic',
+--     },
+--   },
+-- }
+vim.cmd [[colorscheme rose-pine]]
 
 
 -- Set highlight on search
@@ -223,7 +232,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 vim.o.signcolumn = 'auto'
-vim.o.colorcolumn = '120'
+vim.o.colorcolumn = '140'
 
 vim.o.scrolloff = 8
 
@@ -259,6 +268,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+require('mini.align').setup()
 
 require('leap').add_default_mappings()
 
@@ -318,6 +328,17 @@ require('indent_blankline').setup {
   show_current_context = false,
   show_current_context_start = false,
 }
+
+-- Close buffers
+require('close_buffers').setup{}
+
+vim.keymap.set('n', '<leader>bd',
+  function() require('close_buffers').delete({type = 'this'}) end,
+  { noremap = true, silent = true, desc = '[B]uffer [D]elete' })
+
+vim.keymap.set('n', '<leader>bh',
+  function() require('close_buffers').delete({type = 'hidden'}) end,
+  { noremap = true, silent = true, desc = '[B]uffer del. [H]idden' })
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
