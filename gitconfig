@@ -1,64 +1,64 @@
 [core]
 pager = less -FX
-	autocrlf = input
+autocrlf = input
 
 [user]
-  name = Kristoffer Grönlund
-	email = krig@koru.se
+name = Kristoffer Grönlund
+email = k@ziran.se
 
 [color]
-  branch = auto
-  status = auto
-  diff = auto
-  ui = auto
-  wtf = true
+branch = auto
+status = auto
+diff = auto
+ui = auto
+wtf = true
+
 [pack]
-  threads = 2
-[giggle]
-  compact-mode = false
-  main-window-maximized = false
-  main-window-geometry = 1678x1029+0+19
-  main-window-view = HistoryView
-  file-view-vpane-position = 787
-  file-view-hpane-position = 203
-  history-view-vpane-position = 614
-  
+threads = 2
+
 [alias]
-  l = log
-  co = checkout
-  s = status
-  b = branch
-  a = add
-  f = fetch
-  r = reset
-  p = push
-  c = commit
-  age = !git-age $0
-  pulln = !git-pulln $0
-  d = diff
-  wtf = status
-  publish = !legit publish \"$@\"
-  track-remote = !git-trackremote $0
-  sup = !git-submodule update --remote --rebase $@
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  pullr = pull --rebase
-  dc = diff --cached
-  sup = submodule update
-  egrep = grep -E
-  root = rev-parse --show-toplevel
-  pr = !"pr() { git fetch origin pull/$1/head:pr-$1; }; pr"
+l = log
+co = checkout
+s = status
+b = branch
+a = add
+f = fetch
+r = reset
+p = push
+c = commit
+age = !git-age $0
+pulln = !git-pulln $0
+d = diff
+wtf = status
+publish = !legit publish \"$@\"
+track-remote = !git-trackremote $0
+sup = !git-submodule update --remote --rebase $@
+lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+pullr = pull --rebase
+dc = diff --cached
+sup = submodule update
+egrep = grep -E
+root = rev-parse --show-toplevel
+pr = !"pr() { git fetch origin pull/$1/head:pr-$1; }; pr"
+pushfwl = push --force-with-lease
+fixup = commit --fixup
+autosquash = rebase -i --autosquash
 
 [push]
-  default = current
+default = current
+
 [tar "tar.xz"]
-	command = xz -c
+command = xz -c
+
 [diff]
-	algorithm = patience
+algorithm = patience
 
 [status]
-	submoduleSummary = true
+submoduleSummary = true
 
 [pull]
-	rebase = true
+rebase = true
+
 [init]
-	defaultBranch = main
+defaultBranch = main
+
