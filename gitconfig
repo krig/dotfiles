@@ -12,6 +12,7 @@ status = auto
 diff = auto
 ui = auto
 wtf = true
+
 [pack]
 threads = 2
 
