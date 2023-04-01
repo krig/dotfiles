@@ -4,6 +4,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- disable netrw in favor of nvimtree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -52,7 +56,13 @@ require('packer').startup(function(use)
 
   use { -- Autocompletion 
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip'
+    },
   }
 
   use { -- Highlight, edit, and navigate code
@@ -238,7 +248,7 @@ vim.o.scrolloff = 8
 
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,longest,noselect'
 
 -- don't insert the comment leader for // comments in some cases
 vim.o.formatoptions = vim.o.formatoptions .. '/'
@@ -408,7 +418,19 @@ vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
 vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
 vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 
-vim.keymap.set("n", "<leader>fc", vim.lsp.buf.format)
+vim.cmd [[imap ii <Esc>]]
+
+-- random leader commands
+
+vim.keymap.set("n", "<leader>bb", vim.cmd.bprevious, { desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>bn", vim.cmd.bnext, { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>cd", function() vim.cmd [[:cd %:p:h
+:pwd
+]] end, { desc = "CD to current buffer" })
+
+vim.keymap.set("n", "<leader>x", function() vim.cmd [[:e ~/scratch.md]] end, { desc = "Open scratch buffer" })
+
+vim.keymap.set("n", "<leader>fc", vim.lsp.buf.format, { desc = "LSP: format whole buffer" })
 
 vim.keymap.set('n', '<leader>dd', vim.cmd.Alpha, { desc = 'Open Dashboard' })
 
@@ -651,6 +673,29 @@ require("nvim-tree").setup {
   },
 }
 
+-- setup nvimtree at startup
+local function open_nvim_tree(data)
+  local directory = vim.fn.isdirectory(data.file) == 1
+  
+  if not directory then
+    return
+  end
+
+  -- create a new empty buffer
+  vim.cmd.enew()
+
+  -- wipe directory buffer
+  vim.cmd.bw(data.buf)
+  
+  -- change to the directory
+  vim.cmd.cd(data.file)
+  
+  -- open nvimtree
+  require("nvim-tree.api").tree.open()
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
 vim.keymap.set('n', '<leader>sb',
     function ()
         local api = require('nvim-tree.api')
@@ -800,6 +845,11 @@ mason_lspconfig.setup_handlers {
 -- Turn on lsp status information
 require('fidget').setup()
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
@@ -815,21 +865,33 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
+		['<C-Space>'] = cmp.mapping.complete(),
+		["<CR>"] = cmp.mapping({
+			i = function(fallback)
+				if cmp.visible() and cmp.get_active_entry() then
+					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				else
+					fallback()
+				end
+			end,
+			s = cmp.mapping.confirm({ select = true }),
+			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		}),
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
+      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+      -- they way you will only jump inside the snippet region
+      elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -837,7 +899,7 @@ cmp.setup {
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
   },
   sources = {
     { name = 'nvim_lsp' },
