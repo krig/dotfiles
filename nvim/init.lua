@@ -77,6 +77,11 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
+  use {
+    use 'nvim-treesitter/nvim-treesitter-context',
+    after = 'nvim-treesitter',
+  }
+
   use 'kazhala/close-buffers.nvim'
 
   use 'akinsho/toggleterm.nvim'
@@ -573,6 +578,12 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+}
+
+-- context line
+require 'treesitter-context'.setup {
+  enable = true,
+  line_numbers = true,
 }
 
 -- Diagnostic keymaps
