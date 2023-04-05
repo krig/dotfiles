@@ -78,7 +78,7 @@ require('packer').startup(function(use)
   }
 
   use {
-    use 'nvim-treesitter/nvim-treesitter-context',
+    'nvim-treesitter/nvim-treesitter-context',
     after = 'nvim-treesitter',
   }
 
@@ -126,8 +126,6 @@ require('packer').startup(function(use)
     requires = {'kkharji/sqlite.lua' },
   }
 
-  use {'nvim-orgmode/orgmode' } -- org-mode for vim
-
   use { 'folke/which-key.nvim' } -- popup with key bindings
 
   use {
@@ -147,6 +145,26 @@ require('packer').startup(function(use)
     'jedrzejboczar/possession.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
   }
+
+	use {
+		'johnfrankmorgan/whitespace.nvim',
+		config = function ()
+			require('whitespace-nvim').setup({
+				-- configuration options and their defaults
+
+				-- `highlight` configures which highlight is used to display
+				-- trailing whitespace
+				highlight = 'DiffDelete',
+
+				-- `ignored_filetypes` configures which filetypes to ignore when
+				-- displaying trailing whitespace
+				ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
+			})
+
+			-- remove trailing whitespace with a keybinding
+			vim.keymap.set('n', '<Leader>ww', require('whitespace-nvim').trim)
+		end
+	}
 
   -- Themes
   -- use "rebelot/kanagawa.nvim" -- kanagawa theme
@@ -192,7 +210,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme embark]]
 require("rose-pine").setup()
--- vim.cmd [[colorscheme rose-pine]]
+vim.cmd [[colorscheme rose-pine]]
 
 -- Configure nightfox
 -- require('nightfox').setup {
@@ -204,7 +222,7 @@ require("rose-pine").setup()
 --     },
 --   },
 -- }
-vim.cmd [[colorscheme rose-pine]]
+-- vim.cmd [[colorscheme nightfox]]
 
 
 -- Set highlight on search
@@ -223,6 +241,10 @@ vim.o.relativenumber = true
 -- vim.o.shiftwidth = 4
 -- vim.o.expandtab = true
 -- vim.o.smartindent = true
+
+vim.o.confirm = true
+vim.o.autowrite = true
+vim.o.shiftround = true
 
 -- disable word wrap
 vim.o.wrap = false
@@ -251,6 +273,8 @@ vim.o.signcolumn = 'auto'
 vim.o.colorcolumn = '140'
 
 vim.o.scrolloff = 8
+
+vim.o.hidden = true
 
 
 -- Set completeopt to have a better completion experience
@@ -302,12 +326,6 @@ require('flit').setup {
 -- Or just set to grey directly, e.g. { fg = '#777777' },
 -- if Comment is saturated.
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
-
-local orgmode = require 'orgmode'
-orgmode.setup_ts_grammar()
-orgmode.setup()
-
-require('which-key').setup()
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
@@ -423,13 +441,20 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Use Q to rerun last macro
 vim.keymap.set("n", "Q", "@@", { noremap = true })
 
+vim.keymap.set("n", "H", "^", { noremap = true })
+vim.keymap.set("n", "L", "$", { noremap = true })
+
 -- use ctrl+[hjkl] to move between windows
 vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true})
 vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
 vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
 vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 
-vim.cmd [[imap ii <Esc>]]
+vim.cmd [[inoremap <silent>dii <Esc>]]
+
+-- don't exit visual mode while indenting
+vim.cmd [[xnoremap < <gv]]
+vim.cmd [[xnoremap > >gv]]
 
 -- random leader commands
 
@@ -507,14 +532,41 @@ end
 
 setup_telescope()
 
+require('which-key').setup()
 
 -- Configure toggleterm
 require('toggleterm').setup {
-  open_mapping = [[<c-\>]],
+  open_mapping = [[<leader>ts]],
   insert_mappings = false,
   direction = 'horizontal',
   shade_terminals = true,
 }
+
+local Terminal  = require('toggleterm.terminal').Terminal
+
+local tig = Terminal:new({
+  cmd = "tig",
+  dir = "git_dir",
+  direction = "float",
+  float_opts = {
+    border = "double",
+  },
+  -- function to run on opening the terminal
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+  end,
+  -- function to run on closing the terminal
+  on_close = function(term)
+    vim.cmd("startinsert!")
+  end,
+})
+
+function _tig_toggle()
+  tig:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua _tig_toggle()<CR>", {noremap = true, silent = true})
 
 
 -- [[ Configure Treesitter ]]
@@ -713,7 +765,7 @@ end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
-vim.keymap.set('n', '<leader>sb',
+vim.keymap.set('n', '<leader>o',
     function ()
         local api = require('nvim-tree.api')
         api.tree.toggle{find_file=true, update_root=true, focus=true}
