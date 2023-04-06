@@ -77,10 +77,7 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  use {
-    'nvim-treesitter/nvim-treesitter-context',
-    after = 'nvim-treesitter',
-  }
+  use 'nvim-treesitter/nvim-treesitter-context'
 
   use 'kazhala/close-buffers.nvim'
 
@@ -168,7 +165,7 @@ require('packer').startup(function(use)
 
   -- Themes
   -- use "rebelot/kanagawa.nvim" -- kanagawa theme
-  -- use { "catppuccin/nvim", as = "catppuccin" }
+  use { "catppuccin/nvim", as = "catppuccin" }
   -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   -- use { 'embark-theme/vim', as = 'embark' }
   -- use 'nyoom-engineering/oxocarbon.nvim'
@@ -209,8 +206,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set colorscheme
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme embark]]
-require("rose-pine").setup()
-vim.cmd [[colorscheme rose-pine]]
+-- require("rose-pine").setup()
+-- vim.cmd [[colorscheme rose-pine]]
 
 -- Configure nightfox
 -- require('nightfox').setup {
@@ -223,6 +220,7 @@ vim.cmd [[colorscheme rose-pine]]
 --   },
 -- }
 -- vim.cmd [[colorscheme nightfox]]
+vim.cmd [[colorscheme catppuccin]]
 
 
 -- Set highlight on search
@@ -450,7 +448,7 @@ vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
 vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
 vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 
-vim.cmd [[inoremap <silent>dii <Esc>]]
+vim.cmd [[inoremap <silent> ii <Esc>]]
 
 -- don't exit visual mode while indenting
 vim.cmd [[xnoremap < <gv]]
@@ -507,7 +505,7 @@ local function setup_telescope()
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
   vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find files' })
   vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search current buffer' })
-  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Recent files' })
+  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'Old files' })
 
   -- File related
   vim.keymap.set('n', '<leader>fb', telescope.extensions.file_browser.file_browser,
@@ -833,8 +831,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = ""
   --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
   --vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
-  --vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h18" }
-  vim.opt.guifont = { "Cartograph CF,Noto_Color_Emoji", ":h16" }
+  vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h20" }
+  -- vim.opt.guifont = { "Cartograph CF,Noto_Color_Emoji", ":h16" }
   --vim.opt.guifont = { "DM Mono,Noto_Color_Emoji", ":h16" }
   --vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h16" }
 
@@ -872,13 +870,7 @@ local servers = {
   bashls = {},
   clangd = {},
   cmake = {},
-  elixirls = {},
-  gopls = {},
   pyright = {},
-  rust_analyzer = {},
-  sqls = {},
-  zls = {},
-  -- tsserver = {},
 
   lua_ls = {
     Lua = {
