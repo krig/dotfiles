@@ -120,8 +120,6 @@ require('packer').startup(function(use)
     requires = {'kkharji/sqlite.lua' },
   }
 
-  use {'nvim-orgmode/orgmode' } -- org-mode for vim
-
   use { 'folke/which-key.nvim' } -- popup with key bindings
 
   use {
@@ -144,7 +142,7 @@ require('packer').startup(function(use)
 
   -- Themes
   -- use "rebelot/kanagawa.nvim" -- kanagawa theme
-  -- use { "catppuccin/nvim", as = "catppuccin" }
+  use { "catppuccin/nvim", as = "catppuccin" }
   -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   -- use { 'embark-theme/vim', as = 'embark' }
   -- use 'nyoom-engineering/oxocarbon.nvim'
@@ -185,7 +183,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Set colorscheme
 vim.o.termguicolors = true
 -- vim.cmd [[colorscheme embark]]
-require("rose-pine").setup()
+-- require("rose-pine").setup()
 -- vim.cmd [[colorscheme rose-pine]]
 
 -- Configure nightfox
@@ -198,59 +196,32 @@ require("rose-pine").setup()
 --     },
 --   },
 -- }
-vim.cmd [[colorscheme rose-pine]]
+vim.cmd [[colorscheme catppuccin]]
 
-
--- Set highlight on search
+-- Options
 vim.o.hlsearch = false
 vim.o.incsearch = true
-
--- Make line numbers default
--- Relative line numbers
 vim.wo.number = true
 vim.o.relativenumber = true
-
--- better tab defaults
--- update: disabled because this seems to interfere with LSP formatting?
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
--- vim.o.expandtab = true
--- vim.o.smartindent = true
-
--- disable word wrap
+vim.o.confirm = true
+vim.o.autowrite = true
+vim.o.shiftround = true
 vim.o.wrap = false
-
--- Enable mouse mode
 vim.o.mouse = 'a'
-
--- Enable break indent
 vim.o.breakindent = true
-
--- Save undo history
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-
 vim.o.signcolumn = 'auto'
 vim.o.colorcolumn = '140'
-
 vim.o.scrolloff = 8
-
-
--- Set completeopt to have a better completion experience
+vim.o.hidden = true
 vim.o.completeopt = 'menu,menuone,longest,noselect'
-
--- don't insert the comment leader for // comments in some cases
 vim.o.formatoptions = vim.o.formatoptions .. '/'
 
 -- Automatically open, but do not go to (if there are errors) the quickfix /
@@ -291,10 +262,6 @@ require('flit').setup {
   -- E.g.: opts = { equivalence_classes = {} }
   opts = {}
 }
-
-local orgmode = require 'orgmode'
-orgmode.setup_ts_grammar()
-orgmode.setup()
 
 require('which-key').setup()
 
@@ -412,13 +379,20 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Use Q to rerun last macro
 vim.keymap.set("n", "Q", "@@", { noremap = true })
 
+vim.keymap.set("n", "H", "^", { noremap = true })
+vim.keymap.set("n", "L", "$", { noremap = true })
+
 -- use ctrl+[hjkl] to move between windows
 vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true})
 vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
 vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
 vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 
-vim.cmd [[imap ii <Esc>]]
+-- don't exit visual mode while indenting
+vim.cmd [[xnoremap < <gv]]
+vim.cmd [[xnoremap > >gv]]
+
+vim.cmd [[inoremap <silent> ii <Esc>]]
 
 -- random leader commands
 
@@ -471,7 +445,7 @@ local function setup_telescope()
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
   vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find files' })
   vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search current buffer' })
-  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Recent files' })
+  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'Old files' })
 
   -- File related
   vim.keymap.set('n', '<leader>fb', telescope.extensions.file_browser.file_browser,
@@ -696,7 +670,7 @@ end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
-vim.keymap.set('n', '<leader>sb',
+vim.keymap.set('n', '<leader>o',
     function ()
         local api = require('nvim-tree.api')
         api.tree.toggle{find_file=true, update_root=true, focus=true}
