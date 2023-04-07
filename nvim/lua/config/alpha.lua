@@ -16,7 +16,7 @@ dashboard.section.buttons.val = {
     dashboard.button( "f", "> Find in ~/src", ":cd $HOME/src | Telescope find_files<CR>"),
     dashboard.button( "c", "> Find in ~/.config/nvim" , ":cd $HOME/.config/nvim | Telescope find_files<CR>"),
     dashboard.button( "u", "> Update Packer" , ":PackerUpdate"),
-    dashboard.button( "h", "> Cheatsheet", ":vs $HOME/src/dotfiles/cheetsheat.md<CR>"),
+    dashboard.button( "h", "> Cheatsheet", ":vs $HOME/src/dotfiles/cheetsheat.md"),
     dashboard.button( "q", "> Quit NVIM", ":qa<CR>"),
 }
 
