@@ -28,6 +28,8 @@ require('packer').startup(function(use)
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+      'jay-babu/mason-null-ls.nvim',
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
@@ -391,8 +393,6 @@ vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
 -- don't exit visual mode while indenting
 vim.cmd [[xnoremap < <gv]]
 vim.cmd [[xnoremap > >gv]]
-
-vim.cmd [[inoremap <silent> ii <Esc>]]
 
 -- random leader commands
 
@@ -823,6 +823,19 @@ local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
+
+-- configure null-ls
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.completion.spell,
+  },
+})
+
+require('mason-null-ls').setup()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
