@@ -2,7 +2,7 @@
 #shopt -s autocd
 
 program_exists() {
-    which $1 2>&1 1>/dev/null
+    which "$1" 1>/dev/null 2>&1 
 }
 
 if program_exists nvim; then
@@ -34,19 +34,12 @@ fi
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
-if [[ -d $HOME/.asdf ]]; then
+if [[ -f $HOME/.config/broot/launcher/bash/br ]]; then
   # shellcheck source=/dev/null
-  . $HOME/.asdf/asdf.sh
-  # shellcheck source=/dev/null
-  . $HOME/.asdf/completions/asdf.bash
+  source $HOME/.config/broot/launcher/bash/br
 fi
 
 if program_exists starship; then
   eval "$(starship init bash)"
-fi
-
-if [[ -f $HOME/.config/broot/launcher/bash/br ]]; then
-  # shellcheck source=/dev/null
-  source $HOME/.config/broot/launcher/bash/br
 fi
 

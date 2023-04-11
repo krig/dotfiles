@@ -28,6 +28,8 @@ require('packer').startup(function(use)
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+      'jay-babu/mason-null-ls.nvim',
 
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
@@ -222,63 +224,28 @@ vim.o.termguicolors = true
 -- vim.cmd [[colorscheme nightfox]]
 vim.cmd [[colorscheme catppuccin]]
 
-
--- Set highlight on search
+-- Options
 vim.o.hlsearch = false
 vim.o.incsearch = true
-
--- Make line numbers default
--- Relative line numbers
 vim.wo.number = true
 vim.o.relativenumber = true
-
--- better tab defaults
--- update: disabled because this seems to interfere with LSP formatting?
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
--- vim.o.expandtab = true
--- vim.o.smartindent = true
-
-vim.o.confirm = true
-vim.o.autowrite = true
 vim.o.shiftround = true
-
--- disable word wrap
 vim.o.wrap = false
-
--- Enable mouse mode
 vim.o.mouse = 'a'
-
--- Enable break indent
 vim.o.breakindent = true
-
--- Save undo history
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
-
 vim.o.signcolumn = 'auto'
 vim.o.colorcolumn = '140'
-
 vim.o.scrolloff = 8
-
 vim.o.hidden = true
-
-
--- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menu,menuone,longest,noselect'
-
--- don't insert the comment leader for // comments in some cases
 vim.o.formatoptions = vim.o.formatoptions .. '/'
 
 -- Automatically open, but do not go to (if there are errors) the quickfix /
@@ -324,6 +291,8 @@ require('flit').setup {
 -- Or just set to grey directly, e.g. { fg = '#777777' },
 -- if Comment is saturated.
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+
+require('which-key').setup()
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
@@ -447,8 +416,6 @@ vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true})
 vim.keymap.set("n", "<c-j>", "<c-w>j", { noremap = true})
 vim.keymap.set("n", "<c-k>", "<c-w>k", { noremap = true})
 vim.keymap.set("n", "<c-l>", "<c-w>l", { noremap = true})
-
-vim.cmd [[inoremap <silent> ii <Esc>]]
 
 -- don't exit visual mode while indenting
 vim.cmd [[xnoremap < <gv]]
@@ -916,6 +883,19 @@ local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
+
+-- configure null-ls
+
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.completion.spell,
+  },
+})
+
+require('mason-null-ls').setup()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
