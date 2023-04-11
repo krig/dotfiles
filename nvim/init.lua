@@ -825,13 +825,19 @@ end
 
 setup_dap()
 
+local place = vim.fn.system("place")
 
 -- Neovide configuration
 if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = ""
   --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
   --vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
-  vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h20" }
+  if place:find("home") then
+    vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h14" }
+  else
+    vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h20" }
+  end
+
   -- vim.opt.guifont = { "Cartograph CF,Noto_Color_Emoji", ":h16" }
   --vim.opt.guifont = { "DM Mono,Noto_Color_Emoji", ":h16" }
   --vim.opt.guifont = { "Victor Mono,Noto_Color_Emoji", ":h16" }
