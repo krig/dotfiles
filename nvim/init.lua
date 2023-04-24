@@ -1,12 +1,56 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- NOTE: Must happen before plugins are required
+-- (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- disable netrw in favor of nvimtree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+local function contains(s, target)
+  return s:find(target, nil, true) ~= nil
+end
+
+local function stradd(s, target)
+  if not contains(s, target) then
+    return s .. target
+  else
+    return s
+  end
+end
+
+
+-- General vim options
+--
+vim.o.hlsearch = true
+vim.o.incsearch = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.confirm = true -- ask to save
+vim.o.autowrite = true -- write file when switching away from it
+vim.o.shiftround = true -- round indent to multiple of shiftwidth
+vim.o.wrap = false -- don't wrap long lines by default
+vim.o.mouse = 'a' -- enable mouse in all modes
+vim.o.breakindent = true
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+vim.o.signcolumn = 'auto'
+vim.o.colorcolumn = ''
+vim.o.scrolloff = 4
+vim.o.hidden = true
+vim.o.completeopt = 'menu,menuone,longest,noselect'
+vim.o.formatoptions = stradd(vim.o.formatoptions, '/')
+vim.o.formatoptions = stradd(vim.o.formatoptions, 'j')
+vim.o.termguicolors = true -- enable true color in the terminal
+
 
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -21,33 +65,21 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
-  use { -- LSP Configuration & Plugins
+  use {
     'neovim/nvim-lspconfig',
-    --commit='ee00aa2', -- avoid deprecation warning
     requires = {
-      -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'jose-elias-alvarez/null-ls.nvim',
       'jay-babu/mason-null-ls.nvim',
-
-      -- Useful status updates for LSP
       'j-hui/fidget.nvim',
-
-      -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
-
-      -- symbol outline
       'simrat39/symbols-outline.nvim',
     },
   }
 
   use 'echasnovski/mini.align'
-
-  -- DAP (Debug Adapter Protocol) - debugger in neovim
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap"} }
-
-  -- tree file browser
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
@@ -56,7 +88,7 @@ require('packer').startup(function(use)
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 
-  use { -- Autocompletion 
+  use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = {
       'hrsh7th/cmp-nvim-lsp',
@@ -67,114 +99,44 @@ require('packer').startup(function(use)
     },
   }
 
-  use { -- Highlight, edit, and navigate code
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
 
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
+  use { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter', }
   use 'nvim-treesitter/nvim-treesitter-context'
-
   use 'kazhala/close-buffers.nvim'
-
   use 'akinsho/toggleterm.nvim'
-
   use 'mbbill/undotree'
-
-  -- Git
+  use 'tpope/vim-eunuch' -- unix utilities
   use 'tpope/vim-fugitive' -- Git interface
   use 'tpope/vim-rhubarb' -- Github interface
+  use 'tpope/vim-jdaddy' -- json text objects
   use 'lewis6991/gitsigns.nvim' -- Git status in buffer gutter
-
-  -- various useful things
   use 'tpope/vim-repeat' -- Repeat works in more places
   use 'tpope/vim-surround' -- Movement cmds for surrounds
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides  on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-
   use 'ahmedkhalf/project.nvim' -- Project management
-
   use 'ggandor/leap.nvim' -- easy motion
   use 'ggandor/flit.nvim' -- easy motion for fFtT commands
-
-  -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
-  -- Use telescope for neovim core stuff
   use { 'nvim-telescope/telescope-ui-select.nvim' }
-
-  -- Telescope file browser
   use { "nvim-telescope/telescope-file-browser.nvim" }
-
-  -- Telescope smart open
   use 'kkharji/sqlite.lua'
-  use {
-    'danielfalk/smart-open.nvim',
-    branch = '0.1.x',
-    requires = {'kkharji/sqlite.lua' },
-  }
-
+  use { 'danielfalk/smart-open.nvim', branch = '0.1.x', requires = {'kkharji/sqlite.lua' }, }
   use { 'folke/which-key.nvim' } -- popup with key bindings
-
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('config.alpha')
-    end
-  }
-
-  -- distraction-free writing
-  use 'junegunn/goyo.vim'
   use 'junegunn/limelight.vim'
+  use { 'jedrzejboczar/possession.nvim', requires = { 'nvim-lua/plenary.nvim' }, }
+	use 'johnfrankmorgan/whitespace.nvim'
 
-  -- session management
-  use {
-    'jedrzejboczar/possession.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
-
-	use {
-		'johnfrankmorgan/whitespace.nvim',
-		config = function ()
-			require('whitespace-nvim').setup({
-				-- configuration options and their defaults
-
-				-- `highlight` configures which highlight is used to display
-				-- trailing whitespace
-				highlight = 'DiffDelete',
-
-				-- `ignored_filetypes` configures which filetypes to ignore when
-				-- displaying trailing whitespace
-				ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
-			})
-
-			-- remove trailing whitespace with a keybinding
-			vim.keymap.set('n', '<Leader>ww', require('whitespace-nvim').trim)
-		end
-	}
-
-  -- Themes
-  -- use "rebelot/kanagawa.nvim" -- kanagawa theme
-  use { "catppuccin/nvim", as = "catppuccin" }
-  -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  -- use { 'embark-theme/vim', as = 'embark' }
-  -- use 'nyoom-engineering/oxocarbon.nvim'
+  -- Theme
   use { 'rose-pine/neovim', as = 'rose-pine' }
-  -- use "EdenEast/nightfox.nvim"
-  use 'bruth/vim-newsprint-theme'
-  -- use 'logico/typewriter-vim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -206,49 +168,19 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 
 -- Set colorscheme
-vim.o.termguicolors = true
--- vim.cmd [[colorscheme embark]]
--- require("rose-pine").setup()
--- vim.cmd [[colorscheme rose-pine]]
+require("rose-pine").setup {
+  variant = 'moon',
+  bold_vert_split = false,
+  disable_italics = true,
 
--- Configure nightfox
--- require('nightfox').setup {
---   options = {
---     terminal_colors = true,
---     dim_inactive = true,
---     styles = {
---       comments = 'italic',
---     },
---   },
--- }
--- vim.cmd [[colorscheme nightfox]]
-vim.cmd [[colorscheme catppuccin]]
+  highlight_groups = {
+    Comment = { fg = "muted", bg = "muted", blend = 10, italic = true },
+  },
+}
+
+vim.cmd [[colorscheme rose-pine]]
 
 -- Options
-vim.o.hlsearch = false
-vim.o.incsearch = true
-vim.wo.number = true
-vim.o.relativenumber = true
-vim.o.confirm = true
-vim.o.autowrite = true
-vim.o.shiftround = true
-vim.o.wrap = false
-vim.o.mouse = 'a'
-vim.o.breakindent = true
-vim.o.swapfile = false
-vim.o.backup = false
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-vim.o.signcolumn = 'auto'
-vim.o.colorcolumn = '140'
-vim.o.scrolloff = 8
-vim.o.hidden = true
-vim.o.completeopt = 'menu,menuone,longest,noselect'
-vim.o.formatoptions = vim.o.formatoptions .. '/'
 
 -- Automatically open, but do not go to (if there are errors) the quickfix /
 -- location list window, or close it when is has become empty.
@@ -276,6 +208,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 require('mini.align').setup()
+
+require('whitespace-nvim').setup({
+  -- configuration options and their defaults
+
+  -- `highlight` configures which highlight is used to display
+  -- trailing whitespace
+  highlight = 'DiffDelete',
+
+  -- `ignored_filetypes` configures which filetypes to ignore when
+  -- displaying trailing whitespace
+  ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
+})
+
+-- remove trailing whitespace with a keybinding
+vim.keymap.set('n', '<Leader>ww', require('whitespace-nvim').trim)
+
 
 require('leap').add_default_mappings()
 
@@ -314,27 +262,6 @@ require('Comment').setup()
 
 -- Configure project management
 require('project_nvim').setup {
-}
-
--- Setup colors for indent blankline
-local function indentHL(name, color, gui)
-  local str = string.format('hi! %s guifg=%s gui=%s',
-    name, color, gui)
-  vim.cmd(str)
-end
-for i=1,6 do
-  indentHL('IndentBlankLineIndent' .. i, '#3E4452', 'nocombine')
-end
-
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = "⦙",
-  show_trailing_blankline_indent = false,
-  use_treesitter = true,
-  show_first_indent_level = false,
-  show_current_context = false,
-  show_current_context_start = false,
 }
 
 -- Close buffers
@@ -410,8 +337,9 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Use Q to rerun last macro
 vim.keymap.set("n", "Q", "@@", { noremap = true })
 
-vim.keymap.set("n", "H", "^", { noremap = true })
-vim.keymap.set("n", "L", "$", { noremap = true })
+-- H and L = home/end?
+-- vim.keymap.set("n", "H", "^", { noremap = true })
+-- vim.keymap.set("n", "L", "$", { noremap = true })
 
 -- use ctrl+[hjkl] to move between windows
 vim.keymap.set("n", "<c-h>", "<c-w>h", { noremap = true})
@@ -435,7 +363,6 @@ vim.keymap.set("n", "<leader>x", function() vim.cmd [[:e ~/scratch.md]] end, { d
 
 vim.keymap.set("n", "<leader>fc", vim.lsp.buf.format, { desc = "LSP: format whole buffer" })
 
-vim.keymap.set('n', '<leader>dd', vim.cmd.Alpha, { desc = 'Open Dashboard' })
 
 local function setup_telescope()
   local telescope = require('telescope')
@@ -460,7 +387,7 @@ local function setup_telescope()
   local function tele_fuzzy_find()
     builtin.current_buffer_fuzzy_find(themes.get_ivy { previewer = false })
   end
-  
+
   local function tele_cmdhistory()
     builtin.command_history(themes.get_ivy())
   end
@@ -540,13 +467,10 @@ vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua _tig_toggle()<CR>", {norema
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'elixir', 'go', 'lua', 'python', 'rust', 'swift', 'javascript', 'json', 'help', 'vim', 'org' },
+  ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'lua', 'python', 'rust', 'javascript', 'json', 'help', 'vim' },
 
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = {
-      'org',
-    },
   },
   indent = { enable = true, disable = { 'python', 'cpp' } },
   incremental_selection = {
@@ -712,7 +636,7 @@ require("nvim-tree").setup {
 -- setup nvimtree at startup
 local function open_nvim_tree(data)
   local directory = vim.fn.isdirectory(data.file) == 1
-  
+
   if not directory then
     return
   end
@@ -722,10 +646,10 @@ local function open_nvim_tree(data)
 
   -- wipe directory buffer
   vim.cmd.bw(data.buf)
-  
+
   -- change to the directory
   vim.cmd.cd(data.file)
-  
+
   -- open nvimtree
   require("nvim-tree.api").tree.open()
 end
@@ -798,13 +722,16 @@ local place = vim.fn.system("place")
 
 -- Neovide configuration
 if vim.g.neovide then
-  vim.g.neovide_cursor_vfx_mode = ""
+  vim.g.neovide_cursor_vfx_mode = "railgun"
   --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
   --vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
+  local neovide_font = "Cascadia Code,Noto_Color_Emoji"
   if place:find("home") then
-    vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h14" }
+    -- vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h14" }
+    vim.opt.guifont = { neovide_font, ":h16" }
   else
-    vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h20" }
+    -- vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h20" }
+    vim.opt.guifont = { neovide_font, ":h20" }
   end
 
   -- vim.opt.guifont = { "Cartograph CF,Noto_Color_Emoji", ":h16" }
@@ -871,6 +798,7 @@ mason_lspconfig.setup_handlers {
       return
     end
     lspconfig[server_name].setup {
+      autostart = false,
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
@@ -929,7 +857,7 @@ cmp.setup {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
       -- they way you will only jump inside the snippet region
       elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()

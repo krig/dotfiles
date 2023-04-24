@@ -16,13 +16,19 @@
 #font_family      Source Code Pro
 #font_family CozetteVector
 #font_family Roboto Mono
-font_family Fira Code
+#font_family Fira Code
+#font_family Ligconsolata
+# font_family Cascadia Code
+font_family Monego Nerd Font Fix
+#font_family Pragmasevka Nerd Font
+#font_family Victor Mono
+#font_family UbuntuMono Nerd Font Mono
 italic_font      auto
 bold_font        auto
 bold_italic_font auto
 
 # Font size (in pts)
-font_size        17.0
+font_size        18.0
 #font_size 12.0
 
 # The amount the font size is changed by (in pts) when increasing/decreasing
@@ -63,7 +69,7 @@ box_drawing_scale 0.001, 1, 1.5, 2
 # Cursor customization {{{
 # The cursor color
 # Cursor
-cursor			#d8dee9
+# cursor			#d8dee9
 #cursor           #cccccc
 
 # The cursor shape can be one of (block, beam, underline)
@@ -98,7 +104,7 @@ wheel_scroll_multiplier 5.0
 # Mouse {{{
 # The color and style for highlighting URLs on mouse-over. url_style can be one of:
 # none, single, double, curly
-url_color #0087BD
+# url_color #0087BD
 url_style curly
 
 # The modifier keys to press when clicking with the mouse on URLs to open the URL
@@ -163,10 +169,10 @@ sync_to_monitor yes
 # Audio/visual bell {{{
 # Visual bell duration. Flash the screen when a bell occurs for the specified number of
 # seconds. Set to zero to disable.
-visual_bell_duration 0.0
+visual_bell_duration 0.1
 
 # Enable/disable the audio bell. Useful in environments that require silence.
-enable_audio_bell yes
+enable_audio_bell no
 # }}}
 
 
@@ -194,10 +200,10 @@ window_margin_width 0
 window_padding_width 0
 
 # The color for the border of the active window
-active_border_color #00ff00
+# active_border_color #00ff00
 
 # The color for the border of inactive windows
-inactive_border_color #cccccc
+# inactive_border_color #cccccc
 
 # Fade the text in inactive windows by the specified amount (a number between
 # zero and one, with 0 being fully faded).
@@ -215,11 +221,11 @@ tab_bar_style powerline
 tab_separator " ┇"
 
 # Tab bar colors and styles
-active_tab_foreground #000
-active_tab_background #eee
+# active_tab_foreground #000
+# active_tab_background #eee
 active_tab_font_style bold-italic
-inactive_tab_foreground #444
-inactive_tab_background #999
+# inactive_tab_foreground #444
+# inactive_tab_background #999
 inactive_tab_font_style normal
 # }}}
 
@@ -227,27 +233,26 @@ inactive_tab_font_style normal
 # Color scheme {{{
 
 # Colors
-foreground		#d8dee9
-background		#2e3440
-selection_foreground	#2e3440
-selection_background	#d8dee9
-
-color0		#3b4252
-color1		#bf616a
-color2		#a3be8c
-color3		#ebcb8b
-color4		#81a1c1
-color5		#b48ead
-color6		#88c0d0
-color7		#e5e9f0
-color8		#4c566a
-color9		#bf616a
-color10		#a3be8c
-color11		#ebcb8b
-color12		#81a1c1
-color13		#b48ead
-color14		#8fbcbb
-color15		#eceff4
+# foreground		#d8dee9
+# background		#2e3440
+# selection_foreground	#2e3440
+# selection_background	#d8dee9
+# color0		#3b4252
+# color1		#bf616a
+# color2		#a3be8c
+# color3		#ebcb8b
+# color4		#81a1c1
+# color5		#b48ead
+# color6		#88c0d0
+# color7		#e5e9f0
+# color8		#4c566a
+# color9		#bf616a
+# color10		#a3be8c
+# color11		#ebcb8b
+# color12		#81a1c1
+# color13		#b48ead
+# color14		#8fbcbb
+# color15		#eceff4
 
 
 
@@ -383,8 +388,8 @@ map ctrl+shift+h         show_scrollback
 # }}}
 
 # Window management {{{
-map ctrl+shift+enter    new_window
-map ctrl+shift+n        new_os_window
+map ctrl+shift+enter    new_window_with_cwd
+map ctrl+shift+n        new_os_window_with_cwd
 map ctrl+shift+w        close_window
 map ctrl+shift+]        next_window
 map ctrl+shift+[        previous_window
@@ -421,7 +426,7 @@ map ctrl+shift+0        tenth_window
 # Tab management {{{
 map ctrl+shift+right    next_tab
 map ctrl+shift+left     previous_tab
-map ctrl+shift+t        new_tab
+map ctrl+shift+t        new_tab_with_cwd
 map ctrl+shift+q        close_tab
 map ctrl+shift+l        next_layout
 map ctrl+shift+.        move_tab_forward
@@ -486,7 +491,7 @@ map ctrl+shift+e        run_simple_kitten text url_hints
 # means to use the default system color, a value of "background" means to use
 # the default background color and finally you can use an arbitrary color, such
 # as #12af59 or "red".
-macos_titlebar_color system
+# macos_titlebar_color system
 
 # Hide the kitty window's title bar on macOS.
 macos_hide_titlebar no
@@ -495,9 +500,15 @@ macos_hide_titlebar no
 # the macOS native Option+Key = unicode character behavior. This will
 # break any Alt+key keyboard shortcuts in your terminal programs, but you
 # can use the macOS unicode input technique.
-macos_option_as_alt yes
+macos_option_as_alt no
 
 # The number is a percentage of maximum volume.
 # See man XBell for details.
 x11_bell_volume 80
 # }}}
+
+
+# BEGIN_KITTY_THEME
+# Everforest Dark Hard
+include current-theme.conf
+# END_KITTY_THEME
