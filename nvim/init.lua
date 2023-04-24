@@ -74,7 +74,6 @@ require('packer').startup(function(use)
       'jay-babu/mason-null-ls.nvim',
       'j-hui/fidget.nvim',
       'folke/neodev.nvim',
-      'simrat39/symbols-outline.nvim',
     },
   }
 
@@ -87,6 +86,7 @@ require('packer').startup(function(use)
       },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+  use 'stevearc/aerial.nvim'
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -218,7 +218,7 @@ require('whitespace-nvim').setup({
 
   -- `ignored_filetypes` configures which filetypes to ignore when
   -- displaying trailing whitespace
-  ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
+  ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'aerial' },
 })
 
 -- remove trailing whitespace with a keybinding
@@ -384,10 +384,6 @@ local function setup_telescope()
 
   -- See `:help telescope.builtin`
 
-  local function tele_fuzzy_find()
-    builtin.current_buffer_fuzzy_find(themes.get_ivy { previewer = false })
-  end
-
   local function tele_cmdhistory()
     builtin.command_history(themes.get_ivy())
   end
@@ -397,25 +393,25 @@ local function setup_telescope()
   end
 
   -- Quick commands
-  vim.keymap.set('n', '<leader><space>', telescope.extensions.smart_open.smart_open, { desc = 'Telescope smart open' })
+  vim.keymap.set('n', '<leader><leader>', telescope.extensions.smart_open.smart_open, { desc = 'Telescope smart open' })
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
-  vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find files' })
-  vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search current buffer' })
-  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'Old files' })
+  vim.keymap.set('n', '<leader>.', builtin.git_files, { desc = '[G]it [F]iles' })
+  vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzy search current buffer' })
+  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Old files' })
 
   -- File related
-  vim.keymap.set('n', '<leader>fb', telescope.extensions.file_browser.file_browser,
+  vim.keymap.set('n', '<leader>fv', telescope.extensions.file_browser.file_browser,
       { desc = '[F]ile [B]rowser' })
   vim.keymap.set('n', '<leader>ff', find_from_current_buffer, { desc = '[F]ind [F]rom current buffer' })
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-  vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
+  vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = '[F]ind current [W]ord' })
   vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
-  vim.keymap.set('n', '<leader>di', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
   vim.keymap.set('n', '<leader>fd', builtin.fd, { desc = 'fd' })
 
+  vim.keymap.set('n', '<leader>di', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
+
   -- Git related
-  vim.keymap.set('n', '<leader>gs', vim.cmd.Git, { desc = "[G]it [S]tatus" })
-  vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
+  vim.keymap.set('n', '<leader>gg', vim.cmd.Git, { desc = "[G]it [S]tatus" })
   vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
   vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
 
@@ -590,13 +586,6 @@ require('neodev').setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
--- Symbols outline view
-require('symbols-outline').setup()
-vim.keymap.set('n', '<leader>so',
-    function ()
-      vim.cmd.SymbolsOutline()
-    end, { desc = '[S]ymbols [O]utline' })
-
 
 -- Disable line numbers in terminal windows
 local myaugroup = vim.api.nvim_create_augroup("Custom Settings", { clear = true })
@@ -632,6 +621,10 @@ require("nvim-tree").setup {
     ignore = true,
   },
 }
+
+-- aerial
+require('aerial').setup{}
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
 
 -- setup nvimtree at startup
 local function open_nvim_tree(data)
