@@ -118,7 +118,8 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export NAME="Kristoffer Grönlund"
-export EMAIL="krig@koru.se"
+export EMAIL="kristoffer.gronlund@netinsight.net"
+export EDITOR="nvim"
 
 alias s="kitty +kitten ssh"
 
@@ -140,10 +141,9 @@ fi
 
 if [ "$(command -v nvim)" ]; then
     alias vim='nvim'
+    alias vi='nvim'
     alias e='nvim'
-fi
-
-if [ "$(command -v hx)" ]; then
+elif [ "$(command -v hx)" ]; then
     alias e='hx'
 fi
 

@@ -88,23 +88,14 @@ require('packer').startup(function(use)
   }
   use 'stevearc/aerial.nvim'
 
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip'
-    },
-  }
-
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
+
+  use 'ludovicchabant/vim-gutentags'
 
   use { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter', }
   use 'nvim-treesitter/nvim-treesitter-context'
@@ -134,6 +125,8 @@ require('packer').startup(function(use)
   use 'junegunn/limelight.vim'
   use { 'jedrzejboczar/possession.nvim', requires = { 'nvim-lua/plenary.nvim' }, }
 	use 'johnfrankmorgan/whitespace.nvim'
+  use 'petertriho/nvim-scrollbar'
+  use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' }, }
 
   -- Theme
   use { 'rose-pine/neovim', as = 'rose-pine' }
@@ -225,6 +218,9 @@ require('whitespace-nvim').setup({
 vim.keymap.set('n', '<Leader>ww', require('whitespace-nvim').trim)
 
 
+require('scrollbar').setup()
+
+
 require('leap').add_default_mappings()
 
 require('flit').setup {
@@ -288,6 +284,9 @@ require('gitsigns').setup {
 }
 
 
+require('harpoon').setup {
+}
+
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -301,6 +300,14 @@ require('telescope').setup {
     },
   },
 }
+
+require("telescope").load_extension('harpoon')
+vim.keymap.set('n', '<leader>m', function() require('harpoon.ui').toggle_quick_menu() end, { desc="Toggle harpoon quick menu" })
+vim.keymap.set('n', '<leader>n', function() require('harpoon.mark').add_file() end, { desc="mark file using harpoon" })
+vim.keymap.set('n', '<leader>1', function() require('harpoon.ui').nav_file(1) end, { desc="nav to file using harpoon" })
+vim.keymap.set('n', '<leader>2', function() require('harpoon.ui').nav_file(2) end, { desc="nav to file using harpoon" })
+vim.keymap.set('n', '<leader>3', function() require('harpoon.ui').nav_file(3) end, { desc="nav to file using harpoon" })
+vim.keymap.set('n', '<leader>4', function() require('harpoon.ui').nav_file(4) end, { desc="nav to file using harpoon" })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -748,11 +755,6 @@ vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true}
 vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
 
 
---
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 
@@ -791,10 +793,10 @@ mason_lspconfig.setup_handlers {
       return
     end
     lspconfig[server_name].setup {
-      autostart = false,
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
+      autostart = false,
     }
   end,
 }
@@ -819,63 +821,5 @@ null_ls.setup({
 })
 
 require('mason-null-ls').setup()
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping({
-			i = function(fallback)
-				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				else
-					fallback()
-				end
-			end,
-			s = cmp.mapping.confirm({ select = true }),
-			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		}),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-      -- they way you will only jump inside the snippet region
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'buffer', keyword_length = 5 },
-  },
-}
 
 -- vim: ts=2 sts=2 sw=2 et
