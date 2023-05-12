@@ -8,6 +8,10 @@ vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+
+
+
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -429,22 +433,26 @@ local function setup_telescope()
   -- See `:help telescope.builtin`
 
   local function tele_fuzzy_find()
-    builtin.current_buffer_fuzzy_find(themes.get_ivy { previewer = false })
+    builtin.live_grep({
+      prompt_title = 'find string in open buffers',
+      grep_open_files = true
+    })
   end
-  
+
   local function tele_cmdhistory()
     builtin.command_history(themes.get_ivy())
   end
 
   local function find_from_current_buffer()
-    builtin.find_files({ cwd = vim.fn.expand('%:p:h') })
+    local utils = require('telescope.utils')
+    builtin.find_files({ cwd = utils.buffer_dir()})
   end
 
   -- Quick commands
-  vim.keymap.set('n', '<leader><space>', telescope.extensions.smart_open.smart_open, { desc = 'Telescope smart open' })
+  vim.keymap.set('n', '<leader>.', telescope.extensions.smart_open.smart_open, { desc = 'Telescope smart open' })
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
-  vim.keymap.set('n', '<leader>.', builtin.find_files, { desc = 'Find files' })
-  vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search current buffer' })
+  vim.keymap.set('n', '<leader>fa', builtin.find_files, { desc = 'Find files' })
+  vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search open buffers' })
   vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'Old files' })
 
   -- File related
@@ -459,7 +467,7 @@ local function setup_telescope()
 
   -- Git related
   vim.keymap.set('n', '<leader>gs', vim.cmd.Git, { desc = "[G]it [S]tatus" })
-  vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
+  vim.keymap.set('n', '<leader><space>', builtin.git_files, { desc = '[G]it [F]iles' })
   vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })
   vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })
 
@@ -781,7 +789,7 @@ local servers = {
   gopls = {},
   pyright = {},
   rust_analyzer = {},
-  sqls = {},
+  sqlls = {},
   zls = {},
   -- tsserver = {},
 
@@ -835,7 +843,9 @@ null_ls.setup({
   },
 })
 
-require('mason-null-ls').setup()
+require('mason-null-ls').setup {
+  automatic_setup = true,
+}
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
