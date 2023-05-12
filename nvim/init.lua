@@ -54,11 +54,11 @@ local function setup_telescope()
   vim.keymap.set('n', '<leader><leader>', find_from_current_buffer, { desc = 'Find from current buffer' })
   vim.keymap.set('n', '<leader>,', builtin.buffers, { desc = 'Find buffers' })
   vim.keymap.set('n', '<leader>/', tele_fuzzy_find, { desc = 'Fuzzy search open buffers' })
+  vim.keymap.set('n', '<leader>r', builtin.oldfiles, { desc = 'Recently opened files' })
 
   vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Find Diagnostics' })
   vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find Files' })
   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Find Help' })
-  vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = 'Old Files' })
   vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Find Resume' })
   vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find Word' })
   vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git Branches' })
@@ -158,6 +158,24 @@ require("lazy").setup(
     },
     'nvim-telescope/telescope-fzf-native.nvim',
     'nvim-telescope/telescope-ui-select.nvim',
+    {
+      "nvim-tree/nvim-tree.lua",
+      version = "*",
+      dependencies = {
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function()
+        require("nvim-tree").setup {}
+        vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle, { desc = "Nvim Tree" })
+      end,
+    },
+    {
+      'goolord/alpha-nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' },
+      config = function()
+        require('config.alpha')
+      end,
+    },
   })
 
 -- See `:help vim.o`
