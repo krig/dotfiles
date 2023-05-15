@@ -213,5 +213,7 @@ function git {
   command git "$@"
 }
 
+export GITEA_WORK_DIR=/Users/krigro/gitea/
+
 
 source /Users/krigro/.config/broot/launcher/bash/br

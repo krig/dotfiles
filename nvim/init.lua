@@ -39,6 +39,9 @@ vim.o.backup = false
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.cursorline = true
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
@@ -50,6 +53,8 @@ vim.o.completeopt = 'menu,menuone,longest,noselect'
 vim.o.formatoptions = stradd(vim.o.formatoptions, '/')
 vim.o.formatoptions = stradd(vim.o.formatoptions, 'j')
 vim.o.termguicolors = true -- enable true color in the terminal
+vim.o.joinspaces = false
+
 
 
 -- Install packer
@@ -95,8 +100,6 @@ require('packer').startup(function(use)
     end,
   }
 
-  use 'ludovicchabant/vim-gutentags'
-
   use { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter', }
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'kazhala/close-buffers.nvim'
@@ -110,6 +113,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-repeat' -- Repeat works in more places
   use 'tpope/vim-surround' -- Movement cmds for surrounds
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'jeffkreeftmeijer/vim-numbertoggle' -- toggle back to absolute linenum in insert mode
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use 'ahmedkhalf/project.nvim' -- Project management
@@ -130,6 +134,12 @@ require('packer').startup(function(use)
 
   -- Theme
   use { 'rose-pine/neovim', as = 'rose-pine' }
+  use 'owickstrom/vim-colors-paramount'
+  use {
+  "jesseleite/nvim-noirbuddy",
+  requires = { "tjdevries/colorbuddy.nvim", branch = "dev" }
+  }
+  use 'logico/typewriter-vim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -170,8 +180,19 @@ require("rose-pine").setup {
     Comment = { fg = "muted", bg = "muted", blend = 10, italic = true },
   },
 }
-
+--
 vim.cmd [[colorscheme rose-pine]]
+-- vim.cmd [[colorscheme typewriter]]
+-- vim.cmd [[colorscheme paramount]]
+
+-- vim.cmd [[colorscheme noirbuddy]]
+-- require("noirbuddy").setup {
+--   colors = {
+--     background = '#ffffff',
+--     primary = '#715bad',
+--     secondary = '#afb599',
+--   },
+-- }
 
 -- Options
 
@@ -405,6 +426,7 @@ local function setup_telescope()
   vim.keymap.set('n', '<leader>.', builtin.git_files, { desc = '[G]it [F]iles' })
   vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzy search current buffer' })
   vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Old files' })
+  vim.keymap.set('n', '<leader>fp', builtin.resume, { desc = 'Resume previous telescope' })
 
   -- File related
   vim.keymap.set('n', '<leader>fv', telescope.extensions.file_browser.file_browser,
@@ -621,6 +643,13 @@ vim.api.nvim_create_autocmd("FocusGained", {
 
 -- Setup nvim-tree
 require("nvim-tree").setup {
+  actions = {
+    open_file = {
+      window_picker = {
+        enable = false,
+      },
+    },
+  },
   filters = {
     dotfiles = true,
   },
