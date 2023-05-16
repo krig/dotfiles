@@ -80,7 +80,7 @@ require("lazy").setup(
       priority = 1000,
       config = function()
         require('rose-pine').setup({
-          variant = 'dawn',
+          variant = 'moon',
           dark_variant = 'moon',
           options = {
             terminal_colors = true,
@@ -167,6 +167,18 @@ require("lazy").setup(
       config = function()
         require("nvim-tree").setup {}
         vim.keymap.set('n', '<leader>o', vim.cmd.NvimTreeToggle, { desc = "Nvim Tree" })
+      end,
+    },
+    
+    {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+      },
+      config = function()
+        require('mason').setup()
+        require('mason-lspconfig').setup()
       end,
     },
     {
