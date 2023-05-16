@@ -43,3 +43,4 @@ if program_exists starship; then
   eval "$(starship init bash)"
 fi
 
+. "$HOME/.cargo/env"

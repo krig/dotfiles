@@ -133,6 +133,7 @@ require('packer').startup(function(use)
   use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' }, }
 
   -- Theme
+  use { 'catppuccin/nvim', as = 'catppuccin' }
   use { 'rose-pine/neovim', as = 'rose-pine' }
   use 'owickstrom/vim-colors-paramount'
   use {
@@ -171,6 +172,10 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 
 -- Set colorscheme
+require("catppuccin").setup({
+    flavour = "frappe",
+})
+
 require("rose-pine").setup {
   variant = 'moon',
   bold_vert_split = false,
@@ -181,7 +186,8 @@ require("rose-pine").setup {
   },
 }
 --
-vim.cmd [[colorscheme rose-pine]]
+vim.cmd [[colorscheme catppuccin]]
+-- vim.cmd [[colorscheme rose-pine]]
 -- vim.cmd [[colorscheme typewriter]]
 -- vim.cmd [[colorscheme paramount]]
 
@@ -754,7 +760,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = "railgun"
   --vim.opt.guifont = { "Ligconsolata,Noto_Color_Emoji", ":h20" }
   --vim.opt.guifont = { "Cascadia Code,Noto_Color_Emoji", ":h18" }
-  local neovide_font = "Cascadia Code,Noto_Color_Emoji"
+  local neovide_font = "Cascadia Mono PL,Noto_Color_Emoji"
   if place:find("home") then
     -- vim.opt.guifont = { "Pragmasevka Nerd Font,Noto_Color_Emoji", ":h14" }
     vim.opt.guifont = { neovide_font, ":h16" }
