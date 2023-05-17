@@ -17,3 +17,8 @@ vim.keymap.set("n", "Q", "@@", { noremap = true, desc = "Rerun last macro" })
 
 -- open URLs in browser
 vim.keymap.set("n", "gx", ":!open <c-r><c-a>", { desc = "Open URL" })
+
+-- toggle relative line numbers
+vim.keymap.set("n", "<leader>ur", function()
+  require("lazyvim.util").toggle("relativenumber", true)
+end, { desc = "Toggle Relative Line Numbers" })
