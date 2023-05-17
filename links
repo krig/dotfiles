@@ -48,19 +48,26 @@ def distro():
 UNAME = platform.uname()
 OSNAME = distro()
 HOSTNAME = UNAME.node.lower().split('.')[0]
-USERNAME = ""
+NAME = ""
 EMAIL = ""
 TAGS = []
 
 
 for local_file in ("~/.dotfiles.ini", "~/.config/dotfiles.ini"):
-    if os.path.isfile(local_file):
+    fn = os.path.expanduser(local_file)
+    if os.path.isfile(fn):
         import configparser
         config = configparser.ConfigParser()
-        config.read(local_file)
-        USERNAME = config["local"]["username"]
+        config.read(fn)
+        print(f"read {fn} to {config.sections()}")
+        NAME = config["local"]["name"]
         EMAIL = config["local"]["email"]
         TAGS = config["local"]["tags"].split()
+        break
+
+if not NAME or not EMAIL or not TAGS:
+    print("Please create ~/.config/dotfiles.ini")
+    sys.exit(1)
 
 
 
@@ -75,11 +82,19 @@ def altname(nam):
                 UNAME.system.lower(),
                 UNAME.machine.lower(),
                 OSNAME), TAGS):
-        altpaths.append(os.path.join(path, "{}.{}{}".format(name, key.lower(), ext)))
+        altpaths.append(os.path.join(path, "{}-{}{}".format(name, key.lower(), ext)))
+
+    for machine in (HOSTNAME,
+                UNAME.system.lower(),
+                UNAME.machine.lower(),
+                          OSNAME):
+        for tag in TAGS:
+            altpaths.append(os.path.join(path, "{}-{}-{}{}".format(name, machine.lower(), tag, ext)))
 
     for path in altpaths:
         if os.path.exists(path):
             return path
+
     return nam
 
 
@@ -89,7 +104,7 @@ def jinjafy(frm, target):
     params["hostname"] = UNAME.node.lower()
     params["system"] = UNAME.system.lower()
     params["arch"] = UNAME.machine.lower()
-    params["username"] = USERNAME
+    params["name"] = NAME
     params["email"] = EMAIL
     params["tags"] = TAGS
     cprint(C.OKBLUE, "@ {} -> {}".format(frm, target))

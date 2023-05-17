@@ -104,8 +104,8 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NAME="Kristoffer Grönlund"
-export EMAIL="krig@koru.se"
+export NAME="{{name}}"
+export EMAIL="{{email}}"
 
 alias s="kitty +kitten ssh"
 
@@ -135,26 +135,7 @@ alias ec="emacsclient -n -a emacs"
 alias g="git"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source $HOME/.config/broot/launcher/bash/br
-
-
-export QMK_HOME="$HOME/src/qmk_firmware"
-
+source ~/.config/broot/launcher/bash/br
+export QMK_HOME="~/src/qmk_firmware"
 eval "$(zoxide init zsh)"
-
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-	source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-
-    find_file() {
-        vterm_cmd find-file "$(realpath "${@:-.}")"
-    }
-
-    say() {
-        vterm_cmd message "%s" "$*"
-    }
-fi
-
-[[ "$INSIDE_EMACS" = 'vterm' ]] || eval "$(starship init zsh)"
+eval "$(starship init zsh)"

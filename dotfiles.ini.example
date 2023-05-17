@@ -2,7 +2,7 @@
 # before running ./links
 
 [local]
-username = User Name
+name = User Name
 email = user@example.com
 
 # pick FILE.tag if it exists

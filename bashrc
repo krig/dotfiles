@@ -26,7 +26,9 @@ export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/Idea/bin:$HOME/.local
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
-source /Users/krig/.config/broot/launcher/bash/br
+if [ -f ~/.config/broot/launcher/bash/br ]; then
+  source $HOME/.config/broot/launcher/bash/br
+fi
 
 eval "$(starship init bash)"
 
