@@ -3,16 +3,16 @@
 Link stuff into home directory
 """
 import os
+import platform
 import shutil
 import subprocess
-import platform
-from jinja2 import Template
 import sys
+from itertools import chain
+from jinja2 import Template
 
 
 ENABLE_COLOR = False if "--no-color" in sys.argv[1:] else True
 VERBOSE = "-v" in sys.argv[1:]
-
 
 class C:
     HEADER = '\033[95m'
@@ -48,6 +48,22 @@ def distro():
 UNAME = platform.uname()
 OSNAME = distro()
 HOSTNAME = UNAME.node.lower().split('.')[0]
+USERNAME = ""
+EMAIL = ""
+TAGS = []
+
+
+for local_file in ("~/.dotfiles.ini", "~/.config/dotfiles.ini"):
+    if os.path.isfile(local_file):
+        import configparser
+        config = configparser.ConfigParser()
+        config.read(local_file)
+        USERNAME = config["local"]["username"]
+        EMAIL = config["local"]["email"]
+        TAGS = config["local"]["tags"].split()
+
+
+
 
 def altname(nam):
     "find custom alternate versions of files"
@@ -55,8 +71,11 @@ def altname(nam):
     name, ext = os.path.splitext(basename)
 
     altpaths = []
-    for key in (HOSTNAME, UNAME.system.lower(), UNAME.machine.lower(), OSNAME):
-        altpaths.append(os.path.join(path, "{}--{}{}".format(name, key.lower(), ext)))
+    for key in chain((HOSTNAME,
+                UNAME.system.lower(),
+                UNAME.machine.lower(),
+                OSNAME), TAGS):
+        altpaths.append(os.path.join(path, "{}.{}{}".format(name, key.lower(), ext)))
 
     for path in altpaths:
         if os.path.exists(path):
@@ -70,6 +89,9 @@ def jinjafy(frm, target):
     params["hostname"] = UNAME.node.lower()
     params["system"] = UNAME.system.lower()
     params["arch"] = UNAME.machine.lower()
+    params["username"] = USERNAME
+    params["email"] = EMAIL
+    params["tags"] = TAGS
     cprint(C.OKBLUE, "@ {} -> {}".format(frm, target))
     with open(frm) as ifo, open(target, 'w') as ofo:
         template = Template(ifo.read())
@@ -191,5 +213,6 @@ link("tmux.conf", ".tmux.conf")
 link("gdbinit", ".gdbinit")
 link("dircolors", ".dircolors")
 link("kitty", ".config/kitty")
+link("wezterm", ".config/wezterm")
 link("zshrc", ".zshrc")
 

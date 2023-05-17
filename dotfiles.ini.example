@@ -1,0 +1,17 @@
+# copy to ~/.dotfiles.ini or ~/.config/dotfiles.ini
+# before running ./links
+
+[local]
+username = User Name
+email = user@example.com
+
+# pick FILE.tag if it exists
+# for example if there are two files
+# in this repo: .tmux.conf and .tmux.conf.laptop
+# then on the computer with "laptop" as its
+# tag, we pick the .laptop file.
+# Using this instead of hostname since on
+# at least one of my machines the hostname
+# changes, plus I allow multiple tags.
+tags = home
+
