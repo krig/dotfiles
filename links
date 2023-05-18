@@ -77,7 +77,7 @@ def altname(nam):
     path, basename = os.path.split(nam)
     name, ext = os.path.splitext(basename)
 
-    altpaths = []
+    altpaths = [nam]
     for key in chain((HOSTNAME,
                 UNAME.system.lower(),
                 UNAME.machine.lower(),
@@ -91,14 +91,19 @@ def altname(nam):
         for tag in TAGS:
             altpaths.append(os.path.join(path, "{}-{}-{}{}".format(name, machine.lower(), tag, ext)))
 
+
     for path in altpaths:
         if os.path.exists(path):
             return path
+        if os.path.exists(f"{path}.jinja"):
+            return f"{path}.jinja"
 
-    return nam
+    print("could not find", nam)
+    print("altnames", ", ".join(altpaths))
+    sys.exit(1)
 
 
-def jinjafy(frm, target):
+def jinjafy(frm):
     "render template target actual file"
     params = {}
     params["hostname"] = UNAME.node.lower()
@@ -107,10 +112,25 @@ def jinjafy(frm, target):
     params["name"] = NAME
     params["email"] = EMAIL
     params["tags"] = TAGS
-    cprint(C.OKBLUE, "@ {} -> {}".format(frm, target))
-    with open(frm) as ifo, open(target, 'w') as ofo:
+
+    renderdir = os.path.expanduser("~/.config/dotfiles/rendered")
+    os.makedirs(renderdir, exist_ok=True)
+    
+    _, basename = os.path.split(frm)
+    name, _ = os.path.splitext(basename)
+
+    rendered = os.path.join(renderdir, name)
+
+    if os.path.isfile(rendered) and is_newer(rendered, frm):
+        cprint(C.OKBLUE, "@ {} -> {} (already rendered)".format(frm, rendered))
+        return rendered
+
+    cprint(C.OKBLUE, "@ {} -> {}".format(frm, rendered))
+    with open(frm) as ifo, open(rendered, 'w') as ofo:
         template = Template(ifo.read())
         ofo.write(template.render(**params))
+
+    return rendered
 
 
 def in_home(path):
@@ -175,19 +195,21 @@ makedirs_p(OLD_DIR)
 def link(frm, target):
     "links file in dots dir target file in home dir"
     frm = altname(frm)
-    dotsfrom = os.path.join(DOTS_DIR, frm)
     if VERBOSE:
         cprint(None, "? {} {}", frm, target)
-    tmpl = os.path.join(DOTS_DIR, "{}.jinja".format(frm))
 
-    if os.path.exists(tmpl) and os.path.exists(dotsfrom) and is_newer(tmpl, dotsfrom):
-        os.unlink(dotsfrom)
+    if frm.endswith(".jinja"):
+        tmpl = frm
+        frm = frm[:-6]
+    else:
+        tmpl = f"{frm}.jinja"
+    dotsfrom = os.path.join(DOTS_DIR, frm)
+    print(f"tmpl={tmpl}, frm={frm}")
 
-    if not os.path.exists(dotsfrom):
-        if os.path.exists(tmpl):
-            jinjafy(tmpl, dotsfrom)
-        else:
-            return
+    if os.path.exists(tmpl):
+        dotsfrom = jinjafy(tmpl)
+    else:
+        return
 
     tgt = in_home(target)
     if os.path.islink(tgt):
