@@ -208,8 +208,6 @@ def link(frm, target):
 
     if os.path.exists(tmpl):
         dotsfrom = jinjafy(tmpl)
-    else:
-        return
 
     tgt = in_home(target)
     if os.path.islink(tgt):
