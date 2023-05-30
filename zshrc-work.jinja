@@ -8,7 +8,7 @@ ulimit -n 4096
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
-export PATH="$HOME/bin:$HOME/.emacs.d/bin:$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
 
 if [ -d "$HOME/Library/Python/3.9/bin" ]; then
     export PATH="$HOME/Library/Python/3.9/bin:$PATH"
@@ -18,10 +18,8 @@ fi
 if [ -d $HOME/src/oh-my-zsh ]; then
     export ZSH="$HOME/src/oh-my-zsh"
 else
-    export ZSH="/Users/krig/.oh-my-zsh"
+    export ZSH="$HOME/.oh-my-zsh"
 fi
-
-export AUTOSSH_PORT=0
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -117,43 +115,6 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NAME="{{name}}"
-export EMAIL="{{email}}"
-export EDITOR="nvim"
-
-alias s="kitty +kitten ssh"
-
-if [ "$(command -v exa)" ]; then
-    unalias -m 'll'
-    unalias -m 'l'
-    unalias -m 'la'
-    unalias -m 'ls'
-    alias ls='exa -G  --color auto -a -s type'
-    alias ll='exa -l --color always -a -s type'
-elif [ "$(command -v lsd)" ]; then
-    unalias -m 'll'
-    unalias -m 'la'
-    unalias -m 'ls'
-    alias ls='lsd'
-    alias ll='lsd -l'
-    alias la='lsd -a'
-fi
-
-if [ "$(command -v nvim)" ]; then
-    alias vim='nvim'
-    alias vi='nvim'
-    alias e='nvim'
-elif [ "$(command -v hx)" ]; then
-    alias e='hx'
-fi
-
-alias ec="emacsclient -n -a emacs"
-alias g="git"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-
 function git {
   # Only touch git if it's the push subcommand
   if [[ "$1" == "push" ]]; then
@@ -191,6 +152,42 @@ function git {
   command git "$@"
 }
 
+
+export NAME="{{name}}"
+export EMAIL="{{email}}"
+export EDITOR="nvim"
+
+alias s="kitty +kitten ssh"
+
+if [ "$(command -v exa)" ]; then
+    unalias -m 'll'
+    unalias -m 'l'
+    unalias -m 'la'
+    unalias -m 'ls'
+    alias ls='exa -G  --color auto -a -s type'
+    alias ll='exa -l --color always -a -s type'
+elif [ "$(command -v lsd)" ]; then
+    unalias -m 'll'
+    unalias -m 'la'
+    unalias -m 'ls'
+    alias ls='lsd'
+    alias ll='lsd -l'
+    alias la='lsd -a'
+fi
+
+if [ "$(command -v nvim)" ]; then
+    alias vim='nvim'
+    alias vi='nvim'
+    alias e='nvim'
+elif [ "$(command -v hx)" ]; then
+    alias e='hx'
+fi
+
+alias ec="emacsclient -n -a emacs"
+alias g="git"
+
+
+export AUTOSSH_PORT=0
 export GITEA_WORK_DIR=~/gitea/
 export QMK_HOME="~/src/qmk_firmware"
 

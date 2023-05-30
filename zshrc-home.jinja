@@ -5,10 +5,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
-export PATH="$HOME/bin:$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/krig/.oh-my-zsh"
+if [ -d $HOME/src/oh-my-zsh ]; then
+    export ZSH="$HOME/src/oh-my-zsh"
+else
+    export ZSH="$HOME/.oh-my-zsh"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -106,6 +110,7 @@ export LANG=en_US.UTF-8
 
 export NAME="{{name}}"
 export EMAIL="{{email}}"
+export EDITOR="nvim"
 
 alias s="kitty +kitten ssh"
 
@@ -129,13 +134,22 @@ fi
 
 if [ "$(command -v nvim)" ]; then
     alias vim='nvim'
+    alias vi='nvim'
+    alias e='nvim'
+elif [ "$(command -v hx)" ]; then
+    alias e='hx'
 fi
 
 alias ec="emacsclient -n -a emacs"
 alias g="git"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/.config/broot/launcher/bash/br
 export QMK_HOME="~/src/qmk_firmware"
-eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+if [ "$(command -v zoxide)" ]; then
+    eval "$(zoxide init zsh)"
+fi
+if [ "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+fi
