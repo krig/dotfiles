@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 from itertools import chain
-from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 
 
 ENABLE_COLOR = False if "--no-color" in sys.argv[1:] else True
@@ -127,7 +127,7 @@ def jinjafy(frm):
 
     cprint(C.OKBLUE, "@ {} -> {}".format(frm, rendered))
     with open(frm) as ifo, open(rendered, 'w') as ofo:
-        template = Template(ifo.read())
+        template = Environment(loader=FileSystemLoader('.')).from_string(ifo.read())
         ofo.write(template.render(**params))
 
     return rendered
