@@ -114,34 +114,8 @@ export EDITOR="nvim"
 
 alias s="kitty +kitten ssh"
 
-if [ "$(command -v exa)" ]; then
-    unalias -m 'll'
-    unalias -m 'l'
-    unalias -m 'la'
-    unalias -m 'ls'
-    alias ls='exa -G  --color auto -a -s type'
-    alias ll='exa -l --color always -a -s type'
-fi
-
-if [ "$(command -v lsd)" ]; then
-    unalias -m 'll'
-    unalias -m 'la'
-    unalias -m 'ls'
-    alias ls='lsd'
-    alias ll='lsd -l'
-    alias la='lsd -a'
-fi
-
-if [ "$(command -v nvim)" ]; then
-    alias vim='nvim'
-    alias vi='nvim'
-    alias e='nvim'
-elif [ "$(command -v hx)" ]; then
-    alias e='hx'
-fi
-
-alias ec="emacsclient -n -a emacs"
-alias g="git"
+{% include 'partial/git.j2' %}
+{% include 'partial/alias.j2' %}
 
 export QMK_HOME="~/src/qmk_firmware"
 
