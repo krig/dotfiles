@@ -48,9 +48,7 @@ def distro():
 UNAME = platform.uname()
 OSNAME = distro()
 HOSTNAME = UNAME.node.lower().split('.')[0]
-NAME = ""
-EMAIL = ""
-TAGS = []
+CUSTOM = {}
 
 
 for local_file in ("~/.dotfiles.ini", "~/.config/dotfiles.ini"):
@@ -60,13 +58,16 @@ for local_file in ("~/.dotfiles.ini", "~/.config/dotfiles.ini"):
         config = configparser.ConfigParser()
         config.read(fn)
         print(f"read {fn} to {config.sections()}")
-        NAME = config["local"]["name"]
-        EMAIL = config["local"]["email"]
-        TAGS = config["local"]["tags"].split()
+        for key, value in config["local"].items():
+            if key == "tags":
+                CUSTOM[key] = value.split()
+            else:
+                CUSTOM[key] = value
         break
 
-if not NAME or not EMAIL or not TAGS:
+if not CUSTOM.get("name") or not CUSTOM.get("email") or not CUSTOM.get("tags"):
     print("Please create ~/.config/dotfiles.ini")
+    print("Make sure at least name, email and tags are set!")
     sys.exit(1)
 
 
@@ -78,17 +79,18 @@ def altname(nam):
     name, ext = os.path.splitext(basename)
 
     altpaths = [nam]
+    tags = CUSTOM["tags"]
     for key in chain((HOSTNAME,
                 UNAME.system.lower(),
                 UNAME.machine.lower(),
-                OSNAME), TAGS):
+                OSNAME), tags):
         altpaths.append(os.path.join(path, "{}-{}{}".format(name, key.lower(), ext)))
 
     for machine in (HOSTNAME,
                 UNAME.system.lower(),
                 UNAME.machine.lower(),
                           OSNAME):
-        for tag in TAGS:
+        for tag in tags:
             altpaths.append(os.path.join(path, "{}-{}-{}{}".format(name, machine.lower(), tag, ext)))
 
 
@@ -105,13 +107,12 @@ def altname(nam):
 
 def jinjafy(frm):
     "render template target actual file"
-    params = {}
-    params["hostname"] = UNAME.node.lower()
-    params["system"] = UNAME.system.lower()
-    params["arch"] = UNAME.machine.lower()
-    params["name"] = NAME
-    params["email"] = EMAIL
-    params["tags"] = TAGS
+    params = {
+        "hostname": UNAME.node.lower(),
+        "system": UNAME.system.lower(),
+        "arch": UNAME.machine.lower(),
+    }
+    params.update(CUSTOM)
 
     renderdir = os.path.expanduser("~/.config/dotfiles/rendered")
     os.makedirs(renderdir, exist_ok=True)
@@ -243,11 +244,14 @@ link("bashrc", ".bashrc")
 link("starship.toml", ".config/starship.toml")
 link("gitconfig", ".gitconfig")
 link("nvim", ".config/nvim")
-link("ssh-config", ".ssh/config")
 link("tmux.conf", ".tmux.conf")
 link("gdbinit", ".gdbinit")
 link("dircolors", ".dircolors")
 link("kitty", ".config/kitty")
 link("wezterm", ".config/wezterm")
 link("zshrc", ".zshrc")
+
+# Only apply SSH config at home
+if "home" in CUSTOM["tags"]:
+    link("ssh-config", ".ssh/config")
 
