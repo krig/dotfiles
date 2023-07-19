@@ -6,7 +6,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("CommitMono")
+config.font = wezterm.font("Fira Code")
 config.font_size = 14
 config.color_scheme = "Catppuccin Mocha"
 
