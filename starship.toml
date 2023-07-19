@@ -5,10 +5,10 @@
 add_newline = false
 
 [git_branch]
-disabled = true
+disabled = false
 
 [git_state]
-disabled = true
+disabled = false
 
 [git_metrics]
 disabled = true

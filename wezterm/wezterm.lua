@@ -6,9 +6,9 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("Cascadia Mono PL")
-config.font_size = 16
-config.color_scheme = "rose-pine-moon"
+config.font = wezterm.font("CommitMono")
+config.font_size = 14
+config.color_scheme = "Catppuccin Mocha"
 
 config.keys = {
 	{
