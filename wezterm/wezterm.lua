@@ -13,14 +13,34 @@ config.color_scheme = 'Catppuccin Frappé (Gogh)'
 
 config.keys = {
 	{
-		key = "|",
+		key = "i",
 		mods = "CMD",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = "@",
+		key = "u",
 		mods = "CMD",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "LeftArrow",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.ActivatePaneDirection('Left'),
+	},
+	{
+		key = "RightArrow",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.ActivatePaneDirection('Right'),
+	},
+	{
+		key = "UpArrow",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.ActivatePaneDirection('Up'),
+	},
+	{
+		key = "DownArrow",
+		mods = "CMD|SHIFT",
+		action = wezterm.action.ActivatePaneDirection('Down'),
 	},
 }
 
