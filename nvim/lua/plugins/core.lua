@@ -54,14 +54,6 @@ return {
     end,
   },
   {
-    'folke/flash.nvim',
-    opts = {
-      label = {
-        current = false,
-      },
-    },
-  },
-  {
     'f-person/git-blame.nvim',
   },
 }

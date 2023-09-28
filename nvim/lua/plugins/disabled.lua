@@ -2,6 +2,7 @@
 return {
   { "RRethy/vim-illuminate", enabled = false },
   { "SmiteshP/nvim-navic", enabled = false },
+  { "folke/flash.nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
   { "folke/noice.nvim", enabled = false },
