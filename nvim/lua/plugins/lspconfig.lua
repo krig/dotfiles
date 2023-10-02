@@ -41,7 +41,7 @@ return {
     autoformat = false,
     -- Enable this to show formatters used in a notification
     -- Useful for debugging formatter issues
-    format_notify = true,
+    format_notify = false,
     -- options for vim.lsp.buf.format
     -- `bufnr` and `filter` is handled by the LazyVim formatter,
     -- but can be also overridden when specified
@@ -53,32 +53,6 @@ return {
     ---@type lspconfig.options
     servers = {
       ---@type lspconfig.options.tsserver
-      tsserver = {
-        keys = {
-          { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-          { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
-        },
-        settings = {
-          typescript = {
-            format = {
-              indentSize = vim.o.shiftwidth,
-              convertTabsToSpaces = vim.o.expandtab,
-              tabSize = vim.o.tabstop,
-            },
-          },
-          javascript = {
-            format = {
-              indentSize = vim.o.shiftwidth,
-              convertTabsToSpaces = vim.o.expandtab,
-              tabSize = vim.o.tabstop,
-            },
-          },
-          completions = {
-            completeFunctionCalls = true,
-          },
-        },
-      },
-      jsonls = {},
       lua_ls = {
         -- mason = false, -- set to false if you don't want this server to be installed with mason
         -- Use this to add any additional keymaps
@@ -101,10 +75,6 @@ return {
     -- return true if you don't want this server to be setup with lspconfig
     ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
     setup = {
-      tsserver = function(_, opts)
-        require("typescript").setup({ server = opts })
-        return true
-      end,
       -- example to setup with typescript.nvim
       -- tsserver = function(_, opts)
       --   require("typescript").setup({ server = opts })
@@ -151,7 +121,7 @@ return {
 
     if opts.inlay_hints.enabled and inlay_hint then
       Util.on_attach(function(client, buffer)
-        if client.server_capabilities.inlayHintProvider then
+        if client.supports_method("textDocument/inlayHint") then
           inlay_hint(buffer, true)
         end
       end)
