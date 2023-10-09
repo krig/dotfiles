@@ -65,4 +65,14 @@ return {
       { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Projects" },
     },
   },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        bind_to_cwd = true,
+        follow_current_file = { enabled = false },
+        use_libuv_file_watcher = false,
+      },
+    },
+  }
 }
