@@ -47,7 +47,7 @@ return {
     end,
   },
   {
-    'f-person/git-blame.nvim',
+    "f-person/git-blame.nvim",
   },
   {
     "ahmedkhalf/project.nvim",
@@ -70,7 +70,7 @@ return {
     opts = {
       filesystem = {
         bind_to_cwd = true,
-        use_libuv_file_watcher = false,
+        use_libuv_file_watcher = true,
       },
     },
     keys = {
@@ -81,13 +81,6 @@ return {
         end,
         desc = "Explorer NeoTree",
       },
-      {
-        "<leader>fE",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = require("lazyvim.util").get_root() })
-        end,
-        desc = "Explorer NeoTree (lazy root)",
-      },
-    }
-  }
+    },
+  },
 }
