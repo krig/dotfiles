@@ -19,9 +19,11 @@ return {
     },
     keys = {
       { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-      { "<leader><space>", "<cmd>Telescope fd<cr>", desc = "Find Files" },
+      { "<leader><space>", "<cmd>Telescope files<cr>", desc = "Find Files" },
       { "<leader>gf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
       { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Grep Word" },
+      { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
+      { "<leader>ss", "<leader>sg", desc = "Grep" },
     },
   },
 }
