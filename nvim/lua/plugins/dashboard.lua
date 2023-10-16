@@ -1,6 +1,6 @@
 return {
   {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     opts = function()
       local logo = [[ _______             ____   ____.__         ]]
         .. "\n"
