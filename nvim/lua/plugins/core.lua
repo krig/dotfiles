@@ -73,17 +73,18 @@ return {
         use_libuv_file_watcher = true,
         components = {
           harpoon_index = function(config, node, _)
-            local Marked = require("harpoon.mark")
-            local path = node:get_id()
-            local success, index = pcall(Marked.get_index_of, path)
-            if success and index and index > 0 then
-              return {
-                text = string.format(" ⇁%d", index),
-                highlight = config.highlight or "NeoTreeDirectoryIcon",
-              }
-            else
-              return {}
+            local ok, Marked = pcall(require, 'harpoon.mark')
+            if ok then
+              local path = node:get_id()
+              local ok2, index = pcall(Marked.get_index_of, path)
+              if ok2 and index and index > 0 then
+                return {
+                  text = string.format(" ⇁%d", index),
+                  highlight = config.highlight or "NeoTreeDirectoryIcon",
+                }
+              end
             end
+            return {}
           end
         },
         renderers = {
