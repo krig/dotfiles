@@ -71,6 +71,37 @@ return {
       filesystem = {
         bind_to_cwd = true,
         use_libuv_file_watcher = true,
+        components = {
+          harpoon_index = function(config, node, _)
+            local Marked = require("harpoon.mark")
+            local path = node:get_id()
+            local success, index = pcall(Marked.get_index_of, path)
+            if success and index and index > 0 then
+              return {
+                text = string.format(" ⇁%d", index),
+                highlight = config.highlight or "NeoTreeDirectoryIcon",
+              }
+            else
+              return {}
+            end
+          end
+        },
+        renderers = {
+          file = {
+            {"name", use_git_status_colors = true},
+            {"harpoon_index"},
+            {"diagnostics"},
+            {"git_status", highlight = "NeoTreeDimText"},
+          },
+        },
+      },
+      default_component_configs = {
+        indent = {
+          with_markers = false,
+        },
+        git_status = {
+          symbols = false,
+        }
       },
     },
     keys = {

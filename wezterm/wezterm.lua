@@ -7,7 +7,7 @@ if wezterm.config_builder then
 end
 
 config.font = wezterm.font("Iosevka Term SS07")
-config.font_size = 16
+config.font_size = 14
 -- config.color_scheme = "Catppuccin Mocha"
 config.color_scheme = "Catppuccin Frappé (Gogh)"
 
