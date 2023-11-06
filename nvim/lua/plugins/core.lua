@@ -68,9 +68,17 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      buffers = {
+        follow_current_file = {
+          enabled = false,
+        }
+      },
       filesystem = {
         bind_to_cwd = true,
         use_libuv_file_watcher = true,
+        follow_current_file = {
+          enabled = false,
+        },
         components = {
           harpoon_index = function(config, node, _)
             local ok, Marked = pcall(require, 'harpoon.mark')
