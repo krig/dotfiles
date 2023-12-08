@@ -29,4 +29,9 @@ vim.keymap.set('n', "<leader>fd", function()
   builtin.find_files({ cwd = utils.buffer_dir() })
 end, { desc = "Find files from current buffer" })
 
+vim.keymap.set('n', "<leader>fs", function()
+  local builtin = require('telescope.builtin')
+  builtin.resume()
+end, { desc = "Resume last telescope buffer" })
+
 require('lazyvim.util').root_patterns = { ".git" }
