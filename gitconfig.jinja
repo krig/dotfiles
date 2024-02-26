@@ -41,6 +41,7 @@ egrep = grep -E
 root = rev-parse --show-toplevel
 pr = !"pr() { git fetch origin pull/$1/head:pr-$1; }; pr"
 pushfwl = push --force-with-lease
+pf = pushfwl
 fixup = commit --fixup
 autosquash = rebase -i --autosquash
 set-upstream = !"up() { git branch --set-upstream-to=origin/$1 $1; }; up"
