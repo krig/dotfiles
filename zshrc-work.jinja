@@ -8,11 +8,10 @@ ulimit -n 4096
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
-export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
-
-if [ -d "$HOME/Library/Python/3.9/bin" ]; then
-    export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+if [ -d "/opt/homebrew/bin" ]; then
+    export PATH="/opt/homebrew/bin:$PATH"
 fi
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 if [ -d $HOME/src/oh-my-zsh ]; then
@@ -118,6 +117,10 @@ export LANG=en_US.UTF-8
 {% include 'partial/git.j2' %}
 {% include 'partial/alias.j2' %}
 
+if [ "$(command -v pyenv)" ]; then
+    eval "$(pyenv init -)"
+fi
+
 export NAME="{{name}}"
 export EMAIL="{{email}}"
 export EDITOR="nvim"
@@ -128,10 +131,23 @@ alias s="kitty +kitten ssh"
 alias ec="emacsclient -n -a emacs"
 alias g="git"
 
-
 export AUTOSSH_PORT=0
 export GITEA_WORK_DIR=~/gitea/
 export QMK_HOME="~/src/qmk_firmware"
+
+export AWS_PROFILE=mfa
+
+alias k=kubectl
+alias sshUnknown='ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no"'
+
+[ -f ~/.jira_token ] && export JIRA_API_TOKEN="$(cat ~/.jira_token)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
