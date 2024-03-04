@@ -110,4 +110,7 @@ return {
       },
     },
   },
+  {
+    "ChrisWellsWood/roc.vim",
+  },
 }
