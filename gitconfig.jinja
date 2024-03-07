@@ -34,11 +34,9 @@ d = diff
 wtf = status
 publish = !legit publish \"$@\"
 track-remote = !git-trackremote $0
-sup = !git-submodule update --remote --rebase $@
 lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 pullr = pull --rebase
 dc = diff --cached
-sup = submodule update
 egrep = grep -E
 root = rev-parse --show-toplevel
 pr = !"pr() { git fetch origin pull/$1/head:pr-$1; }; pr"
@@ -46,7 +44,7 @@ pushfwl = push --force-with-lease
 pf = pushfwl
 fixup = commit --fixup
 autosquash = rebase -i --autosquash
-set-upstream = !"up() { git branch --set-upstream-to=origin/$1 $1; }; up"
+sup = !"up() { git branch --set-upstream-to=origin/${1:-$(git branch --show-current)} ${1:-$(git branch --show-current)}; }; up"
 
 [push]
 default = current
