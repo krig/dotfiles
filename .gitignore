@@ -6,4 +6,4 @@ tags
 nvim/plugged/
 fish/fish_variables
 fish/functions/fzf_key_bindings.fish
-
+.DS_Store
