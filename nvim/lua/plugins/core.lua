@@ -21,9 +21,6 @@ return {
     },
   },
   {
-    "petertriho/nvim-scrollbar",
-  },
-  {
     "tpope/vim-eunuch",
   },
   {
@@ -42,9 +39,6 @@ return {
         vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
       end
     end,
-  },
-  {
-    "f-person/git-blame.nvim",
   },
   {
     "ahmedkhalf/project.nvim",

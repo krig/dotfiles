@@ -1,6 +1,7 @@
 return {
   {
     "nvimdev/dashboard-nvim",
+    enabled = false,
     opts = function()
       local logo = [[ _______             ____   ____.__         ]]
         .. "\n"
