@@ -1,19 +1,24 @@
 return {
+  -- {
+  --   "catppuccin/nvim",
+  --   lazy = false,
+  --   name = "catppuccin",
+  --   opts = {
+  --     flavour = "frappe",
+  --     styles = {
+  --       conditionals = { "bold" },
+  --     },
+  --   },
+  -- },
   {
-    "catppuccin/nvim",
+    "rose-pine/neovim",
+    name = "rose-pine",
     lazy = false,
-    name = "catppuccin",
-    opts = {
-      flavour = "frappe",
-      styles = {
-        conditionals = { "bold" },
-      },
-    },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "rose-pine",
     },
   },
 }
