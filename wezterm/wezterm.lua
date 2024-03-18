@@ -9,8 +9,7 @@ end
 config.font = wezterm.font("Operator-caska")
 config.font_size = 15
 -- config.color_scheme = "Catppuccin Mocha"
--- config.color_scheme = "Catppuccin Frappé (Gogh)"
-config.color_scheme = "rose-pine-moon"
+config.color_scheme = "Catppuccin Frappé (Gogh)"
 
 config.keys = {
 	{
