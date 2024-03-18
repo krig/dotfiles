@@ -8,4 +8,3 @@ vim.g.autoformat = false
 
 vim.g.root_spec = { { ".git" }, "cwd" }
 vim.opt.foldmethod = "indent"
-
