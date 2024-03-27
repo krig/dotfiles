@@ -34,6 +34,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    enabled = false,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
@@ -60,26 +61,9 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
-        components = {
-          harpoon_index = function(config, node, _)
-            local ok, Marked = pcall(require, 'harpoon.mark')
-            if ok then
-              local path = node:get_id()
-              local ok2, index = pcall(Marked.get_index_of, path)
-              if ok2 and index and index > 0 then
-                return {
-                  text = string.format(" ⇁%d", index),
-                  highlight = config.highlight or "NeoTreeDirectoryIcon",
-                }
-              end
-            end
-            return {}
-          end
-        },
         renderers = {
           file = {
             {"name", use_git_status_colors = true},
-            {"harpoon_index"},
             {"diagnostics"},
             {"git_status", highlight = "NeoTreeDimText"},
           },
@@ -106,5 +90,27 @@ return {
   },
   {
     "ChrisWellsWood/roc.vim",
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = "VeryLazy",
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      if vim.fn.argc(-1) > 0 then
+        -- set an empty statusline till lualine loads
+        vim.o.statusline = " "
+      else
+        -- hide the statusline on the starter page
+        vim.o.laststatus = 0
+      end
+    end,
+    opts = function ()
+      return {
+        options = {
+          theme = "auto",
+        },
+      }
+    end,
   },
 }

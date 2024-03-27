@@ -15,4 +15,9 @@ return {
   { "hrsh7th/cmp-nvim-lsp", enabled = false },
   { "echasnovski/mini.bufremove", enabled = false },
   { "nvim-pack/nvim-spectre", enabled = false },
+  { "nvim-treesitter/nvim-treesitter", enabled = false },
+  { "windwp/nvim-ts-autotag", enabled = false },
+  { "nvimdev/dashboard-nvim", enabled = false },
+  { "hrsh7th/nvim-cmp", enabled = false },
+  { "echanovski/mini.surround", enabled = false },
 }

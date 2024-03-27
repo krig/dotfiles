@@ -9,8 +9,4 @@ return {
       })
     end,
   },
-  {
-    "echasnovski/mini.surround",
-    enabled = false,
-  },
 }
