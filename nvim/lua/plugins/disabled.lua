@@ -11,7 +11,6 @@ return {
   { "echanovski/mini.pairs", enabled = false },
   { "L3MON4D3/LuaSnip", enabled = false },
   { "rafamadriz/friendly-snippets", enabled = false },
-  { "folke/tokyonight.nvim", enabled = false },
   { "hrsh7th/cmp-nvim-lsp", enabled = false },
   { "echasnovski/mini.bufremove", enabled = false },
   { "nvim-pack/nvim-spectre", enabled = false },
