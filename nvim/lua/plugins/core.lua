@@ -96,4 +96,11 @@ return {
       insert_mappings =false,
     },
   },
+  {
+    'ziglang/zig.vim',
+    version = '*',
+    init = function ()
+      vim.g.zig_fmt_autosave = 0
+    end,
+  },
 }
