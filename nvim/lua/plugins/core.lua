@@ -33,31 +33,6 @@ return {
     "jeffkreeftmeijer/vim-numbertoggle",
   },
   {
-    "nvim-treesitter/nvim-treesitter",
-    enabled = false,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
-      end
-    end,
-  },
-  {
-    "ahmedkhalf/project.nvim",
-    lazy = false,
-    config = function(_, opts)
-      require("project_nvim").setup(opts)
-      require("telescope").load_extension("projects")
-    end,
-    opts = {
-      detection_methods = { "pattern" },
-      patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn" },
-      silent_chdir = false,
-    },
-    keys = {
-      { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Projects" },
-    },
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
