@@ -13,7 +13,6 @@ return {
   { "nvim-treesitter", enabled = false },
   { "nvim-treesitter-textobjects", enabled = false },
   { "nvim-ts-autotag", enabled = false },
-  { "hrsh7th/nvim-cmp", enabled = false },
   { "nvimdev/dashboard-nvim", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
 }

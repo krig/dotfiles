@@ -34,6 +34,9 @@ vim.keymap.set('n', "<leader>r", function()
   builtin.resume()
 end, { desc = "Resume last telescope buffer" })
 
+vim.keymap.set('n', '<leader>cx', "<cmd>.lua<CR>", { desc = "Source the current line" })
+vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the current file" })
+
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
