@@ -11,7 +11,7 @@ fi
 if [ -d "/opt/homebrew/bin" ]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
-export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 if [ -d $HOME/src/oh-my-zsh ]; then
@@ -117,28 +117,22 @@ export LANG=en_US.UTF-8
 {% include 'partial/git.j2' %}
 {% include 'partial/alias.j2' %}
 
-if [ "$(command -v pyenv)" ]; then
-    eval "$(pyenv init -)"
-fi
-
 export NAME="{{name}}"
 export EMAIL="{{email}}"
 export EDITOR="nvim"
 
-alias s="kitty +kitten ssh"
+if [ "$(command -v pyenv)" ]; then
+    eval "$(pyenv init -)"
+fi
 
-
-alias ec="emacsclient -n -a emacs"
-alias g="git"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 
 export AUTOSSH_PORT=0
 export GITEA_WORK_DIR=~/gitea/
 export QMK_HOME="~/src/qmk_firmware"
 
 export AWS_PROFILE=mfa
-
-alias k=kubectl
-alias sshUnknown='ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no"'
 
 [ -f ~/.jira_token ] && export JIRA_API_TOKEN="$(cat ~/.jira_token)"
 
@@ -149,8 +143,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 if [ "$(command -v zoxide)" ]; then
     eval "$(zoxide init zsh)"
 fi
