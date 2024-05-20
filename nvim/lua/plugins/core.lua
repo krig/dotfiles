@@ -103,4 +103,10 @@ return {
       vim.g.zig_fmt_autosave = 0
     end,
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = { enabled = false },
+    },
+  },
 }

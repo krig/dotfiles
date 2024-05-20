@@ -6,3 +6,4 @@ vim.o.conceallevel = 0
 vim.cmd([[au Filetype json set conceallevel=0]])
 vim.g.autoformat = false
 vim.opt.foldmethod = "indent"
+vim.opt.completeopt = "menuone,noselect"
