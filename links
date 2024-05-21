@@ -239,7 +239,6 @@ def copy_bin():
 
 copy_bin()
 
-link("doom.d", ".doom.d")
 link("bashrc", ".bashrc")
 link("starship.toml", ".config/starship.toml")
 link("gitconfig", ".gitconfig")
