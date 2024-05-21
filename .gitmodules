@@ -1,3 +1,0 @@
-[submodule "doom.d"]
-	path = doom.d
-	url = git@github.com:krig/doom.d
