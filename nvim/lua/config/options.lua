@@ -5,7 +5,7 @@ local opt = vim.opt
 opt.scrolloff = 4
 opt.conceallevel = 0
 opt.foldmethod = "indent"
-opt.completeopt = { "menu", "menuone", "noselect" }
+opt.completeopt = { "menu", "menuone" }
 opt.shortmess:append "c"
 opt.inccommand = "split"
 

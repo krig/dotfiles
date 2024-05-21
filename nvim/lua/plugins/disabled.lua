@@ -8,7 +8,6 @@ return {
   { "folke/noice.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "stevearc/dressing.nvim", enabled = false },
-  { "rafamadriz/friendly-snippets", enabled = false },
   { "nvim-pack/nvim-spectre", enabled = false },
   { "nvim-treesitter", enabled = false },
   { "nvim-treesitter-textobjects", enabled = false },
