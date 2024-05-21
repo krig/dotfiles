@@ -246,7 +246,6 @@ link("nvim", ".config/nvim")
 link("tmux.conf", ".tmux.conf")
 link("gdbinit", ".gdbinit")
 link("dircolors", ".dircolors")
-link("kitty", ".config/kitty")
 link("wezterm", ".config/wezterm")
 link("zshrc", ".zshrc")
 
