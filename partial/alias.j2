@@ -1,3 +1,4 @@
+{# vi: ft=sh #}
 if [ "$(command -v exa)" ]; then
     unalias -m 'll'
     unalias -m 'l'
@@ -24,6 +25,11 @@ fi
 
 alias t=tig
 alias g=git
+if [ "$(command -v bat)" ]; then
+  alias c=bat
+fi
 
-alias k=kubectl
+if [ "$(command -v kubectl)" ]; then
+  alias k=kubectl
+fi
 alias sshu='ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no"'
