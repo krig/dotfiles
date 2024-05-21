@@ -116,23 +116,8 @@ export LANG=en_US.UTF-8
 
 {% include 'partial/git.j2' %}
 {% include 'partial/alias.j2' %}
-
-export NAME="{{name}}"
-export EMAIL="{{email}}"
-export EDITOR="nvim"
-
-if [ "$(command -v pyenv)" ]; then
-    eval "$(pyenv init -)"
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+{% include 'partial/env.j2' %}
 
 export QMK_HOME="~/src/qmk_firmware"
 
-if [ "$(command -v zoxide)" ]; then
-    eval "$(zoxide init zsh)"
-fi
-if [ "$(command -v starship)" ]; then
-    eval "$(starship init zsh)"
-fi
+{% include 'partial/prompt.j2' %}

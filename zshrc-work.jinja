@@ -116,38 +116,12 @@ export LANG=en_US.UTF-8
 
 {% include 'partial/git.j2' %}
 {% include 'partial/alias.j2' %}
-
-export NAME="{{name}}"
-export EMAIL="{{email}}"
-export EDITOR="nvim"
-
-if [ "$(command -v pyenv)" ]; then
-    eval "$(pyenv init -)"
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+{% include 'partial/env.j2' %}
 
 export AUTOSSH_PORT=0
 export GITEA_WORK_DIR=~/gitea/
-export QMK_HOME="~/src/qmk_firmware"
-
 export AWS_PROFILE=mfa
-
 [ -f ~/.jira_token ] && export JIRA_API_TOKEN="$(cat ~/.jira_token)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-export BAT_THEME="base16"
-
-if [ "$(command -v zoxide)" ]; then
-    eval "$(zoxide init zsh)"
-fi
-if [ "$(command -v starship)" ]; then
-    eval "$(starship init zsh)"
-fi
+{% include 'partial/prompt.j2' %}
