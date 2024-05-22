@@ -7,6 +7,7 @@ end
 return {
   {
       "garymjr/nvim-snippets",
+      lazy = true,
       dependencies = {
         "rafamadriz/friendly-snippets",
       },
@@ -17,8 +18,7 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
-    lazy = false,
-    priority = 100,
+    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",

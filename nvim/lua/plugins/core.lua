@@ -21,10 +21,8 @@ return {
     },
   },
   {
-    "tpope/vim-eunuch",
-  },
-  {
     "tpope/vim-fugitive",
+    cmd = "Git",
   },
   {
     "tpope/vim-sleuth",
@@ -65,6 +63,7 @@ return {
   },
   {
     "ChrisWellsWood/roc.vim",
+    ft = { "roc" },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -95,10 +94,14 @@ return {
       open_mapping = "<leader>t",
       insert_mappings =false,
     },
+    keys = {
+      { "<leader>t" },
+    },
   },
   {
     'ziglang/zig.vim',
     version = '*',
+    ft = { "zig" },
     init = function ()
       vim.g.zig_fmt_autosave = 0
     end,
