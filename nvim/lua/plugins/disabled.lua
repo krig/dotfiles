@@ -14,4 +14,5 @@ return {
   { "nvim-ts-autotag", enabled = false },
   { "nvimdev/dashboard-nvim", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
+  { "folke/ts-comments.nvim", enabled = false },
 }
