@@ -1,6 +1,5 @@
 -- Disabled plugins that LazyVim includes by default
 return {
-  -- { "RRethy/vim-illuminate", enabled = false },
   { "folke/flash.nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
@@ -15,4 +14,6 @@ return {
   { "nvimdev/dashboard-nvim", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
   { "folke/ts-comments.nvim", enabled = false },
+  { "hrsh7th/cmp-path", enabled = false },
+  { "nvim-tree/nvim-web-devicons", enabled = false },
 }
