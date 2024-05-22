@@ -72,7 +72,7 @@ return {
                 fallback()
               end
             end,
-            { "i", "c" }),
+            { "i" }),
           ["<S-Tab>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
@@ -83,7 +83,7 @@ return {
                 fallback()
               end
             end,
-            { "i", "c" }),
+            { "i" }),
         },
         snippet = {
           expand = function(args)
