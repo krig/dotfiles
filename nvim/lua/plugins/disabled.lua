@@ -3,7 +3,7 @@ return {
   { "folke/flash.nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
-  { "echanovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.pairs", enabled = false },
   { "folke/noice.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "stevearc/dressing.nvim", enabled = false },
