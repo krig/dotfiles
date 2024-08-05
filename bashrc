@@ -9,8 +9,8 @@ if program_exists nvim; then
   export EDITOR=nvim
   alias vim=nvim
 fi
-if program_exists exa; then
-  alias ls=exa
+if program_exists eza; then
+  alias ls=eza
 fi
 if program_exists rg; then
     alias ag=rg
