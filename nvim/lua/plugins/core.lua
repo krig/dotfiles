@@ -5,7 +5,7 @@ return {
     "johnfrankmorgan/whitespace.nvim",
     keys = {
       {
-        "<leader>ww",
+        "<leader>cw",
         function()
           require("whitespace-nvim").trim()
         end,

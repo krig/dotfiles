@@ -159,7 +159,6 @@ vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 -- windows
 vim.keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
-vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- Jump and recenter cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
