@@ -62,10 +62,6 @@ return {
     },
   },
   {
-    "ChrisWellsWood/roc.vim",
-    ft = { "roc" },
-  },
-  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
@@ -94,27 +90,11 @@ return {
     'akinsho/toggleterm.nvim',
     version = "*",
     opts = {
-      open_mapping = "<leader>t",
+      open_mapping = "<leader>tt",
       insert_mappings =false,
     },
     keys = {
-      { "<leader>t" },
-    },
-  },
-  {
-    'ziglang/zig.vim',
-    version = '*',
-    ft = { "zig" },
-    init = function ()
-      vim.g.zig_fmt_autosave = 0
-    end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      inlay_hints = { enabled = false },
-      document_highlight = { enabled = false },
-      codelens = { enabled = false },
+      { "<leader>tt", desc = "Open terminal" },
     },
   },
 }
