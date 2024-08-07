@@ -91,4 +91,7 @@ return {
       }
     end,
   },
+  {
+    "echasnovski/mini.ai",
+  }
 }

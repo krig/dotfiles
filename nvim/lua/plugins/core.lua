@@ -31,37 +31,6 @@ return {
     "jeffkreeftmeijer/vim-numbertoggle",
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      filesystem = {
-        renderers = {
-          file = {
-            {"name", use_git_status_colors = true},
-            {"diagnostics"},
-            {"git_status", highlight = "NeoTreeDimText"},
-          },
-        },
-      },
-      default_component_configs = {
-        indent = {
-          with_markers = false,
-        },
-        git_status = {
-          symbols = false,
-        }
-      },
-    },
-    keys = {
-      {
-        "<leader>e",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree",
-      },
-    },
-  },
-  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
@@ -97,4 +66,16 @@ return {
       { "<leader>tt", desc = "Open terminal" },
     },
   },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  }
 }

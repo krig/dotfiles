@@ -1,7 +1,7 @@
 return {
   {
     "catppuccin/nvim",
-    lazy = true,
+    lazy = false,
     name = "catppuccin",
     opts = {
       flavour = "frappe",
@@ -9,11 +9,8 @@ return {
         conditionals = { "bold" },
       },
     },
-  },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
+    init = function()
+      vim.cmd [[colorscheme catppuccin]]
+    end,
   },
 }
