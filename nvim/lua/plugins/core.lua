@@ -53,7 +53,7 @@ return {
     },
     keys = {
       {
-        "<leader>fe",
+        "<leader>e",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
         end,
@@ -81,8 +81,11 @@ return {
     opts = function ()
       return {
         options = {
+          icons_enabled = false,
           theme = "auto",
           globalstatus = true,
+          section_separators = '',
+          component_separators = '',
         },
       }
     end,
