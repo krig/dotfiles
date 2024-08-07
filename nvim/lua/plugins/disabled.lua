@@ -1,6 +1,7 @@
 -- Disabled plugins that LazyVim includes by default
 return {
   { "folke/flash.nvim", enabled = false },
+  { "folke/todo-comments.nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
