@@ -9,21 +9,21 @@ return {
     cmd = "Neotree",
     keys = {
       {
-        "<leader>ee",
+        "<leader>e",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
         end,
         desc = "Explorer NeoTree (Root Dir)",
       },
       {
-        "<leader>eg",
+        "<leader>ge",
         function()
           require("neo-tree.command").execute({ source = "git_status", toggle = true })
         end,
         desc = "Git Explorer",
       },
       {
-        "<leader>ea",
+        "<leader>be",
         function()
           require("neo-tree.command").execute({ source = "buffers", toggle = true })
         end,
