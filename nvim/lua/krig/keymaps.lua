@@ -73,16 +73,5 @@ vim.keymap.set("n", "Q", "@@", { noremap = true, desc = "Rerun last macro" })
 -- open URLs in browser
 vim.keymap.set("n", "gx", ":!open <c-r><c-a>", { desc = "Open URL" })
 
-vim.keymap.set('n', "<leader>d", function()
-  local builtin = require('telescope.builtin')
-  local utils = require('telescope.utils')
-  builtin.find_files({ cwd = utils.buffer_dir() })
-end, { desc = "Find files from current buffer" })
-
-vim.keymap.set('n', "<leader>r", function()
-  local builtin = require('telescope.builtin')
-  builtin.resume()
-end, { desc = "Resume last telescope buffer" })
-
 vim.keymap.set('n', '<leader>cx', "<cmd>.lua<CR>", { desc = "Source the current line" })
 vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the current file" })

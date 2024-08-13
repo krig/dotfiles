@@ -16,6 +16,15 @@ return {
           prompt_title = "Grep open files",
         }
       end, desc = "Grep open files" },
+      { "<leader>d", function()
+        local builtin = require('telescope.builtin')
+        local utils = require('telescope.utils')
+        builtin.find_files({ cwd = utils.buffer_dir() })
+      end, desc = "Find files from current buffer" },
+      { "<leader>r", function()
+        local builtin = require('telescope.builtin')
+        builtin.resume()
+      end, desc = "Resume last telescope buffer" },
     },
   },
 }
