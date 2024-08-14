@@ -22,7 +22,8 @@ return {
   },
   {
     "tpope/vim-fugitive",
-    cmd = "Git",
+    lazy = true,
+    cmd = { "Git", "G" },
   },
   {
     "lewis6991/gitsigns.nvim",
