@@ -75,3 +75,7 @@ vim.keymap.set("n", "gx", ":!open <c-r><c-a>", { desc = "Open URL" })
 
 vim.keymap.set('n', '<leader>cx', "<cmd>.lua<CR>", { desc = "Source the current line" })
 vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the current file" })
+
+-- edit macro
+vim.cmd [[nnoremap <leader>me  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>]]
+
