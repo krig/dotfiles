@@ -16,14 +16,14 @@ return {
         desc = "Explorer NeoTree (Root Dir)",
       },
       {
-        "<leader>ge",
+        "<leader>cg",
         function()
           require("neo-tree.command").execute({ source = "git_status", toggle = true })
         end,
         desc = "Git Explorer",
       },
       {
-        "<leader>be",
+        "<leader>ce",
         function()
           require("neo-tree.command").execute({ source = "buffers", toggle = true })
         end,
@@ -31,7 +31,7 @@ return {
       },
     },
     deactivate = function()
-      vim.cmd([[Neotree close]])
+      vim.cmd [[Neotree close]]
     end,
     init = function()
       -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
@@ -55,6 +55,7 @@ return {
     opts = {
       sources = { "filesystem", "buffers", "git_status" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
+      close_if_last_window = true,
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
@@ -68,6 +69,8 @@ return {
         },
       },
       window = {
+        position = 'left',
+        width = 32,
         mappings = {
           ["l"] = "open",
           ["h"] = "close_node",
@@ -83,14 +86,17 @@ return {
           ["P"] = { "toggle_preview", config = { use_float = false } },
         },
       },
-      default_component_configs = {
-        indent = {
-          with_markers = false,
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
+      buffers = {
+        window = {
+          position = 'float',
         },
+      },
+      git_status = {
+        window = {
+          position = 'float',
+        },
+      },
+      default_component_configs = {
         git_status = {
           symbols = false,
         },
