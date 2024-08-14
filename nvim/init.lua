@@ -1,4 +1,7 @@
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
