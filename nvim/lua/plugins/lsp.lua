@@ -6,6 +6,22 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
+    keys = {
+      { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
+      { "<leader>ls", "<cmd>LspStop<cr>", desc = "Lsp Stop" },
+      { "<leader>lr", "<cmd>LspRestart<cr>", desc = "Lsp Restart" },
+      { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
+      { "gr", vim.lsp.buf.references, desc = "References" },
+      { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+      { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
+      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      { "K", vim.lsp.buf.hover, desc = "Hover" },
+      { "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
+      { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
+      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
+      { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+    },
     opts = function()
       return {
         diagnostics = {
