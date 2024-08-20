@@ -28,7 +28,7 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader>ql", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
@@ -77,5 +77,5 @@ vim.keymap.set('n', '<leader>cx', "<cmd>.lua<CR>", { desc = "Source the current 
 vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the current file" })
 
 -- edit macro
-vim.cmd [[nnoremap <leader>me  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>]]
+vim.keymap.set('n', '<leader>me', "<cmd><c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>", { desc = "Edit macro" })
 

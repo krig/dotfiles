@@ -58,3 +58,11 @@ o.wrap = false -- Disable line wrap
 -- cursorline off in insert mode
 vim.cmd [[autocmd InsertLeave,WinEnter * set cursorline]]
 vim.cmd [[autocmd InsertEnter,WinLeave * set nocursorline]]
+
+-- highlight yanked text
+vim.cmd[[
+augroup highlight_yank
+autocmd!
+au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=150})
+augroup END
+]]
