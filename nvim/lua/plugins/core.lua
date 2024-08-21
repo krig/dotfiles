@@ -1,5 +1,24 @@
 -- Using this to add small plugins instead of
 -- creating a separate file for each one.
+
+-- get project-relative path of buffer
+local function relpath()
+  local fname = vim.api.nvim_buf_get_name(0)
+  local pname = string.gsub(fname, vim.loop.cwd(), '@')
+  if pname:sub(1, #'@') == '@' then
+    return pname
+  end
+  pname = string.gsub(fname, vim.env.HOME, '~')
+  if pname ~= '' then
+    return pname
+  end
+  pname = vim.fn.expand('%')
+  if pname ~= '' then
+    return pname
+  end
+  return '[no name]'
+end
+
 return {
   {
     "johnfrankmorgan/whitespace.nvim",
@@ -81,28 +100,31 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.g.lualine_laststatus = vim.o.laststatus
-      if vim.fn.argc(-1) > 0 then
-        -- set an empty statusline till lualine loads
-        vim.o.statusline = " "
-      else
-        -- hide the statusline on the starter page
-        vim.o.laststatus = 0
-      end
-    end,
-    opts = function ()
-      return {
-        options = {
-          icons_enabled = false,
-          theme = "auto",
-          globalstatus = true,
-          section_separators = '',
-          component_separators = '',
-        },
-      }
-    end,
+    opts = {
+      options = {
+        icons_enabled = false,
+        theme = "auto",
+        globalstatus = true,
+        section_separators = '',
+        component_separators = '',
+      },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'searchcount', 'selectioncount'},
+        lualine_c = {relpath},
+        lualine_x = {},
+        lualine_y = {'diagnostics'},
+        lualine_z = {'branch'}
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+      },
+    },
   },
   {
     'akinsho/toggleterm.nvim',
@@ -121,7 +143,6 @@ return {
     cmd = { "ConformInfo" },
     keys = {
       {
-        -- Customize or remove this keymap to your liking
         "<leader>cf",
         function()
           require("conform").format({ async = true })
@@ -130,11 +151,7 @@ return {
         desc = "Format buffer",
       },
     },
-    -- This will provide type hinting with LuaLS
-    ---@module "conform"
-    ---@type conform.setupOpts
     opts = {
-      -- Define your formatters
       formatters_by_ft = {
         lua = { "stylua" },
         go = { "goimports", "gofmt" },
@@ -142,11 +159,9 @@ return {
         python = { "isort", "black" },
         javascript = { "prettierd", "prettier", stop_after_first = true },
       },
-      -- Set default options
       default_format_opts = {
         lsp_format = "fallback",
       },
-      -- Customize formatters
       formatters = {
         shfmt = {
           prepend_args = { "-i", "2" },
@@ -154,7 +169,6 @@ return {
       },
     },
     init = function()
-      -- If you want the formatexpr, here is the place to set it
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
   }
