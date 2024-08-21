@@ -1,10 +1,13 @@
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
--- disable netrw
+-- Disable some builtins I don't use
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
+
+-- Set leader to space
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -22,9 +25,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
   rocks = {
