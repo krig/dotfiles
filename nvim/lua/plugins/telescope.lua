@@ -2,7 +2,10 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     keys = {
+      { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>cc", "<cmd>Telescope commands<cr>", desc = "Commands" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Find" },
       { "<leader>ss", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       { "<leader>sh", "<cmd>Telescope search_history<cr>", desc = "Search History" },
       { "<leader>sr", "<cmd>Telescope registers<cr>", desc = "Registers" },
