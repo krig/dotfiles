@@ -46,7 +46,6 @@ o.splitright = true
 o.synmaxcol = 160
 o.tabstop = 2 -- Number of spaces tabs count for
 o.termguicolors = true -- True color support
-o.timeoutlen = 300 -- Lower than default (1000) to quickly trigger which-key
 o.undofile = true
 o.undolevels = 10000
 o.updatetime = 200 -- Save swap file and trigger CursorHold

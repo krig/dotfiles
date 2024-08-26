@@ -30,6 +30,9 @@ return {
     "RRethy/vim-illuminate",
   },
   {
+    'numToStr/Comment.nvim',
+  },
+  {
     "johnfrankmorgan/whitespace.nvim",
     keys = {
       {
