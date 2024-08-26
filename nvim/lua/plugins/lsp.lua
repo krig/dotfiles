@@ -3,10 +3,19 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     dependencies = {
+      {
+          "SmiteshP/nvim-navbuddy",
+          dependencies = {
+              "SmiteshP/nvim-navic",
+              "MunifTanjim/nui.nvim"
+          },
+          opts = { lsp = { auto_attach = true } },
+      },
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
     keys = {
+      { "<leader>n", "<cmd>Navbuddy<cr>", desc = "Navbuddy" },
       { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
       { "<leader>ls", "<cmd>LspStop<cr>", desc = "Lsp Stop" },
