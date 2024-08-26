@@ -3,18 +3,18 @@
 
 -- get project-relative path of buffer
 local function relpath()
-  local fname = vim.api.nvim_buf_get_name(0)
-  local pname = string.gsub(fname, vim.loop.cwd(), '@')
-  if pname:sub(1, #'@') == '@' then
-    return pname
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local name = string.gsub(bufname, vim.loop.cwd(), '@')
+  if name:sub(1, #'@') == '@' then
+    return name
   end
-  pname = string.gsub(fname, vim.env.HOME, '~')
-  if pname ~= '' then
-    return pname
+  name = string.gsub(bufname, vim.env.HOME, '~')
+  if name ~= '' then
+    return name
   end
-  pname = vim.fn.expand('%')
-  if pname ~= '' then
-    return pname
+  name = vim.fn.expand('%')
+  if name ~= '' then
+    return name
   end
   return '[no name]'
 end
@@ -34,6 +34,21 @@ return {
   },
   {
     'stevearc/dressing.nvim',
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    opts = {
+    },
+    keys = {
+      {
+        "<leader>ci",
+        function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end,
+        desc = "IncRename",
+        expr = true,
+      },
+    },
   },
   {
     "johnfrankmorgan/whitespace.nvim",
