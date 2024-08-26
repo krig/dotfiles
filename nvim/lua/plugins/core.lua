@@ -33,6 +33,9 @@ return {
     'numToStr/Comment.nvim',
   },
   {
+    'stevearc/dressing.nvim',
+  },
+  {
     "johnfrankmorgan/whitespace.nvim",
     keys = {
       {
