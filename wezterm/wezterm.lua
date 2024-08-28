@@ -9,7 +9,8 @@ end
 config.font = wezterm.font("Iosevka Term SS07")
 config.font_size = 18
 -- config.color_scheme = "Catppuccin Mocha"
-config.color_scheme = "Catppuccin Frappé (Gogh)"
+-- config.color_scheme = "Catppuccin Frappé (Gogh)"
+config.color_scheme = "Kanagawa (Gogh)"
 
 config.keys = {
 	{
