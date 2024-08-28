@@ -1,6 +1,22 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        lsp_definitions = {
+          theme = "ivy",
+        },
+        lsp_references = {
+          theme = "ivy",
+        },
+        lsp_implementations = {
+          theme = "ivy",
+        },
+        lsp_type_definitions = {
+          theme = "ivy",
+        },
+      },
+    },
     keys = {
       { "<leader>.", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>cc", "<cmd>Telescope commands<cr>", desc = "Commands" },
