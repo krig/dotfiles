@@ -82,3 +82,6 @@ vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the curr
 -- edit macro
 vim.keymap.set('n', '<leader>me', "<cmd><c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>", { desc = "Edit macro" })
 
+-- alternate file
+-- :e#
+vim.keymap.set('n', 'go', '<cmd>e#<cr>', { desc = "Go to alternate file" })
