@@ -6,11 +6,12 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("Iosevka Term SS07")
-config.font_size = 18
+--config.font = wezterm.font("Iosevka Term SS07")
+config.font = wezterm.font("Cascadia Mono PL")
+config.font_size = 14
 -- config.color_scheme = "Catppuccin Mocha"
--- config.color_scheme = "Catppuccin Frappé (Gogh)"
-config.color_scheme = "Kanagawa (Gogh)"
+config.color_scheme = "Catppuccin Frappé (Gogh)"
+-- config.color_scheme = "Kanagawa (Gogh)"
 
 config.keys = {
 	{

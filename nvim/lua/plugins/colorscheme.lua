@@ -1,7 +1,6 @@
 return {
   {
     "catppuccin/nvim",
-    enabled = false,
     lazy = false,
     name = "catppuccin",
     opts = {
@@ -14,6 +13,7 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
+    enabled = false,
     lazy = false,
     init = function() vim.cmd.colorscheme 'kanagawa-wave' end,
   },
