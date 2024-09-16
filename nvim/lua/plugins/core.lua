@@ -27,9 +27,6 @@ return {
     "jeffkreeftmeijer/vim-numbertoggle",
   },
   {
-    "RRethy/vim-illuminate",
-  },
-  {
     'numToStr/Comment.nvim',
   },
   {

@@ -11,10 +11,4 @@ return {
     },
     init = function() vim.cmd.colorscheme 'catppuccin' end,
   },
-  {
-    "rebelot/kanagawa.nvim",
-    enabled = false,
-    lazy = false,
-    init = function() vim.cmd.colorscheme 'kanagawa-wave' end,
-  },
 }
