@@ -155,6 +155,8 @@ return {
       ensure_installed = {
         "stylua",
         "shfmt",
+        "prettier",
+        "pyright",
       },
     },
     config = function(_, opts)

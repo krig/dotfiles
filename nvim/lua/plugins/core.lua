@@ -125,7 +125,8 @@ return {
         go = { "goimports", "gofmt" },
         rust = { "rustfmt", lsp_format = "fallback" },
         python = { "isort", "black" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettier" },
+        markdown = { "prettier" },
       },
       default_format_opts = {
         lsp_format = "fallback",
