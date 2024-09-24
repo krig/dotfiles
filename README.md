@@ -10,7 +10,7 @@ these days.
 Running the links script uses uv: https://github.com/astral-sh/uv
 
 ```sh
-uv run links
+uv run ./links
 ```
 
 
