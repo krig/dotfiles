@@ -18,6 +18,10 @@ return {
       },
     },
     keys = {
+      { "gd" },
+      { "gr" },
+      { "gy" },
+      { "gI" },
       { "<leader>.", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>cc", "<cmd>Telescope commands<cr>", desc = "Commands" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
