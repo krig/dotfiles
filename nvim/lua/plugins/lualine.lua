@@ -1,6 +1,7 @@
 -- get project-relative path of buffer
 local function relpath()
   local bufname = vim.api.nvim_buf_get_name(0)
+
   local name = string.gsub(bufname, vim.loop.cwd(), '@')
   if name:sub(1, #'@') == '@' then
     return name
@@ -30,7 +31,7 @@ return {
       sections = {
         lualine_a = { { 'mode', fmt = string.lower } },
         lualine_b = {'searchcount', 'selectioncount'},
-        lualine_c = {relpath},
+        lualine_c = { relpath },
         lualine_x = {},
         lualine_y = {'diagnostics'},
         lualine_z = { { 'branch', color = { fg = '#949cbb', bg = '#292c3c' } } }
