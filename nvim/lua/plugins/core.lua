@@ -15,6 +15,11 @@ return {
     'stevearc/dressing.nvim',
   },
   {
+    'brenoprata10/nvim-highlight-colors',
+    opts = {
+    },
+  },
+  {
     "smjonas/inc-rename.nvim",
     opts = {
     },
