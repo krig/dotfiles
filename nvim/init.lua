@@ -57,3 +57,4 @@ require("lazy").setup({
 require('krig.opt')
 require('krig.keymaps')
 require('krig.term')
+require('krig.superhtml')
