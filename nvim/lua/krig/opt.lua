@@ -43,7 +43,7 @@ o.spelloptions:append("noplainbuffer")
 o.splitbelow = true
 o.splitkeep = "screen"
 o.splitright = true
-o.synmaxcol = 160
+o.synmaxcol = 500
 o.tabstop = 2 -- Number of spaces tabs count for
 o.termguicolors = true -- True color support
 o.undofile = true
