@@ -6,6 +6,10 @@ g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 
+g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+
 o.autowrite = true
 o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 o.completeopt = { "menu", "menuone" }
