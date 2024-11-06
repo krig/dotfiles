@@ -1,7 +1,7 @@
 local g = vim.g
 local o = vim.opt
 
-g.autoformat = false
+g.autoformat = true
 g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 g.markdown_recommended_style = 0 -- Fix markdown indentation settings
@@ -57,6 +57,7 @@ o.virtualedit = "block" -- Allow cursor to move where there is no text in visual
 o.wildmode = "longest:full,full" -- Command-line completion mode
 o.winminwidth = 5 -- Minimum window width
 o.wrap = false -- Disable line wrap
+o.formatoptions:append('a')
 
 -- cursorline off in insert mode
 vim.cmd [[autocmd InsertLeave,WinEnter * set cursorline]]
