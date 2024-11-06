@@ -56,8 +56,8 @@ o.updatetime = 200 -- Save swap file and trigger CursorHold
 o.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 o.wildmode = "longest:full,full" -- Command-line completion mode
 o.winminwidth = 5 -- Minimum window width
-o.wrap = false -- Disable line wrap
-o.formatoptions:append('a')
+o.wrap = true -- Disable line wrap
+-- o.formatoptions:append('a')
 
 -- cursorline off in insert mode
 vim.cmd [[autocmd InsertLeave,WinEnter * set cursorline]]
