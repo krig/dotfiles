@@ -251,9 +251,10 @@ return {
         "shfmt",
         "prettierd",
         "pyright",
+        "rust-analyzer",
         "ruff",
-        "ruff-lsp",
         "deno",
+        "zls",
       },
     },
     config = function(_, opts)
