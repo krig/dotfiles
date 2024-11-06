@@ -4,11 +4,16 @@ local o = vim.opt
 g.autoformat = true
 g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
-g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 
+g.markdown_recommended_style = 0 -- Fix markdown indentation settings
+g.markdown_syntax_conceal = 0
 g.markdown_fenced_languages = {
-  "ts=typescript"
+  "ts=typescript",
+  "html",
+  "python",
+  "bash=sh",
 }
+vim.cmd [[autocmd FileType markdown set tw=80 wrap]]
 
 o.autowrite = true
 o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
