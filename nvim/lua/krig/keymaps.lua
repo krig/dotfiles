@@ -58,6 +58,7 @@ vim.keymap.set("n", "]w", diagnostic_goto(go_next, "WARN"), { desc = "Next Warni
 vim.keymap.set("n", "[w", diagnostic_goto(go_prev, "WARN"), { desc = "Prev Warning" })
 
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+vim.keymap.set("n", "<leader>qa", "<cmd>qa<cr>", { desc = "Quit All" })
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
