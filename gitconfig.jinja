@@ -45,6 +45,7 @@ pf = pushfwl
 fixup = commit --fixup
 autosquash = rebase -i --autosquash
 sup = !"up() { git branch --set-upstream-to=origin/${1:-$(git branch --show-current)} ${1:-$(git branch --show-current)}; }; up"
+p = pull
 
 [push]
 default = current
