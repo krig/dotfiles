@@ -7,7 +7,7 @@ if wezterm.config_builder then
 end
 
 --config.font = wezterm.font("Iosevka Term SS07")
-config.font_size = 16
+config.font_size = 15
 -- config.color_scheme = "Catppuccin Mocha"
 config.color_scheme = "Catppuccin Frappé (Gogh)"
 -- config.color_scheme = "Adventure Time (Gogh)"
@@ -23,13 +23,13 @@ config.keys = {
 	{ key = 'V', mods = 'CMD', action = wezterm.action.PasteFrom 'Clipboard' },
 	{ key = 'P', mods = 'CMD', action = wezterm.action.PasteFrom 'PrimarySelection' },
 	{
-		key = "i",
-		mods = "CMD",
+		key = "w",
+		mods = "CMD|SHIFT",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = "u",
-		mods = "CMD",
+		key = ".",
+		mods = "CMD|SHIFT",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
@@ -38,24 +38,29 @@ config.keys = {
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
 	{
-		key = "LeftArrow",
+		key = "g",
 		mods = "CMD|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Left"),
 	},
 	{
-		key = "RightArrow",
+		key = "e",
 		mods = "CMD|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Right"),
 	},
 	{
-		key = "UpArrow",
+		key = "a",
 		mods = "CMD|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Up"),
 	},
 	{
-		key = "DownArrow",
+		key = "c",
 		mods = "CMD|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Down"),
+	},
+	{
+		key = 'Z',
+		mods = 'CMD|SHIFT',
+		action = wezterm.action.TogglePaneZoomState,
 	},
 }
 
@@ -72,9 +77,9 @@ table.insert(config.hyperlink_rules, {
 -- ( "nvim-treesitter/nvim-treesitter" | wbthomason/packer.nvim | wez/wezterm | "wez/wezterm.git" )
 -- as long as a full url hyperlink regex exists above this it should not match a full url to
 -- github or gitlab / bitbucket (i.e. https://gitlab.com/user/project.git is still a whole clickable url)
-table.insert(config.hyperlink_rules, {
-  regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
-  format = 'https://www.github.com/$1/$3',
-})
+-- table.insert(config.hyperlink_rules, {
+--   regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
+--   format = 'https://www.github.com/$1/$3',
+-- })
 
 return config
