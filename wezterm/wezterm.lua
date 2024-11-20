@@ -23,18 +23,18 @@ config.keys = {
 	{ key = 'V', mods = 'CMD', action = wezterm.action.PasteFrom 'Clipboard' },
 	{ key = 'P', mods = 'CMD', action = wezterm.action.PasteFrom 'PrimarySelection' },
 	{
-		key = "w",
-		mods = "CMD|SHIFT",
+		key = "u",
+		mods = "CMD",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = ".",
-		mods = "CMD|SHIFT",
+		key = "i",
+		mods = "CMD",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "d",
-		mods = "CMD|SHIFT",
+		mods = "CMD",
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
 	{
