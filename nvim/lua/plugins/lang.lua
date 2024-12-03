@@ -11,4 +11,7 @@ return {
       vim.g.zig_fmt_autosave = 0
     end,
   },
+  {
+    'bakpakin/janet.vim',
+  }
 }
