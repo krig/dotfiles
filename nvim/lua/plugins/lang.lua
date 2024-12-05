@@ -13,5 +13,8 @@ return {
   },
   {
     'bakpakin/janet.vim',
+  },
+  {
+    'gleam-lang/gleam.vim',
   }
 }
