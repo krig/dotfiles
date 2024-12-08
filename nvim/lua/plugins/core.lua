@@ -160,9 +160,26 @@ return {
       lsp.superhtml.setup {}
       lsp.zls.setup {}
 
-      vim.keymap.set("n", "<leader>cf", function()
-        vim.lsp.buf.format()
-      end, { desc = "Format buffer" })
+      local keys = {
+        { "<leader>cf", vim.lsp.buf.format, desc = "Format buffer" },
+        { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
+        { "<leader>ls", "<cmd>LspStop<cr>", desc = "Lsp Stop" },
+        { "<leader>lr", "<cmd>LspRestart<cr>", desc = "Lsp Restart" },
+        { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+        { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+        { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
+        { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+        { "K", vim.lsp.buf.hover, desc = "Hover" },
+        { "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
+        { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
+        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
+        { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+      }
+      for _, key in ipairs(keys) do
+        vim.keymap.set("n", key[1], key[2], { desc = key["desc"] })
+      end
     end,
   },
 }
