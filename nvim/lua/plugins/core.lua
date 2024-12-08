@@ -68,9 +68,6 @@ return {
     "tpope/vim-sleuth",
   },
   {
-    'stevearc/dressing.nvim',
-  },
-  {
     'brenoprata10/nvim-highlight-colors',
     opts = {
     },
