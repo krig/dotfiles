@@ -32,6 +32,11 @@ require("lazy").setup({
   },
   spec = {
     {
+      "EdenEast/nightfox.nvim",
+      lazy = false,
+      init = function() vim.cmd.colorscheme 'duskfox' end,
+    },
+    {
       'kvrohit/substrata.nvim',
       lazy = false,
       -- init = function() vim.cmd.colorscheme 'substrata' end,
@@ -52,7 +57,7 @@ require("lazy").setup({
           conditionals = { "bold" },
         },
       },
-      init = function() vim.cmd.colorscheme 'catppuccin' end,
+      -- init = function() vim.cmd.colorscheme 'catppuccin' end,
     },
     { import = "plugins" },
   },
