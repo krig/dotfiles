@@ -32,7 +32,21 @@ require("lazy").setup({
   },
   spec = {
     {
+      'kvrohit/substrata.nvim',
+      enabled = false,
+      lazy = false,
+      init = function() vim.cmd.colorscheme 'substrata' end,
+    },
+    {
+      "rose-pine/neovim",
+      enabled = false,
+      name = "rose-pine",
+      lazy = false,
+      init = function() vim.cmd.colorscheme 'rose-pine' end,
+    },
+    {
       "catppuccin/nvim",
+      enabled = true,
       lazy = false,
       name = "catppuccin",
       opts = {
