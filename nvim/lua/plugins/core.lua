@@ -13,6 +13,11 @@ return {
       require('mini.jump2d').setup()
       require('mini.notify').setup()
       require('mini.starter').setup()
+      require('mini.trailspace').setup()
+      vim.keymap.set('n', '<leader>cw', function()
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+      end, { desc = "Trim whitespace" })
       local clue = require('mini.clue')
       clue.setup({
         triggers = {
@@ -82,18 +87,6 @@ return {
         end,
         desc = "IncRename",
         expr = true,
-      },
-    },
-  },
-  {
-    "johnfrankmorgan/whitespace.nvim",
-    keys = {
-      {
-        "<leader>cw",
-        function()
-          require("whitespace-nvim").trim()
-        end,
-        desc = "Trim trailing whitespace",
       },
     },
   },
@@ -169,7 +162,7 @@ return {
 
       vim.keymap.set("n", "<leader>cf", function()
         vim.lsp.buf.format()
-      end)
+      end, { desc = "Format buffer" })
     end,
   },
 }
