@@ -7,6 +7,7 @@ if wezterm.config_builder then
 end
 
 --config.font = wezterm.font("Iosevka Term SS07")
+config.font = wezterm.font("Operator-caska")
 config.font_size = 15
 config.color_scheme = "duskfox"
 -- config.color_scheme = "Catppuccin Mocha"
