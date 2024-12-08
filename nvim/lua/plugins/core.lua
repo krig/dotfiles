@@ -98,46 +98,10 @@ return {
     },
   },
   {
-    'stevearc/conform.nvim',
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
-    keys = {
-      {
-        "<leader>cf",
-        function()
-          require("conform").format({ async = true })
-        end,
-        mode = "",
-        desc = "Format buffer",
-      },
-    },
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        go = { "goimports", "gofmt" },
-        rust = { "rustfmt", lsp_format = "fallback" },
-        python = { "isort", "black" },
-        javascript = { "prettier" },
-        markdown = { "prettier" },
-      },
-      default_format_opts = {
-        lsp_format = "fallback",
-      },
-      formatters = {
-        shfmt = {
-          prepend_args = { "-i", "2" },
-        },
-      },
-    },
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-    end,
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require'nvim-treesitter.configs'.setup {
+      require 'nvim-treesitter.configs'.setup {
         ensure_installed = {
           "bash",
           "c",
@@ -193,15 +157,19 @@ return {
     },
     config = function()
       local lsp = require('lspconfig')
-      lsp.bacon_ls.setup{}
-      lsp.janet_lsp.setup{}
-      lsp.lua_ls.setup{}
-      lsp.ts_ls.setup{}
-      lsp.ols.setup{}
-      lsp.pyright.setup{}
-      lsp.rust_analyzer.setup{}
-      lsp.superhtml.setup{}
-      lsp.zls.setup{}
+      lsp.bacon_ls.setup {}
+      lsp.janet_lsp.setup {}
+      lsp.lua_ls.setup {}
+      lsp.ts_ls.setup {}
+      lsp.ols.setup {}
+      lsp.pyright.setup {}
+      lsp.rust_analyzer.setup {}
+      lsp.superhtml.setup {}
+      lsp.zls.setup {}
+
+      vim.keymap.set("n", "<leader>cf", function()
+        vim.lsp.buf.format()
+      end)
     end,
   },
 }

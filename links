@@ -254,6 +254,7 @@ link("gdbinit", ".gdbinit")
 link("dircolors", ".dircolors")
 link("wezterm", ".config/wezterm")
 link("zshrc", ".zshrc")
+link("editorconfig", ".editorconfig")
 
 # Only apply SSH config at home
 if "home" in CUSTOM["tags"]:
