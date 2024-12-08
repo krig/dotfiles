@@ -1,9 +1,5 @@
 return {
   {
-    "ChrisWellsWood/roc.vim",
-    ft = { "roc" },
-  },
-  {
     'ziglang/zig.vim',
     version = '*',
     ft = { "zig" },
@@ -13,8 +9,6 @@ return {
   },
   {
     'bakpakin/janet.vim',
-  },
-  {
-    'gleam-lang/gleam.vim',
+    ft = { "janet" },
   }
 }

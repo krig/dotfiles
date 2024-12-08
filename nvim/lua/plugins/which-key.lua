@@ -18,7 +18,6 @@ return {
           { "<leader>m", group = "macro" },
           { "<leader>q", group = "quit" },
           { "<leader>s", group = "search" },
-          { "<leader>t", group = "terminal" },
           { "<leader>u", group = "undo" },
           { "<leader>x", group = "trouble" },
           {
