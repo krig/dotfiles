@@ -65,9 +65,6 @@ return {
     end,
   },
   {
-    "tpope/vim-sleuth",
-  },
-  {
     'brenoprata10/nvim-highlight-colors',
     opts = {
     },
