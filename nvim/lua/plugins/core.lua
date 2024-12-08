@@ -8,7 +8,11 @@ return {
     config = function()
       require('mini.icons').setup()
       require('mini.bracketed').setup()
+      require('mini.bufremove').setup()
       require('mini.statusline').setup()
+      require('mini.jump2d').setup()
+      require('mini.notify').setup()
+      require('mini.starter').setup()
       local clue = require('mini.clue')
       clue.setup({
         triggers = {
