@@ -147,7 +147,6 @@ return {
       lsp.bacon_ls.setup {}
       lsp.janet_lsp.setup {}
       lsp.lua_ls.setup {}
-      lsp.ts_ls.setup {}
       lsp.ols.setup {}
       -- lsp.denols.setup {}
       lsp.eslint.setup {}
@@ -170,4 +169,9 @@ return {
       end
     end,
   },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  }
 }
