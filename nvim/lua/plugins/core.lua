@@ -150,6 +150,7 @@ return {
       lsp.ts_ls.setup {}
       lsp.ols.setup {}
       -- lsp.denols.setup {}
+      lsp.eslint.setup {}
       lsp.pyright.setup {}
       lsp.rust_analyzer.setup {}
       lsp.superhtml.setup {}
