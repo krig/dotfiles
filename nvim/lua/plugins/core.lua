@@ -149,6 +149,7 @@ return {
       lsp.lua_ls.setup {}
       lsp.ts_ls.setup {}
       lsp.ols.setup {}
+      lsp.denols.setup {}
       lsp.pyright.setup {}
       lsp.rust_analyzer.setup {}
       lsp.superhtml.setup {}
@@ -156,14 +157,6 @@ return {
 
       local keys = {
         { "<leader>cf", vim.lsp.buf.format, desc = "Format buffer" },
-        { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-        { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
-        { "<leader>ls", "<cmd>LspStop<cr>", desc = "Lsp Stop" },
-        { "<leader>lr", "<cmd>LspRestart<cr>", desc = "Lsp Restart" },
-        { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-        { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
-        { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
         { "K", vim.lsp.buf.hover, desc = "Hover" },
         { "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
