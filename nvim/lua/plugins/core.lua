@@ -149,7 +149,7 @@ return {
       lsp.lua_ls.setup {}
       lsp.ts_ls.setup {}
       lsp.ols.setup {}
-      lsp.denols.setup {}
+      -- lsp.denols.setup {}
       lsp.pyright.setup {}
       lsp.rust_analyzer.setup {}
       lsp.superhtml.setup {}
