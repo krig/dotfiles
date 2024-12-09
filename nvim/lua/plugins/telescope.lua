@@ -1,19 +1,20 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    tag = '0.1.8',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+      },
+    },
     opts = {
-      pickers = {
-        lsp_definitions = {
-          theme = "ivy",
-        },
-        lsp_references = {
-          theme = "ivy",
-        },
-        lsp_implementations = {
-          theme = "ivy",
-        },
-        lsp_type_definitions = {
-          theme = "ivy",
+      defaults = {
+        layout_strategy = 'bottom_pane',
+        layout_config = {
+          height = 0.75,
+          prompt_position = 'bottom',
         },
       },
     },
@@ -23,6 +24,7 @@ return {
       { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
       { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
       { "<leader>.", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>ht", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader>cc", "<cmd>Telescope commands<cr>", desc = "Commands" },
       { "<leader>k", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
