@@ -86,3 +86,18 @@ vim.keymap.set('n', '<leader>me', "<cmd><c-u><c-r><c-r>='let @'. v:register .' =
 -- alternate file
 -- :e#
 vim.keymap.set('n', 'go', '<cmd>e#<cr>', { desc = "Go to alternate file" })
+
+-- needs various-textobjs plugin
+vim.keymap.set("n", "<leader>ou", function()
+	-- select URL
+	require("various-textobjs").url()
+
+	-- plugin only switches to visual mode when textobj is found
+	local foundURL = vim.fn.mode() == "v"
+	if not foundURL then return end
+
+	-- retrieve URL with the z-register as intermediary
+	vim.cmd.normal { '"zy', bang = true }
+	local url = vim.fn.getreg("z")
+	vim.ui.open(url) -- requires nvim 0.10
+end, { desc = "URL Opener" })
