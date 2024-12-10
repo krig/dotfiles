@@ -19,14 +19,13 @@ return {
       },
     },
     keys = {
-      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
-      { "gy", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
+      { "<leader>ld", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+      { "<leader>lr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+      { "<leader>li", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+      { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
       { "<leader>.", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>ht", "<cmd>Telescope help_tags<cr>", desc = "Help" },
       { "<leader>cc", "<cmd>Telescope commands<cr>", desc = "Commands" },
-      { "<leader>k", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
       { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Find" },
       { "<leader>ss", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
@@ -38,13 +37,13 @@ return {
       { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Git Buffer Commits" },
       { "<leader>gt", "<cmd>Telescope git_branches<cr>", desc = "Git Branches" },
       { "<leader>sw", "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Grep Word" },
-      { "<leader>sf", function ()
+      { "<leader>og", function ()
         require('telescope.builtin').live_grep {
           grep_open_files = true,
           prompt_title = "Grep open files",
         }
       end, desc = "Grep open files" },
-      { "<leader>d", function()
+      { "<leader>ob", function()
         local builtin = require('telescope.builtin')
         local utils = require('telescope.utils')
         builtin.find_files({ cwd = utils.buffer_dir() })

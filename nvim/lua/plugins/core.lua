@@ -6,13 +6,17 @@ return {
     "echasnovski/mini.nvim",
     version = '*',
     config = function()
-      require('mini.icons').setup()
+      require('mini.ai').setup()
       require('mini.bracketed').setup()
       require('mini.bufremove').setup()
-      require('mini.statusline').setup()
+      require('mini.git').setup()
+      require('mini.icons').setup()
       require('mini.jump2d').setup()
       require('mini.notify').setup()
+      require('mini.operators').setup()
       require('mini.starter').setup()
+      require('mini.statusline').setup()
+      require('mini.surround').setup()
       require('mini.trailspace').setup()
       vim.keymap.set('n', '<leader>cw', function()
         MiniTrailspace.trim()
@@ -60,8 +64,6 @@ return {
           clue.gen_clues.z(),
         },
       })
-      require('mini.ai').setup()
-      require('mini.git').setup()
     end,
   },
   {
@@ -157,9 +159,9 @@ return {
 
       local keys = {
         { "<leader>cf", vim.lsp.buf.format, desc = "Format buffer" },
-        { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-        { "K", vim.lsp.buf.hover, desc = "Hover" },
-        { "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
+        { "<leader>cD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+        { "<leader>kk", vim.lsp.buf.hover, desc = "Hover" },
+        { "<leader>kh", vim.lsp.buf.signature_help, desc = "Signature Help" },
         { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
