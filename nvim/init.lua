@@ -36,29 +36,6 @@ require("lazy").setup({
       lazy = false,
       init = function() vim.cmd.colorscheme 'duskfox' end,
     },
-    {
-      'kvrohit/substrata.nvim',
-      lazy = false,
-      -- init = function() vim.cmd.colorscheme 'substrata' end,
-    },
-    {
-      "rose-pine/neovim",
-      name = "rose-pine",
-      lazy = false,
-      -- init = function() vim.cmd.colorscheme 'rose-pine' end,
-    },
-    {
-      "catppuccin/nvim",
-      lazy = false,
-      name = "catppuccin",
-      opts = {
-        flavour = "mocha",
-        styles = {
-          conditionals = { "bold" },
-        },
-      },
-      -- init = function() vim.cmd.colorscheme 'catppuccin' end,
-    },
     { import = "plugins" },
   },
   checker = {
