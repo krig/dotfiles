@@ -28,7 +28,7 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>z", "<cmd>Lazy<cr>", { desc = ":Lazy" })
+vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = ":Lazy" })
 
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
@@ -102,3 +102,4 @@ vim.keymap.set("n", "<leader>ou", function()
 	vim.ui.open(url) -- requires nvim 0.10
 end, { desc = "URL Opener" })
 
+vim.keymap.set('n', '<leader>zz', '<cmd>close<cr>', { desc = "Close" })

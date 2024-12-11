@@ -6,15 +6,15 @@ end
 
 return {
   {
-      "garymjr/nvim-snippets",
-      lazy = true,
-      dependencies = {
-        "rafamadriz/friendly-snippets",
-      },
-      opts = {
-        create_cmp_source = true,
-        friendly_snippets = true,
-      },
+    "garymjr/nvim-snippets",
+    lazy = true,
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    opts = {
+      create_cmp_source = true,
+      friendly_snippets = true,
+    },
   },
   {
     "hrsh7th/nvim-cmp",
@@ -25,7 +25,7 @@ return {
       "garymjr/nvim-snippets",
     },
     config = function()
-      local cmp = require "cmp"
+      local cmp = require("cmp")
       cmp.setup {
         completion = {
           autocomplete = false,

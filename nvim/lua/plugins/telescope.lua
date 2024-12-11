@@ -71,6 +71,26 @@ return {
         end,
         desc = "Resume last telescope buffer"
       },
+      {
+        "<leader>fp",
+        function()
+          local builtin = require('telescope.builtin')
+          builtin.find_files {
+            cwd = vim.fn.stdpath("data") .. "/lazy",
+          }
+        end,
+        desc = "Find file in lazy plugin"
+      },
+      {
+        "<leader>fc",
+        function()
+          local builtin = require('telescope.builtin')
+          builtin.find_files {
+            cwd = vim.fn.stdpath("config"),
+          }
+        end,
+        desc = "Find file in nvim config"
+      },
     },
   },
 }
