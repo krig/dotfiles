@@ -17,6 +17,9 @@ return {
           prompt_position = 'bottom',
         },
       },
+      extensions = {
+        fzf = {},
+      },
     },
     keys = {
       { "<leader>ld", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
