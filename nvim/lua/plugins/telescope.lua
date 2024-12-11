@@ -24,6 +24,8 @@ return {
         },
       })
       t.load_extension('fzf')
+
+      require("krig.multigrep").setup()
     end,
     keys = {
       { "<leader>ld",       "<cmd>Telescope lsp_definitions<cr>",           desc = "Goto Definition" },
@@ -44,6 +46,13 @@ return {
       { "<leader>gb",       "<cmd>Telescope git_bcommits<cr>",              desc = "Git Buffer Commits" },
       { "<leader>gt",       "<cmd>Telescope git_branches<cr>",              desc = "Git Branches" },
       { "<leader>sw",       "<cmd>Telescope grep_string word_match=-w<cr>", desc = "Grep Word" },
+      {
+        "<leader>fd",
+        function()
+          require("krig.multigrep").multigrep()
+        end,
+        { desc = "Multigrep" },
+      },
       {
         "<leader>og",
         function()
