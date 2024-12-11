@@ -31,7 +31,7 @@ return {
       { "<leader>ss", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       { "<leader>v", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
       { "<leader>sh", "<cmd>Telescope search_history<cr>", desc = "Search History" },
-      { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
+      { "<leader>sp", "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "<leader><leader>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
       { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
       { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Git Buffer Commits" },
