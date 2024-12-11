@@ -67,6 +67,40 @@ return {
     end,
   },
   {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      bufdelete = { enabled = true },
+      dashboard = { enabled = false },
+      dim = { enabled = true },
+      git = { enabled = false },
+      gitbrowse = { enabled = false },
+      indent = { enabled = true },
+      input = { enabled = true },
+      lazygit = { enabled = false },
+      notifier = { enabled = false },
+      notify = { enabled = false },
+      quickfile = { enabled = true },
+      rename = { enabled = false },
+      scroll = { enabled = false },
+      statuscolumn = { enabled = false },
+      terminal = { enabled = false },
+      toggle = { enabled = false },
+      words = { enabled = false },
+      zen = { enabled = true },
+    },
+    keys = {
+      { "<leader>oz",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
+    { "<leader>ow",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    },
+  },
+  {
     'brenoprata10/nvim-highlight-colors',
     opts = {
     },

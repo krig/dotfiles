@@ -101,3 +101,4 @@ vim.keymap.set("n", "<leader>ou", function()
 	local url = vim.fn.getreg("z")
 	vim.ui.open(url) -- requires nvim 0.10
 end, { desc = "URL Opener" })
+
