@@ -1,0 +1,79 @@
+{
+  "main": {
+    "prefix": "main",
+    "body": [
+      "package main",
+      "",
+      "import \"core:fmt\"",
+      "",
+      "main :: proc() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Basic main file skeleton"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": ["import \"$0\""],
+    "description": "import statement"
+  },
+  "if": {
+    "prefix": "if",
+    "body": ["if ${1:true} {$0", "}"],
+    "description": "'if' snippet"
+  },
+  "if else": {
+    "prefix": "ifelse",
+    "body": ["if ${1:true} {$2", "} else {$0", "}"],
+    "description": "'if' with 'else'"
+  },
+  "else": {
+    "prefix": "else",
+    "body": ["else {$0", "}"],
+    "description": "'else' snippet"
+  },
+  "else if": {
+    "prefix": "elseif",
+    "body": ["else if ${1:true} {$0", "}"],
+    "description": "else-if snippet"
+  },
+  "switch": {
+    "prefix": "switch",
+    "body": [
+      "switch ${1:expression} {",
+      "case $2: $0",
+      "}"
+    ],
+    "description": "'switch' snippet"
+  },
+  "case": {
+    "prefix": "case",
+    "body": ["case ${1:0}:$0"],
+    "description": "'case' branch"
+  },
+  "for": {
+    "prefix": "for",
+    "body": ["for $1 in $2 {$0", "}"],
+    "description": "Generic 'for' loop"
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["$1 :: struct {$0", "}"],
+    "description": "struct definition"
+  },
+  "fmt.println": {
+    "prefix": "pn",
+    "body": ["fmt.println($0)"],
+    "description": "fmt.println"
+  },
+  "fmt.print": {
+    "prefix": "pr",
+    "body": ["fmt.print($0)"],
+    "description": "fmt.print"
+  },
+  "fmt.printf": {
+    "prefix": "pf",
+    "body": ["fmt.printf($0)"],
+    "description": "fmt.printf"
+  }
+}
