@@ -8,21 +8,6 @@ return {
     },
   },
   {
-    "smjonas/inc-rename.nvim",
-    opts = {
-    },
-    keys = {
-      {
-        "<leader>ci",
-        function()
-          return ":IncRename " .. vim.fn.expand("<cword>")
-        end,
-        desc = "IncRename",
-        expr = true,
-      },
-    },
-  },
-  {
     "chrisgrieser/nvim-various-textobjs",
     event = "VeryLazy",
     opts = {
