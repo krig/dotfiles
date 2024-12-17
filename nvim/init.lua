@@ -34,6 +34,7 @@ require("lazy").setup({
     {
       "EdenEast/nightfox.nvim",
       lazy = false,
+      enabled = false,
       init = function() vim.cmd.colorscheme 'carbonfox' end,
     },
     { import = "plugins" },
