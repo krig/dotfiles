@@ -10,7 +10,10 @@ vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up",
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>bo", "<cmd>e #<cr>", { desc = "Other Buffer" })
+vim.keymap.set("n", "<leader>bb", "<cmd>close<cr>", { desc = "Close Buffer" })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape clears hlsearch" })
+vim.keymap.set({ "i", "n" }, "<leader>xx", "<cmd>source<cr>", { desc = "source line" })
+vim.keymap.set({ "i", "n" }, "<leader>xf", "<cmd>source %<cr>", { desc = "source file" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -32,8 +35,8 @@ vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<cr>", { desc = ":Lazy" })
 
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
-vim.keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-vim.keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+vim.keymap.set("n", "<leader>ol", "<cmd>lopen<cr>", { desc = "Location List" })
+vim.keymap.set("n", "<leader>oc", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
@@ -68,8 +71,9 @@ vim.keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 -- Jump and recenter cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
-vim.keymap.set("n", "n", "nzz", { noremap = true })
-vim.keymap.set("n", "N", "Nzz", { noremap = true })
+vim.keymap.set("n", "<leader>uu", "<C-u>zz", { desc = "Up and recenter" })
+vim.keymap.set("n", "<leader>ud", "<C-d>zz", { desc = "Down and recenter" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true })
 
 -- Use Q to rerun last macro
 vim.keymap.set("n", "Q", "@@", { noremap = true, desc = "Rerun last macro" })
@@ -83,9 +87,6 @@ vim.keymap.set('n', '<leader>cX', "<cmd>source %<CR>", { desc = "Source the curr
 -- edit macro
 vim.keymap.set('n', '<leader>me', "<cmd><c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>", { desc = "Edit macro" })
 
--- alternate file
--- :e#
-vim.keymap.set('n', 'go', '<cmd>e#<cr>', { desc = "Go to alternate file" })
 
 -- needs various-textobjs plugin
 vim.keymap.set("n", "<leader>ou", function()
