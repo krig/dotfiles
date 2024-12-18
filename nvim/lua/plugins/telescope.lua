@@ -41,7 +41,7 @@ return {
       { "<leader>v",        "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
       { "<leader>sh",       "<cmd>Telescope search_history<cr>",            desc = "Search History" },
       { "<leader>sp",       "<cmd>Telescope registers<cr>",                 desc = "Registers" },
-      { "<leader><leader>", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+      -- { "<leader><leader>", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
       { "<leader>fg",       "<cmd>Telescope git_files<cr>",                 desc = "Git Files" },
       { "<leader>gb",       "<cmd>Telescope git_bcommits<cr>",              desc = "Git Buffer Commits" },
       { "<leader>gt",       "<cmd>Telescope git_branches<cr>",              desc = "Git Branches" },
@@ -100,6 +100,21 @@ return {
         end,
         desc = "Find file in nvim config"
       },
+    },
+  },
+  {
+    "danielfalk/smart-open.nvim",
+    branch = "0.2.x",
+    config = function()
+      require("telescope").load_extension("smart_open")
+
+      vim.keymap.set("n", "<leader><leader>", function ()
+        require("telescope").extensions.smart_open.smart_open()
+      end, { noremap = true, silent = true })
+    end,
+    dependencies = {
+      "kkharji/sqlite.lua",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
   },
 }
