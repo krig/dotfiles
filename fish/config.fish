@@ -10,5 +10,31 @@ set -gx EDITOR nvim
 set -gx BAT_THEME base16
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+    function t --wraps=tig --description 'alias t tig'
+      tig $argv
+    end
+
+    function g --wraps=git --description 'alias g gig'
+      git $argv
+    end
+
+    function vim --wraps=nvim --description 'alias vim nvim'
+      nvim $argv
+    end
+
+    function e --wraps=nvim --description 'alias e nvim'
+      nvim $argv
+    end
+
+    function ls --wraps=lsd --description 'alias ls lsd'
+      lsd $argv
+    end
+
+    function ll --wraps=lsd --description 'alias ll lsd -l'
+      lsd -l $argv
+    end
+
+    function la --wraps=lsd --description 'alias la lsd -l'
+      lsd -a $argv
+    end
 end
