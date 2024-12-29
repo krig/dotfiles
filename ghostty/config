@@ -1,8 +1,5 @@
 theme = NvimDark
-font-size = 16
-
-bold-is-bright                 = true
-link-url                       = true
+font-size = 15
 
 # Key bindings
 keybind                        = super+shift+left=goto_split:left
@@ -16,3 +13,4 @@ keybind                        = super+u=new_split:right
 keybind                        = super+shift+enter=new_split:auto
 keybind                        = super+shift+r=reload_config
 keybind                        = super+t=new_tab
+keybind                        = ctrl+d=close_surface

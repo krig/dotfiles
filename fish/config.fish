@@ -10,6 +10,14 @@ set -gx EDITOR nvim
 set -gx BAT_THEME base16
 
 if status is-interactive
+    function k --wraps=kubectl --description 'alias k kubectl'
+      kubectl $argv
+    end
+
+    function shu --wraps=ssh --description 'ssh unknown'
+      ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" $argv
+    end
+
     function t --wraps=tig --description 'alias t tig'
       tig $argv
     end
