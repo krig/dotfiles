@@ -12,8 +12,8 @@ vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>bo", "<cmd>e #<cr>", { desc = "Other Buffer" })
 vim.keymap.set("n", "<leader>bb", "<cmd>close<cr>", { desc = "Close Buffer" })
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape clears hlsearch" })
-vim.keymap.set({ "i", "n" }, "<leader>xx", "<cmd>source<cr>", { desc = "source line" })
-vim.keymap.set({ "i", "n" }, "<leader>xf", "<cmd>source %<cr>", { desc = "source file" })
+vim.keymap.set({ "n" }, "<leader>xx", "<cmd>source<cr>", { desc = "source line" })
+vim.keymap.set({ "n" }, "<leader>xf", "<cmd>source %<cr>", { desc = "source file" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.keymap.set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
