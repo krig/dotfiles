@@ -1,5 +1,9 @@
 theme = NvimDark
-font-size = 15
+font-size = 16
+
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
 
 # Key bindings
 keybind                        = super+shift+left=goto_split:left
