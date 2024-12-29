@@ -1,9 +1,14 @@
-theme = NvimDark
-font-size = 16
+auto-update = off
 
+theme = NvimDark
+
+font-size = 16
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
+
+link-url = true
+bold-is-bright = true
 
 # Key bindings
 keybind                        = super+shift+left=goto_split:left
