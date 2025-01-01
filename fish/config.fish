@@ -8,6 +8,10 @@ if test -d /opt/homebrew/opt/ruby/bin
   fish_add_path /opt/homebrew/opt/ruby/bin
 end
 
+if test -d $HOME/.orbstack/bin
+  fish_add_path $HOME/.orbstack/bin
+end
+
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/bin
 
