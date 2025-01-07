@@ -38,6 +38,8 @@ if status is-interactive
 
   abbr --add t tig
   abbr --add g git
+  abbr --add y yarn
+  abbr --add n npm
   abbr --add gp git pull
   abbr --add gfa git fetch --all
   abbr --add gco git commit
