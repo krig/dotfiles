@@ -1,6 +1,6 @@
 auto-update = off
 
-theme = Banana Blueberry
+theme = NvimDark
 
 font-size = 16
 font-feature = -calt
