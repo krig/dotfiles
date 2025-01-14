@@ -22,7 +22,18 @@ return {
       lsp.ols.setup {}
       -- lsp.denols.setup {}
       lsp.eslint.setup {}
-      lsp.pyright.setup {}
+      lsp.pyright.setup {
+        on_new_config = function()
+          if vim.env.VIRTUAL_ENV == nil then
+            local venv_marker = {".venv"}
+            local venv_root = vim.fs.root(0, venv_marker)
+            if venv_root then
+              vim.env.VIRTUAL_ENV = venv_root .. "/" .. ".venv"
+              vim.env.PATH = venv_root .. "/.venv/bin:" .. vim.env.PATH
+            end
+          end
+        end,
+      }
       lsp.rust_analyzer.setup {}
       lsp.superhtml.setup {}
       lsp.zls.setup {}
