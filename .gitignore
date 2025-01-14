@@ -4,6 +4,5 @@ _old
 *.pyc
 tags
 nvim/plugged/
-fish/fish_variables
 .DS_Store
 Operator-caska-Font
