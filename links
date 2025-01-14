@@ -253,7 +253,6 @@ link("gdbinit", ".gdbinit")
 link("dircolors", ".dircolors")
 link("wezterm", ".config/wezterm")
 link("ghostty", ".config/ghostty")
-link("fish", ".config/fish")
 link("zshrc", ".zshrc")
 link("editorconfig", ".editorconfig")
 
