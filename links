@@ -8,7 +8,9 @@
 """
 Link stuff into home directory
 """
+import hashlib
 import os
+import pathlib
 import platform
 import shutil
 import subprocess
@@ -110,6 +112,9 @@ def altname(nam):
     print("altnames", ", ".join(altpaths))
     sys.exit(1)
 
+def hash_of(filename):
+    fbytes = pathlib.Path(filename).read_bytes()
+    return hashlib.sha1(fbytes).hexdigest()
 
 def jinjafy(frm):
     "render template target actual file"
@@ -122,20 +127,35 @@ def jinjafy(frm):
 
     renderdir = os.path.expanduser("~/.config/dotfiles/rendered")
     os.makedirs(renderdir, exist_ok=True)
-    
+
     _, basename = os.path.split(frm)
     name, _ = os.path.splitext(basename)
 
     rendered = os.path.join(renderdir, name)
 
-    if os.path.isfile(rendered) and is_newer(rendered, frm):
-        cprint(C.OKBLUE, "@ {} -> {} (already rendered)".format(frm, rendered))
-        return rendered
+    # if os.path.isfile(rendered) and is_newer(rendered, frm):
+    #     cprint(C.OKBLUE, "@ {} -> {} (already rendered)".format(frm, rendered))
+    #     return rendered
 
-    cprint(C.OKBLUE, "@ {} -> {}".format(frm, rendered))
-    with open(frm) as ifo, open(rendered, 'w') as ofo:
-        template = Environment(loader=FileSystemLoader('.')).from_string(ifo.read())
-        ofo.write(template.render(**params))
+    tmp_rendered = f"{rendered}.tmp"
+
+    cprint(C.OKBLUE, "@ {} -> {}".format(frm, tmp_rendered))
+    try:
+        with open(frm) as ifo, open(tmp_rendered, 'w') as ofo:
+            template = Environment(loader=FileSystemLoader('.')).from_string(ifo.read())
+            ofo.write(template.render(**params))
+
+        if not os.path.isfile(rendered):
+            cprint(C.OKGREEN, "@ {} ~> {}".format(tmp_rendered, rendered))
+            os.rename(tmp_rendered, rendered)
+        elif hash_of(tmp_rendered) != hash_of(rendered):
+            cprint(C.OKGREEN, "@ {} -> {}".format(tmp_rendered, rendered))
+            shutil.copyfile(tmp_rendered, rendered)
+        else:
+            cprint(C.OKBLUE, "@ {} -> {} (already rendered)".format(frm, rendered))
+    finally:
+        if os.path.isfile(tmp_rendered):
+            os.remove(tmp_rendered)
 
     return rendered
 
