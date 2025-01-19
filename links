@@ -242,21 +242,23 @@ def copy_bin():
     for name, path in bins:
         link(path, os.path.join(bindir, name))
 
+def main():
+    copy_bin()
 
-copy_bin()
+    link("bashrc", ".bashrc")
+    link("starship.toml", ".config/starship.toml")
+    link("gitconfig", ".gitconfig")
+    link("nvim", ".config/nvim")
+    link("gdbinit", ".gdbinit")
+    link("dircolors", ".dircolors")
+    link("wezterm", ".config/wezterm")
+    link("ghostty", ".config/ghostty")
+    link("zshrc", ".zshrc")
+    link("editorconfig", ".editorconfig")
 
-link("bashrc", ".bashrc")
-link("starship.toml", ".config/starship.toml")
-link("gitconfig", ".gitconfig")
-link("nvim", ".config/nvim")
-link("gdbinit", ".gdbinit")
-link("dircolors", ".dircolors")
-link("wezterm", ".config/wezterm")
-link("ghostty", ".config/ghostty")
-link("zshrc", ".zshrc")
-link("editorconfig", ".editorconfig")
+    # Only apply SSH config at home
+    if "home" in CUSTOM["tags"]:
+        link("ssh-config", ".ssh/config")
 
-# Only apply SSH config at home
-if "home" in CUSTOM["tags"]:
-    link("ssh-config", ".ssh/config")
-
+if __name__ == "__main__":
+    main()
