@@ -1,2 +1,2 @@
 link:
-  uv run --script ./links
+  uv run --script ./dotfile-linker.py

@@ -15,6 +15,7 @@ import platform
 import shutil
 import subprocess
 import sys
+import tomllib
 from itertools import chain
 from jinja2 import Environment, FileSystemLoader
 
@@ -265,20 +266,15 @@ def copy_bin():
 def main():
     copy_bin()
 
-    link("bashrc", ".bashrc")
-    link("starship.toml", ".config/starship.toml")
-    link("gitconfig", ".gitconfig")
-    link("nvim", ".config/nvim")
-    link("gdbinit", ".gdbinit")
-    link("dircolors", ".dircolors")
-    link("wezterm", ".config/wezterm")
-    link("ghostty", ".config/ghostty")
-    link("zshrc", ".zshrc")
-    link("editorconfig", ".editorconfig")
-
-    # Only apply SSH config at home
-    if "home" in CUSTOM["tags"]:
-        link("ssh-config", ".ssh/config")
+    with open("links.toml", "rb") as f:
+        links = tomllib.load(f)
+        for name, target in links.items():
+            if isinstance(target, dict):
+                if name in CUSTOM["tags"]:
+                    for sname, starget in target.items():
+                        link(sname, starget)
+            else:
+                link(name, target)
 
 if __name__ == "__main__":
     main()

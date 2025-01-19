@@ -1,0 +1,13 @@
+"bashrc" = ".bashrc"
+"starship.toml" = ".config/starship.toml"
+"gitconfig" = ".gitconfig"
+"nvim" = ".config/nvim"
+"gdbinit" = ".gdbinit"
+"dircolors" = ".dircolors"
+"wezterm" = ".config/wezterm"
+"ghostty" = ".config/ghostty"
+"zshrc" = ".zshrc"
+"editorconfig" = ".editorconfig"
+
+[home]
+"ssh-config" = ".ssh/config"
