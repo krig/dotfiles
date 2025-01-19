@@ -7,10 +7,12 @@ these days.
 
 ## Install
 
-Running the links script uses uv: https://github.com/astral-sh/uv
+To perform initial setup, use `setup-mac.sh` (only Mac at the moment).
+
+Then, use `just` to process and link all the dotfiles:
 
 ```sh
-uv run ./links
+just link
 ```
 
 
