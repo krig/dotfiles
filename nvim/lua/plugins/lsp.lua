@@ -37,6 +37,7 @@ return {
       lsp.rust_analyzer.setup {}
       lsp.superhtml.setup {}
       lsp.zls.setup {}
+      lsp.clangd.setup {}
 
       local keys = {
         { "<leader>cf", vim.lsp.buf.format, desc = "Format buffer" },
