@@ -16,7 +16,6 @@ return {
     },
     config = function()
       local lsp = require('lspconfig')
-      lsp.bacon_ls.setup {}
       lsp.janet_lsp.setup {}
       lsp.lua_ls.setup {}
       lsp.ols.setup {}
