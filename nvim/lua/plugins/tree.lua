@@ -41,7 +41,7 @@ return {
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
+        use_libuv_file_watcher = false,
         renderers = {
           file = {
             {"name", use_git_status_colors = true},
