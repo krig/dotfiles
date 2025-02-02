@@ -62,5 +62,12 @@ return {
         },
       })
     end,
+    keys = {
+      {
+        '<leader>t',
+        '<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.line_start)<CR>',
+        desc = "Jump to line start",
+      },
+    },
   },
 }
