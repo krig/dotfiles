@@ -2,6 +2,7 @@ return {
   {
     "echasnovski/mini.nvim",
     version = '*',
+    lazy = false,
     config = function()
       require('mini.ai').setup()
       require('mini.bracketed').setup()
@@ -19,6 +20,10 @@ return {
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()
       end, { desc = "Trim whitespace" })
+      vim.keymap.set('n', '<leader>t',
+        '<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.line_start)<CR>',
+        { desc = "Jump to line start" })
+
       local clue = require('mini.clue')
       clue.setup({
         triggers = {
@@ -62,12 +67,5 @@ return {
         },
       })
     end,
-    keys = {
-      {
-        '<leader>t',
-        '<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.line_start)<CR>',
-        desc = "Jump to line start",
-      },
-    },
   },
 }
