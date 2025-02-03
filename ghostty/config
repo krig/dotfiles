@@ -1,8 +1,8 @@
 auto-update = off
 
-theme = NvimDark
+theme = Melange_dark
 
-font-size = 16
+font-size = 15
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
