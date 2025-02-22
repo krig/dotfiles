@@ -19,7 +19,15 @@ return {
       lsp.janet_lsp.setup {}
       lsp.lua_ls.setup {}
       lsp.ols.setup {}
-      -- lsp.denols.setup {}
+      lsp.denols.setup {
+        on_attach = function(client)
+          if not lsp.util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
+            client.stop()
+            return
+          end
+        end,
+      }
+      -- npm i -g vscode-langservers-extracted
       lsp.eslint.setup {}
       lsp.pyright.setup {
         on_new_config = function()
