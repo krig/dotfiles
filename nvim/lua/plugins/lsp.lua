@@ -54,6 +54,7 @@ return {
         { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help" },
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+        { "<leader>ld", vim.lsp.buf.definition, desc = "Goto definition (LSP)" },
       }
       for _, key in ipairs(keys) do
         vim.keymap.set("n", key[1], key[2], { desc = key["desc"] })

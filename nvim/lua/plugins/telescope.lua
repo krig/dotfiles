@@ -28,7 +28,7 @@ return {
       require("krig.multigrep").setup()
     end,
     keys = {
-      { "<leader>ld",       "<cmd>Telescope lsp_definitions<cr>",           desc = "Goto Definition" },
+      { "<leader>lD",       "<cmd>Telescope lsp_definitions<cr>",           desc = "Goto Definition" },
       { "<leader>lr",       "<cmd>Telescope lsp_references<cr>",            desc = "References" },
       { "<leader>li",       "<cmd>Telescope lsp_implementations<cr>",       desc = "Implementations" },
       { "<leader>lt",       "<cmd>Telescope lsp_type_definitions<cr>",      desc = "Goto Type Definition" },
