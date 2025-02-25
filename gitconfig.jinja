@@ -1,6 +1,7 @@
 [core]
 pager = less -FX
 autocrlf = input
+excludesfile = ~/.gitignore
 
 [user]
 name = {{name}}
@@ -51,15 +52,29 @@ p = pull
 [push]
 default = current
 autoSetupRemote = true
+followTags = true
 
 [branch]
 autoSetupRebase = always
+sort = -committerdate
+
+[fetch]
+prune = true
+pruneTags = true
+all = true
+
+[tag]
+sort = version:refname
 
 [tar "tar.xz"]
 command = xz -c
 
 [diff]
-algorithm = patience
+algorithm = histogram
+colorMoved = plain
+mnemonicPrefix = true
+renames = true
+conflictstyle = zdiff3
 
 [status]
 submoduleSummary = true
@@ -72,4 +87,19 @@ defaultBranch = main
 
 [rerere]
 enabled = true
+autoupdate = true
+
+[column]
+ui = auto
+
+[help]
+autocorrect = prompt
+
+[commit]
+verbose = true
+
+[rebase]
+autoSquash = true
+autoStash = true
+updateRefs = true
 
