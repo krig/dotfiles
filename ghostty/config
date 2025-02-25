@@ -2,7 +2,7 @@ auto-update = off
 
 theme = Melange_dark
 
-font-size = 15
+font-size = 16
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
