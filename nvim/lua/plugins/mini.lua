@@ -1,6 +1,6 @@
 return {
   {
-    "krig/mini.nvim",
+    "echasnovski/mini.nvim",
     lazy = false,
     config = function()
       require('mini.ai').setup()
