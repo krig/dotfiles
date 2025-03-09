@@ -1,6 +1,7 @@
 auto-update = off
 
-theme = Melange_dark
+# theme = Melange_dark
+theme = NvimDark
 
 font-size = 14
 adjust-cell-height = 20%
