@@ -3,14 +3,16 @@ auto-update = off
 # theme = Melange_dark
 theme = NvimDark
 
-font-size = 16
-adjust-cell-height = 10%
+font-size = 14
+adjust-cell-height = 5%
 # font-feature = -calt
 # font-feature = -liga
 # font-feature = -dlig
 
 link-url = true
 bold-is-bright = true
+unfocused-split-opacity = 1
+split-divider-color = #33ccbb
 
 # Key bindings
 keybind                        = super+shift+left=goto_split:left
