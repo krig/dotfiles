@@ -6,6 +6,7 @@
 "dircolors" = ".dircolors"
 "wezterm" = ".config/wezterm"
 "ghostty" = ".config/ghostty"
+"helix" = ".config/helix"
 "zshrc" = ".zshrc"
 "editorconfig" = ".editorconfig"
 

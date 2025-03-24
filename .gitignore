@@ -6,3 +6,4 @@ tags
 nvim/plugged/
 .DS_Store
 Operator-caska-Font
+helix/runtime/grammars
