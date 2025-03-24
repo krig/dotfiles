@@ -11,6 +11,9 @@ fi
 if [ -d "/opt/homebrew/bin" ]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
+if [ -d "$HOME/bin/roc-nightly" ]; then
+  export PATH="$HOME/bin/roc-nightly:$PATH"
+fi
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
@@ -22,6 +25,10 @@ fi
 
 if [ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -d $HOME/src/helix/runtime ]; then
+  export HELIX_RUNTIME=~/src/helix/runtime
 fi
 
 # Set name of the theme to load --- if set to "random", it will
