@@ -3,7 +3,8 @@ auto-update = off
 #theme = Melange_dark
 #theme = NvimDark
 # theme = cyberpunk
-theme = GruvboxDarkHard
+# theme = GruvboxDarkHard
+theme = rose-pine
 
 font-size = 14
 adjust-cell-height = 5%
