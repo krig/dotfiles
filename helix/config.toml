@@ -1,6 +1,17 @@
 theme = "gruvbox_dark_hard"
 
+[editor]
+line-number = "relative"
+cursorline = true
+cursorcolumn = false
+completion-trigger-len = 3
+true-color = true
+rulers = [120]
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[editor.file-picker]
+max-depth = 6

@@ -1,3 +1,7 @@
+[[language]]
+name = "rust"
+auto-format = true
+
 [language-server.roc-ls]
 command = "roc_language_server"
 
