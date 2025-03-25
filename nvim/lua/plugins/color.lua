@@ -1,5 +1,15 @@
 return {
   {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.o.background = 'dark'
+      vim.cmd.colorscheme 'rose-pine'
+    end
+  },
+  {
     "savq/melange-nvim",
     enabled = false,
     lazy = false,
@@ -11,6 +21,7 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
+    enabled = false,
     priority = 1000,
     config = function()
       require("gruvbox").setup({
@@ -30,7 +41,7 @@ return {
         invert_signs = false,
         invert_tabline = false,
         invert_intend_guides = false,
-        inverse = true, -- invert background for search, diffs, statuslines and errors
+        inverse = true,    -- invert background for search, diffs, statuslines and errors
         contrast = "hard", -- can be "hard", "soft" or empty string
         palette_overrides = {},
         overrides = {},
