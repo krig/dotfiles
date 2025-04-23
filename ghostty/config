@@ -1,4 +1,5 @@
 auto-update = off
+confirm-close-surface = false
 
 #theme = Melange_dark
 #theme = NvimDark
@@ -13,7 +14,7 @@ adjust-cell-height = 5%
 # font-feature = -dlig
 
 link-url = true
-bold-is-bright = true
+# bold-is-bright = true
 unfocused-split-opacity = 1
 split-divider-color = #33ccbb
 
