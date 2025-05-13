@@ -5,7 +5,8 @@ confirm-close-surface = false
 #theme = NvimDark
 # theme = cyberpunk
 # theme = GruvboxDarkHard
-theme = rose-pine
+# theme = rose-pine
+theme = vesper
 
 font-size = 14
 adjust-cell-height = 5%
