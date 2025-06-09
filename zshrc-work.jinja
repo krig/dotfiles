@@ -3,14 +3,18 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ulimit -n 10240
 
+function addPath {
+  if [ -d "$1" ]; then
+      export PATH="$1:$PATH"
+  fi
+}
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 if [ -f "/opt/homebrew/opt/llvm/bin/lldb-vscode" ]; then
     export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 fi
-if [ -d "/opt/homebrew/bin" ]; then
-    export PATH="/opt/homebrew/bin:$PATH"
-fi
+addPath /opt/homebrew/bin
 export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
@@ -21,7 +25,8 @@ else
 fi
 
 # ruby
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+addPath /opt/homebrew/opt/ruby/bin
+addPath /opt/homebrew/lib/ruby/gems/3.3.0/bin
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

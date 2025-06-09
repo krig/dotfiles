@@ -1,7 +1,7 @@
 return {
   {
     "rose-pine/neovim",
-    enabled = false,
+    enabled = true,
     name = "rose-pine",
     lazy = false,
     priority = 1000,
@@ -13,6 +13,7 @@ return {
   {
     'datsfilipe/vesper.nvim',
     lazy = false,
+    enabled = false,
     priority = 1000,
     config = function()
       vim.o.background = 'dark'
