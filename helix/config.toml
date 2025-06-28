@@ -5,9 +5,19 @@ theme = "rose_pine"
 line-number = "relative"
 cursorline = true
 cursorcolumn = false
-completion-trigger-len = 3
+auto-completion = false
+auto-info = false
 true-color = true
 rulers = [120]
+text-width = 120
+popup-border = "all"
+end-of-line-diagnostics = "hint"
+
+[editor.smart-tab]
+supersede-menu = true
+
+[editor.lsp]
+auto-signature-help = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -16,3 +26,19 @@ select = "underline"
 
 [editor.file-picker]
 max-depth = 6
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "error"
+max-diagnostics = 3
+
+[keys.normal]
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+
+[keys.insert]
+S-tab = "move_parent_node_start"
+
+[keys.select]
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
