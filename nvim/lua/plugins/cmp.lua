@@ -6,23 +6,11 @@ end
 
 return {
   {
-    "garymjr/nvim-snippets",
-    lazy = true,
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-    opts = {
-      create_cmp_source = true,
-      friendly_snippets = true,
-    },
-  },
-  {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      "garymjr/nvim-snippets",
     },
     config = function()
       local cmp = require("cmp")
@@ -32,7 +20,6 @@ return {
         },
         sources = {
           { name = "nvim_lsp" },
-          { name = "snippets" },
           { name = "buffer" },
         },
         mapping = {
@@ -62,8 +49,6 @@ return {
             function(fallback)
               if cmp.visible() then
                 cmp.select_next_item()
-              elseif vim.snippet.active({ direction = 1 }) then
-                vim.snippet.jump(1)
               elseif has_words_before() then
                 cmp.complete()
               else
@@ -75,18 +60,11 @@ return {
             function(fallback)
               if cmp.visible() then
                 cmp.select_prev_item()
-              elseif vim.snippet.active({ direction = -1 }) then
-                vim.snippet.jump(-1)
               else
                 fallback()
               end
             end,
             { "i" }),
-        },
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
         },
       }
     end,
