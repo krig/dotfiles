@@ -8,7 +8,11 @@ return {
       require('mini.bufremove').setup()
       require('mini.git').setup()
       require('mini.icons').setup()
-      require('mini.jump2d').setup()
+      require('mini.jump2d').setup({
+        mappings = {
+          start_jumping = '<leader>n',
+        },
+      })
       require('mini.notify').setup()
       require('mini.operators').setup()
       require('mini.starter').setup()
