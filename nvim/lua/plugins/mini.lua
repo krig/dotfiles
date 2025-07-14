@@ -10,7 +10,7 @@ return {
       require('mini.icons').setup()
       require('mini.jump2d').setup({
         mappings = {
-          start_jumping = '<leader>n',
+          start_jumping = '<leader>t',
         },
       })
       require('mini.notify').setup()
@@ -23,7 +23,7 @@ return {
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()
       end, { desc = "Trim whitespace" })
-      vim.keymap.set('n', '<leader>t',
+      vim.keymap.set('n', '<leader>n',
         '<Cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.line_start)<CR>',
         { desc = "Jump to line start" })
 
