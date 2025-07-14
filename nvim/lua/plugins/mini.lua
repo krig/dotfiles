@@ -15,6 +15,7 @@ return {
       })
       require('mini.notify').setup()
       require('mini.operators').setup()
+      require('mini.splitjoin').setup()
       require('mini.starter').setup()
       require('mini.statusline').setup()
       require('mini.surround').setup()
