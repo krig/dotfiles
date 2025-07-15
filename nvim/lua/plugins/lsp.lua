@@ -16,20 +16,22 @@ return {
     },
     config = function()
       local lsp = require('lspconfig')
-      lsp.janet_lsp.setup {}
-      lsp.lua_ls.setup {}
-      lsp.ols.setup {}
-      lsp.denols.setup {
+      vim.lsp.enable('janet_lsp')
+      vim.lsp.enable('lua_ls')
+      vim.lsp.enable('ols')
+      vim.lsp.enable('denols')
+      vim.lsp.config('denols', {
         on_attach = function(client)
           if not lsp.util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
             client.stop()
             return
           end
         end,
-      }
+      })
       -- npm i -g vscode-langservers-extracted
-      lsp.eslint.setup {}
-      lsp.pyright.setup {
+      vim.lsp.enable('eslint')
+      vim.lsp.enable('pyright')
+      vim.lsp.config('pyright', {
         on_new_config = function()
           if vim.env.VIRTUAL_ENV == nil then
             local venv_marker = {".venv"}
@@ -40,11 +42,11 @@ return {
             end
           end
         end,
-      }
-      lsp.rust_analyzer.setup {}
-      lsp.superhtml.setup {}
-      lsp.zls.setup {}
-      lsp.clangd.setup {}
+      })
+      vim.lsp.enable('rust_analyzer')
+      vim.lsp.enable('superhtml')
+      vim.lsp.enable('zls')
+      vim.lsp.enable('clangd')
 
       local keys = {
         { "<leader>cf", vim.lsp.buf.format, desc = "Format buffer" },
