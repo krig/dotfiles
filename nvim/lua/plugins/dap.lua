@@ -41,7 +41,7 @@ return {
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
           args = function()
-            return vim.fn.input('Args: ')
+            return vim.split(vim.fn.input('Args: ', nil, 'file'), '%s')
           end,
           cwd = '${workspaceFolder}',
           stopAtEntry = true,
@@ -58,7 +58,7 @@ return {
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
           args = function()
-            return vim.fn.input('Args: ')
+            return vim.split(vim.fn.input('Args: ', nil, 'file'), '%s')
           end,
         },
       }
