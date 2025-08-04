@@ -31,4 +31,4 @@ keybind                        = super+u=new_split:right
 keybind                        = super+shift+enter=new_split:auto
 keybind                        = super+shift+r=reload_config
 keybind                        = super+t=new_tab
-keybind                        = ctrl+d=close_surface
+keybind                        = super+d=close_surface
