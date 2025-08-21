@@ -71,3 +71,6 @@ vim.cmd [[autocmd InsertEnter,WinLeave * set nocursorline]]
 
 -- highlight yanked text
 vim.cmd [[autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual'}]]
+
+-- Prepend mise shims to PATH
+vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH

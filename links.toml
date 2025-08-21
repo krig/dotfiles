@@ -9,6 +9,7 @@
 "helix" = ".config/helix"
 "zshrc" = ".zshrc"
 "editorconfig" = ".editorconfig"
+"mise.jdx.dev" = ".config/mise"
 
 [home]
 "ssh-config" = ".ssh/config"
