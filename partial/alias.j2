@@ -40,3 +40,7 @@ if [ "$(command -v kubectl)" ]; then
   alias k=kubectl
 fi
 alias sshu='ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no"'
+
+function git_set_liten() {
+  git config --local core.sshCommand "ssh -p 22222 -i $HOME/.ssh/id_ed25519"
+}
